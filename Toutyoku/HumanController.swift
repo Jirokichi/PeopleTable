@@ -47,9 +47,9 @@ class HumanController{
         repeat{
             table = MonthTable(dayOfLastDay: theNumberOfADay, weekDayOfLastDay:weekDayOfADay, humans:humans)
             
-            valid = RuleStatus.MonthRule.RuleA.satisfyRule(objects: [table, humans])
+            valid = Rule.MonthRule.RuleA.satisfyRule(objects: [table, humans])
             if valid{
-                valid = RuleStatus.MonthRule.RuleB.satisfyRule(objects: [table, humans])
+                valid = Rule.MonthRule.RuleB.satisfyRule(objects: [table, humans])
             }
         }while !valid
         

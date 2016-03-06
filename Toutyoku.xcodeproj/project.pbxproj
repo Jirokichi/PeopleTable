@@ -17,6 +17,7 @@
 		FA50C0981C85BE7700726899 /* MonthTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50C0881C85BBE400726899 /* MonthTable.swift */; };
 		FA50C09A1C85BE9400726899 /* HumanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50C0991C85BE9400726899 /* HumanTests.swift */; };
 		FA50C09C1C88600E00726899 /* HumanControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50C09B1C88600E00726899 /* HumanControllerTests.swift */; };
+		FA7975801C8C0C13003A44F8 /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79757F1C8C0C13003A44F8 /* Rule.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,6 +43,7 @@
 		FA50C0921C85BC1900726899 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA50C0991C85BE9400726899 /* HumanTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HumanTests.swift; sourceTree = "<group>"; };
 		FA50C09B1C88600E00726899 /* HumanControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HumanControllerTests.swift; sourceTree = "<group>"; };
+		FA79757F1C8C0C13003A44F8 /* Rule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 				FA50C0841C84826E00726899 /* Human.swift */,
 				FA50C0861C85BAB000726899 /* HumanController.swift */,
 				FA50C0881C85BBE400726899 /* MonthTable.swift */,
+				FA79757F1C8C0C13003A44F8 /* Rule.swift */,
 			);
 			path = Toutyoku;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA50C07E1C84825900726899 /* main.swift in Sources */,
+				FA7975801C8C0C13003A44F8 /* Rule.swift in Sources */,
 				FA50C0891C85BBE400726899 /* MonthTable.swift in Sources */,
 				FA50C0871C85BAB000726899 /* HumanController.swift in Sources */,
 				FA50C0851C84826E00726899 /* Human.swift in Sources */,
