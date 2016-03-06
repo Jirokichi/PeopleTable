@@ -34,6 +34,10 @@ struct Rule{
     
     // 個人のルール
     struct Individual{
+        
+        // 二人目で下位の人が出る確率（片方は必ず上位なので、乱数で発生しやすくしておかないと偏りがでてしまう）
+        static let Percentage:Double = 0.75
+        
         /// ルールA: 上位である
         static let RuleA:Rule = Rule(name: "RuleA", valid: true) { (objects:[Any]) -> Bool in
             
@@ -56,21 +60,30 @@ struct Rule{
             return !human.unableWeekDays.contains(weekday)
         }
         
-        /// ルールC: 前日の担当でない
+        /// ルールC: 前日及び前前日、前前前日の担当でない
         static let RuleC:Rule = Rule(name: "RuleC", valid: true) { (objects:[Any]) -> Bool in
             if objects.count != 2{
                 fatalError()
             }
             guard let human = objects[0] as? Human else{fatalError()}
-            guard let yesterdayInfo = objects[1] as? DayInfo else{fatalError()}
+            guard let daysInfo = objects[1] as? [DayInfo] else{fatalError()}
             
-            let humanA = yesterdayInfo.workingHuman[0]
-            let humanB = yesterdayInfo.workingHuman[1]
-            return (human.name != humanA.name && human.name != humanB.name)
+            
+            for day in daysInfo{
+                let humanA = day.workingHuman[0]
+                let humanB = day.workingHuman[1]
+                if (human.name == humanA.name || human.name == humanB.name){
+                    return false
+                }
+            }
+            return true
         }
     }
     
     struct MonthRule{
+        
+        
+        
         /// ルールA: 土曜・日曜日は一回ずつ
         static let RuleA:Rule = Rule(name: "RuleA", valid: true) { (objects:[Any]) -> Bool in
             
@@ -119,7 +132,7 @@ struct Rule{
             return valid
             
         }
-        /// 見習い生用ルール:
+        /// 見習い生用ルール(特定の曜日で少なくとも一回はやらないといけず、上限もきまっている)
         static let RuleB:Rule = Rule(name: "RuleB", valid: true) { (objects:[Any]) -> Bool in
             
             if objects.count != 2{
@@ -133,10 +146,6 @@ struct Rule{
             for human in humans{
                 let name = human.name
                 
-                // 必須曜日がない場合
-                if human.practiceRule.mustWeekDays.count <= 0{
-                    continue
-                }
                 
                 var counts:Dictionary<WeekDay, Int> = [:]
                 for week in human.practiceRule.mustWeekDays{

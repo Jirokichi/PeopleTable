@@ -18,6 +18,7 @@
 		FA50C09A1C85BE9400726899 /* HumanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50C0991C85BE9400726899 /* HumanTests.swift */; };
 		FA50C09C1C88600E00726899 /* HumanControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50C09B1C88600E00726899 /* HumanControllerTests.swift */; };
 		FA7975801C8C0C13003A44F8 /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79757F1C8C0C13003A44F8 /* Rule.swift */; };
+		FA7975811C8C1511003A44F8 /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79757F1C8C0C13003A44F8 /* Rule.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -211,6 +212,7 @@
 				FA50C09C1C88600E00726899 /* HumanControllerTests.swift in Sources */,
 				FA50C0961C85BE7200726899 /* Human.swift in Sources */,
 				FA50C0971C85BE7500726899 /* HumanController.swift in Sources */,
+				FA7975811C8C1511003A44F8 /* Rule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
