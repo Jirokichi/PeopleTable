@@ -9,66 +9,69 @@
 import Foundation
 
 
-enum Name{
-    case A
-    case B
-    case C
-    case D
-    case E
-    case F
-    case G
-    case H
-    case I
-    case J
-    case K
-}
-
 class Human{
     
-    let name:Name
+    let id:Int /// 一意に決まる番号(最初から順番に)
+    let name:String
     let unableWeekDays:[WeekDay]
     let isSuper:Bool
     let practiceRule:(mustWeekDays:[WeekDay], max:Int)
-    init(name:Name, unableWeekDays:[WeekDay], isSuper:Bool, practiceRule:(mustWeekDays:[WeekDay], max:Int)){
+    let maxWorkingCountInAMonth:Int
+    let minWorkingCountInAMonth:Int
+    
+    // 月の担当回数をメモする。最大を越えるとエラーを投げる。
+    var workingCountInAMonth:Int
+    
+    init(id:Int, name:String, unableWeekDays:[WeekDay], isSuper:Bool, practiceRule:(mustWeekDays:[WeekDay], max:Int), maxWorkingCountInAMonth:Int, minWorkingCountInAMonth:Int){
+        self.id = id
         self.name = name
         self.unableWeekDays = unableWeekDays
         self.isSuper = isSuper
         self.practiceRule = practiceRule
+        self.maxWorkingCountInAMonth = maxWorkingCountInAMonth
+        self.minWorkingCountInAMonth = minWorkingCountInAMonth
+        
+        self.workingCountInAMonth = 0
     }
     
     /// RuleBとRuleCを満たしているかどうかのチェック
-    private func satisfyCommonRule(humans:[Human], weekday:WeekDay, previousDaysInfo:[DayInfo]) -> Bool{
-        var okIndividualFlag:Bool
+    private func satisfyCommonRule(humans:[Human], rules:Rules, weekday:WeekDay, previousDaysInfo:[DayInfo]) throws -> (){
+        
         // 人ごとに決められている曜日であること
-        okIndividualFlag = Rule.Individual.RuleB.satisfyRule(objects: [self, weekday])
-        if okIndividualFlag{
-            // ３日前間担当者ではないこと
-            okIndividualFlag = Rule.Individual.RuleC.satisfyRule(objects: [self, previousDaysInfo])
-            
-        }
-        return okIndividualFlag
+        try rules.individualRule[.RuleB]?.satisfyRule(objects: [self, weekday])
+        // ３日前間担当者ではないこと
+        try rules.individualRule[.RuleC]?.satisfyRule(objects: [self, previousDaysInfo])
     }
     
-    static func selectTwoHumansInADay(humans:[Human], weekday:WeekDay, previousDaysInfo:[DayInfo]) -> (Human, Human){
+    static func selectTwoHumansInADay(humans:[Human], rules:Rules, weekday:WeekDay, previousDaysInfo:[DayInfo]) throws -> [Human]{
         
         
         let superHumans = humans.filter({ (human) -> Bool in
-            return human.isSuper
+            var result = human.isSuper
+//            if rules.monthRule[2].valid{
+//                result = result && human.workingCountInAMonth < human.maxWorkingCountInAMonth
+//            }
+            return result
         })
         let lowHumans = humans.filter({ (human) -> Bool in
-            return !human.isSuper
+            var result = !human.isSuper
+//            if rules.monthRule[2].valid{
+//                result = result && human.workingCountInAMonth < human.maxWorkingCountInAMonth
+//            }
+            return result
         })
+        
+        
+//        if superHumans.count < 2{
+//            print("?")
+//            throw Rule.RuleError.NotSarisfiedForMonthTable
+//        }
         
         // 人数
         let countForHumanA:UInt32 = UInt32(superHumans.count)
         
-        var humanA:Human
-        var humanB:Human
-        
-        
-        // HumanBの決定
-        
-        
+        var toutyokus:[Human] = []
+        var human:Human
         
         
         var okWholeFlag:Bool
@@ -78,32 +81,40 @@ class Human{
             // HumanAの決定
             var okIndividualFlag:Bool
             repeat{
-                humanA = superHumans[Int(arc4random_uniform(countForHumanA))]
-                // 条件⑴必ず片方はSuperであること
-                okIndividualFlag = Rule.Individual.RuleA.satisfyRule(objects: [humanA])
-                if okIndividualFlag{
-                    okIndividualFlag = humanA.satisfyCommonRule(humans, weekday: weekday, previousDaysInfo: previousDaysInfo)
+                okIndividualFlag = true
+                human = superHumans[Int(arc4random_uniform(countForHumanA))]
+                do{
+                    
+                    try rules.individualRule[.RuleA]?.satisfyRule(objects: [toutyokus, human])
+                    try human.satisfyCommonRule(humans, rules:rules, weekday: weekday, previousDaysInfo: previousDaysInfo)
+                }catch let error as Rule.RuleError where error == Rule.RuleError.NotSatisfiedForIndividual{
+                    okIndividualFlag = false
                 }
             }while(!okIndividualFlag)
             
+            toutyokus.append(human)
             
             // HumanBの決定
             repeat{
-                let willSelectSuper = ( Int(arc4random_uniform(100)) > Int(Rule.Individual.Percentage * 100 ))
+                okIndividualFlag = true
+                let willSelectSuper = ( Int(arc4random_uniform(100)) > Int(rules.percentage * 100 ))
                 let humansForHumanB = willSelectSuper ? superHumans : lowHumans
                 let countForHumanB:UInt32 = UInt32(humansForHumanB.count)
-                humanB = humansForHumanB[Int(arc4random_uniform(countForHumanB))]
-                // 暗黙のルール(もちろんAとBは同じ人になってはいけない)
-                okIndividualFlag = (humanB.name != humanA.name)
-                if okIndividualFlag{
-                    okIndividualFlag = humanB.satisfyCommonRule(humans, weekday: weekday, previousDaysInfo: previousDaysInfo)
+                human = humansForHumanB[Int(arc4random_uniform(countForHumanB))]
+                
+                do{
+                    try rules.individualRule[.Rule0]?.satisfyRule(objects: [human, toutyokus])
+                    try human.satisfyCommonRule(humans, rules:rules, weekday: weekday, previousDaysInfo: previousDaysInfo)
+                }catch let error as Rule.RuleError where error == Rule.RuleError.NotSatisfiedForIndividual{
+                    okIndividualFlag = false
                 }
             }while(!okIndividualFlag)
             
+            toutyokus.append(human)
             
         }while(!okWholeFlag)
         
-        return (humanA, humanB)
+        return toutyokus
     }
 }
 

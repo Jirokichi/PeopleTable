@@ -87,8 +87,8 @@
 			isa = PBXGroup;
 			children = (
 				FA50C07D1C84825900726899 /* main.swift */,
-				FA50C0841C84826E00726899 /* Human.swift */,
 				FA50C0861C85BAB000726899 /* HumanController.swift */,
+				FA50C0841C84826E00726899 /* Human.swift */,
 				FA50C0881C85BBE400726899 /* MonthTable.swift */,
 				FA79757F1C8C0C13003A44F8 /* Rule.swift */,
 			);
