@@ -8,20 +8,27 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
 
+    let daysInfo = [["A", "B", "C", "D", "E", "F", "G"],["A", "B", "C", "D", "E", "F", "G"],["A", "B", "C", "D", "E", "F", "G"],["A", "B", "C", "D", "E", "F", "G"],["A", "B", "C", "D", "E", "F", "G"]]
+    @IBOutlet weak var monthTableView: NSTableView!
+   
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
-
-    override var representedObject: AnyObject? {
-        didSet {
-        // Update the view, if already loaded.
-        }
+    
+    
+    func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+        LogUtil.log("\(daysInfo.count)")
+        return daysInfo.count
     }
-
+    
+    func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
+        return daysInfo[row][0]
+    }
+    
+    
+    
 
 }
 

@@ -14,6 +14,14 @@
 		FAC1F0C91C91A97500C8A92C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAC1F0C71C91A97500C8A92C /* Main.storyboard */; };
 		FAC1F0D41C91A97500C8A92C /* PeopleTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0D31C91A97500C8A92C /* PeopleTableTests.swift */; };
 		FAC1F0DF1C91A97500C8A92C /* PeopleTableUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0DE1C91A97500C8A92C /* PeopleTableUITests.swift */; };
+		FAC1F0ED1C91B47A00C8A92C /* PeopleSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0EC1C91B47A00C8A92C /* PeopleSettingViewController.swift */; };
+		FAC1F0EF1C91B4E000C8A92C /* LogUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0EE1C91B4E000C8A92C /* LogUtil.swift */; };
+		FAC1F0F31C93B87500C8A92C /* People.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0F11C93B87500C8A92C /* People.swift */; };
+		FAC1F0FA1C944B0E00C8A92C /* Records.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0F91C944B0E00C8A92C /* Records.swift */; };
+		FAC1F0FC1C944F6000C8A92C /* PeopleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0FB1C944F6000C8A92C /* PeopleTests.swift */; };
+		FAC1F0FE1C94513B00C8A92C /* CoreDataManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0FD1C94513B00C8A92C /* CoreDataManagement.swift */; };
+		FAC1F1021C9599A800C8A92C /* People+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F1011C9599A800C8A92C /* People+CoreDataProperties.swift */; };
+		FAE388531C99A7C900CC08D9 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE388521C99A7C900CC08D9 /* Day.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +55,14 @@
 		FAC1F0DA1C91A97500C8A92C /* PeopleTableUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeopleTableUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC1F0DE1C91A97500C8A92C /* PeopleTableUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleTableUITests.swift; sourceTree = "<group>"; };
 		FAC1F0E01C91A97500C8A92C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAC1F0EC1C91B47A00C8A92C /* PeopleSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleSettingViewController.swift; sourceTree = "<group>"; };
+		FAC1F0EE1C91B4E000C8A92C /* LogUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogUtil.swift; sourceTree = "<group>"; };
+		FAC1F0F11C93B87500C8A92C /* People.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = People.swift; sourceTree = "<group>"; };
+		FAC1F0F91C944B0E00C8A92C /* Records.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Records.swift; sourceTree = "<group>"; };
+		FAC1F0FB1C944F6000C8A92C /* PeopleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleTests.swift; sourceTree = "<group>"; };
+		FAC1F0FD1C94513B00C8A92C /* CoreDataManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManagement.swift; sourceTree = "<group>"; };
+		FAC1F1011C9599A800C8A92C /* People+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "People+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		FAE388521C99A7C900CC08D9 /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +93,7 @@
 		FAC1F0B21C91A97500C8A92C = {
 			isa = PBXGroup;
 			children = (
+				FAC1F0F41C93B87F00C8A92C /* CoreData */,
 				FAC1F0BD1C91A97500C8A92C /* PeopleTable */,
 				FAC1F0D21C91A97500C8A92C /* PeopleTableTests */,
 				FAC1F0DD1C91A97500C8A92C /* PeopleTableUITests */,
@@ -99,10 +116,13 @@
 			children = (
 				FAC1F0BE1C91A97500C8A92C /* AppDelegate.swift */,
 				FAC1F0C01C91A97500C8A92C /* ViewController.swift */,
+				FAC1F0EC1C91B47A00C8A92C /* PeopleSettingViewController.swift */,
 				FAC1F0C51C91A97500C8A92C /* Assets.xcassets */,
 				FAC1F0C71C91A97500C8A92C /* Main.storyboard */,
 				FAC1F0CA1C91A97500C8A92C /* Info.plist */,
 				FAC1F0C21C91A97500C8A92C /* PeopleTable.xcdatamodeld */,
+				FAC1F0EE1C91B4E000C8A92C /* LogUtil.swift */,
+				FAE388521C99A7C900CC08D9 /* Day.swift */,
 			);
 			path = PeopleTable;
 			sourceTree = "<group>";
@@ -112,6 +132,7 @@
 			children = (
 				FAC1F0D31C91A97500C8A92C /* PeopleTableTests.swift */,
 				FAC1F0D51C91A97500C8A92C /* Info.plist */,
+				FAC1F0FB1C944F6000C8A92C /* PeopleTests.swift */,
 			);
 			path = PeopleTableTests;
 			sourceTree = "<group>";
@@ -123,6 +144,17 @@
 				FAC1F0E01C91A97500C8A92C /* Info.plist */,
 			);
 			path = PeopleTableUITests;
+			sourceTree = "<group>";
+		};
+		FAC1F0F41C93B87F00C8A92C /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				FAC1F1011C9599A800C8A92C /* People+CoreDataProperties.swift */,
+				FAC1F0F11C93B87500C8A92C /* People.swift */,
+				FAC1F0F91C944B0E00C8A92C /* Records.swift */,
+				FAC1F0FD1C94513B00C8A92C /* CoreDataManagement.swift */,
+			);
+			name = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -255,9 +287,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAC1F1021C9599A800C8A92C /* People+CoreDataProperties.swift in Sources */,
 				FAC1F0C11C91A97500C8A92C /* ViewController.swift in Sources */,
 				FAC1F0BF1C91A97500C8A92C /* AppDelegate.swift in Sources */,
+				FAC1F0FA1C944B0E00C8A92C /* Records.swift in Sources */,
+				FAC1F0EF1C91B4E000C8A92C /* LogUtil.swift in Sources */,
+				FAC1F0ED1C91B47A00C8A92C /* PeopleSettingViewController.swift in Sources */,
 				FAC1F0C41C91A97500C8A92C /* PeopleTable.xcdatamodeld in Sources */,
+				FAC1F0F31C93B87500C8A92C /* People.swift in Sources */,
+				FAE388531C99A7C900CC08D9 /* Day.swift in Sources */,
+				FAC1F0FE1C94513B00C8A92C /* CoreDataManagement.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +304,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAC1F0FC1C944F6000C8A92C /* PeopleTests.swift in Sources */,
 				FAC1F0D41C91A97500C8A92C /* PeopleTableTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -391,6 +431,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = PeopleTable/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.ky.PeopleTable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -403,6 +444,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = PeopleTable/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.ky.PeopleTable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -479,6 +521,7 @@
 				FAC1F0E51C91A97500C8A92C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FAC1F0E61C91A97500C8A92C /* Build configuration list for PBXNativeTarget "PeopleTableTests" */ = {
 			isa = XCConfigurationList;
@@ -487,6 +530,7 @@
 				FAC1F0E81C91A97500C8A92C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FAC1F0E91C91A97500C8A92C /* Build configuration list for PBXNativeTarget "PeopleTableUITests" */ = {
 			isa = XCConfigurationList;
@@ -495,6 +539,7 @@
 				FAC1F0EB1C91A97500C8A92C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
