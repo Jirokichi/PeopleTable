@@ -8,26 +8,24 @@
 
 import Cocoa
 
-class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
+class ViewController: NSViewController{
 
-    let daysInfo = [["A", "B", "C", "D", "E", "F", "G"],["A", "B", "C", "D", "E", "F", "G"],["A", "B", "C", "D", "E", "F", "G"],["A", "B", "C", "D", "E", "F", "G"],["A", "B", "C", "D", "E", "F", "G"]]
-    @IBOutlet weak var monthTableView: NSTableView!
-   
+    var hoge = Day()
+    var hogeArray:NSMutableArray?
+    
+    @IBOutlet weak var collectionView: NSCollectionView!
+
+    @IBOutlet var arrayController: NSArrayController!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let itemPrototype = self.storyboard?.instantiateControllerWithIdentifier("collectionViewItem")
+            as? NSCollectionViewItem
+        self.collectionView.itemPrototype = itemPrototype
+        
+        hogeArray = NSMutableArray(array:[hoge, hoge, hoge])
+        collectionView.content = hogeArray! as [AnyObject]
     }
-    
-    
-    func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-        LogUtil.log("\(daysInfo.count)")
-        return daysInfo.count
-    }
-    
-    func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
-        return daysInfo[row][0]
-    }
-    
-    
     
 
 }
