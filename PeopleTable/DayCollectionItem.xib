@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView identifier="DayCollectionViewItemId" id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bmF-SO-BDB">
+                    <rect key="frame" x="-3" y="41" width="77" height="26"/>
+                    <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="28i-rA-kgn" id="lYG-gn-8vT">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="icq-mX-SFq">
+                            <items>
+                                <menuItem title="Item 1" state="on" id="28i-rA-kgn"/>
+                                <menuItem title="Item 2" id="04Y-6Q-x8B"/>
+                                <menuItem title="Item 3" id="6NG-DC-LqK"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L1H-Gf-CeT">
+                    <rect key="frame" x="-3" y="2" width="77" height="26"/>
+                    <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="kvW-rZ-Bdz" id="C5e-oa-fWq">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="UO1-Sk-GxE">
+                            <items>
+                                <menuItem title="Item 1" state="on" id="kvW-rZ-Bdz"/>
+                                <menuItem title="Item 2" id="Z6T-Nh-7M3"/>
+                                <menuItem title="Item 3" id="Na6-jJ-Rul"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kka-3a-AUu">
+                    <rect key="frame" x="17" y="27" width="37" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="hsR-uX-cyP">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="bmF-SO-BDB" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="5" id="Lhn-Vc-bRe"/>
+                <constraint firstItem="kka-3a-AUu" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="Pjv-8a-85r"/>
+                <constraint firstItem="kka-3a-AUu" firstAttribute="centerX" secondItem="bmF-SO-BDB" secondAttribute="centerX" id="aql-dQ-9eg"/>
+                <constraint firstAttribute="bottom" secondItem="L1H-Gf-CeT" secondAttribute="bottom" constant="5" id="iuB-vl-RjA"/>
+                <constraint firstItem="bmF-SO-BDB" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="zJT-Pr-AsD"/>
+                <constraint firstItem="L1H-Gf-CeT" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="zQh-cb-UVD"/>
+            </constraints>
+        </customView>
+        <collectionViewItem id="nr0-6B-1kN" customClass="DayCollectionViewItem" customModule="PeopleTable" customModuleProvider="target">
+            <view key="view" id="2OP-1t-Kzk">
+                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </view>
+            <connections>
+                <outlet property="dayLabel" destination="kka-3a-AUu" id="a8h-kJ-6Ki"/>
+                <outlet property="humanAPopUpButton" destination="bmF-SO-BDB" id="TND-lV-61B"/>
+                <outlet property="humanBPopUpButton" destination="L1H-Gf-CeT" id="eJs-7R-TyP"/>
+                <outlet property="view" destination="c22-O7-iKe" id="PyG-O8-oIr"/>
+            </connections>
+        </collectionViewItem>
+    </objects>
+</document>

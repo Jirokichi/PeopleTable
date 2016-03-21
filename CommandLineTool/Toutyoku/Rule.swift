@@ -51,6 +51,7 @@ struct Rules{
         case RuleA
         case RuleB
         case RuleC
+        case RuleD
     }
     
     enum Month{
@@ -85,7 +86,7 @@ struct Rules{
         }
     }
     
-    mutating func createIndividualRule(rule0:Bool, ruleA:Bool, ruleB:Bool, ruleC:Bool){
+    mutating func createIndividualRule(rule0:Bool, ruleA:Bool, ruleB:Bool, ruleC:Bool, ruleD:Bool){
         /// ルール0: 同一ユーザーは1日に選択できない
         individualRule[.Rule0] = Rule(name: "Rule0", valid: rule0) { (objects:[Any]) throws -> () in
             
@@ -157,6 +158,20 @@ struct Rules{
                 }
             }
         }
+        
+        /// ルールC: 禁止日でない
+        individualRule[.RuleD] = Rule(name: "RuleD", valid: ruleD) { (objects:[Any]) throws -> () in
+            if objects.count != 2{
+                fatalError()
+            }
+            guard let human = objects[0] as? Human else{fatalError()}
+            guard let day = objects[1] as? Int else{fatalError()}
+            
+            if (human.forbittenDays.contains(day)){
+                throw Rule.RuleError.NotSatisfiedForIndividual
+                
+            }
+        }
     }
     
     mutating func createMonthRule(ruleA:Bool, ruleB:Bool, ruleC:Bool){
@@ -196,6 +211,7 @@ struct Rules{
                 
                 //                print("\(name):(saturdayCount, sundayCount) = (\(saturdayCount), \(sundayCount))")
                 if saturdayCount > 1 || sundayCount > 1{
+//                    print("RuleA fail -------------------------------")
                     throw Rule.RuleError.NotSarisfiedForMonthTable
                 }
                 
@@ -232,10 +248,9 @@ struct Rules{
                 }
                 
                 for week in human.practiceRule.mustWeekDays{
-                    //                    print("\(name)(\(week)) = (\(counts[week])")
-                    
+                    print("\(name)(\(week)) = (\(counts[week])")
                     if let count = counts[week] where count > human.practiceRule.max || count < 1{
-                        //                        print("RuleB fail -------------------------------")
+                        print("RuleB fail -------------------------------")
                         throw Rule.RuleError.NotSarisfiedForMonthTable
                     }
                 }

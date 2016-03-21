@@ -8,7 +8,6 @@
 
 import XCTest
 @testable import PeopleTable
-
 class PeopleTableTests: XCTestCase {
     
     override func setUp() {
@@ -22,8 +21,9 @@ class PeopleTableTests: XCTestCase {
     }
     
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let str = "testttttttt"
+        print(LogUtil.shortString(str))
+        LogUtil.log()
     }
     
     func testPerformanceExample() {

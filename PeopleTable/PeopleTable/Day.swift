@@ -12,9 +12,11 @@ class Day: NSObject {
 
     let humanA:String
     let humanB:String
+    let day:String
     
-    override init(){
-        humanA = "A"
-        humanB = "B"
+    init(A:String, B:String, day:String){
+        self.humanA = A
+        self.humanB = B
+        self.day = day
     }
 }

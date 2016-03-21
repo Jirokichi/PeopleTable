@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="qOM-vq-PYc">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
+    </dependencies>
+    <scenes>
+        <!--Home View Controller-->
+        <scene sceneID="DSq-0m-0M1">
+            <objects>
+                <customObject id="uvr-6c-X7k" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <viewController id="qOM-vq-PYc" customClass="HomeViewController" customModule="PeopleTable" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="xwZ-Cr-Qj7">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="700"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="g5w-Zk-d0C">
+                                <rect key="frame" x="921" y="13" width="65" height="32"/>
+                                <buttonCell key="cell" type="push" title="開始" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vkg-fv-9Ci">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <connections>
+                                        <action selector="clickOnStartButton:" target="qOM-vq-PYc" id="uQ0-sO-g4c"/>
+                                    </connections>
+                                </buttonCell>
+                            </button>
+                            <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EXp-Aa-8si">
+                                <rect key="frame" x="0.0" y="0.0" width="760" height="700"/>
+                                <clipView key="contentView" id="ZO9-dl-7KR">
+                                    <rect key="frame" x="1" y="1" width="758" height="698"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <collectionView id="C8a-No-wMN">
+                                            <rect key="frame" x="0.0" y="0.0" width="758" height="698"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="5" minimumLineSpacing="5" id="hX6-ZJ-Q0a">
+                                                <size key="itemSize" width="100" height="75"/>
+                                            </collectionViewFlowLayout>
+                                            <color key="primaryBackgroundColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                        </collectionView>
+                                    </subviews>
+                                </clipView>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="760" id="cmh-YI-Ick"/>
+                                    <constraint firstAttribute="height" constant="700" id="nJe-hC-eAT"/>
+                                </constraints>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Bt3-Xi-Xfh">
+                                    <rect key="frame" x="1" y="144" width="233" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="6Ij-o4-s0n">
+                                    <rect key="frame" x="234" y="1" width="15" height="143"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="g5w-Zk-d0C" secondAttribute="bottom" constant="20" id="7LB-pl-YSm"/>
+                            <constraint firstAttribute="bottom" secondItem="EXp-Aa-8si" secondAttribute="bottom" id="FRg-1M-npI"/>
+                            <constraint firstItem="EXp-Aa-8si" firstAttribute="top" secondItem="xwZ-Cr-Qj7" secondAttribute="top" id="PxH-sr-gMU"/>
+                            <constraint firstItem="EXp-Aa-8si" firstAttribute="leading" secondItem="xwZ-Cr-Qj7" secondAttribute="leading" id="n0q-9o-NXV"/>
+                            <constraint firstAttribute="trailing" secondItem="g5w-Zk-d0C" secondAttribute="trailing" constant="20" id="zXo-eh-rI6"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="C8a-No-wMN" id="TQi-1L-9bF"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="98" y="904.5"/>
+        </scene>
+    </scenes>
+</document>

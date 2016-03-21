@@ -38,22 +38,25 @@ class MonthTable{
             let day = DayInfo(day: i+1, weekday: getWeekDay(i+1))
             let toutyokus:[Human]
             if i == 0{
-                toutyokus = try Human.selectTwoHumansInADay(humans, rules:rules, weekday: day.weekday, previousDaysInfo: [])
+                toutyokus = try Human.selectTwoHumansInADay(humans, rules:rules, checkingDay:i+1, weekday: day.weekday, previousDaysInfo: [])
             }else if i == 1{
-                toutyokus = try Human.selectTwoHumansInADay(humans, rules:rules, weekday: day.weekday, previousDaysInfo: [days[i-1]])
+                toutyokus = try Human.selectTwoHumansInADay(humans, rules:rules, checkingDay:i+1, weekday: day.weekday, previousDaysInfo: [days[i-1]])
             }else{
-                toutyokus = try Human.selectTwoHumansInADay(humans, rules:rules, weekday: day.weekday, previousDaysInfo: [days[i-1], days[i-2]])
+                toutyokus = try Human.selectTwoHumansInADay(humans, rules:rules, checkingDay:i+1, weekday: day.weekday, previousDaysInfo: [days[i-1], days[i-2]])
             }
             day.setHumans(toutyokus)
             days.append(day)
             
             
-            for toutyoku in toutyokus{
-                for human in humans{
-                    if human.id == toutyoku.id{
-                        human.workingCountInAMonth++
-                        if human.workingCountInAMonth > human.maxWorkingCountInAMonth{
-                            throw Rule.RuleError.NotSarisfiedForMonthTable
+            
+            if rules.monthRule[.RuleC]!.valid{
+                for toutyoku in toutyokus{
+                    for human in humans{
+                        if human.id == toutyoku.id{
+                            human.workingCountInAMonth++
+                            if human.workingCountInAMonth > human.maxWorkingCountInAMonth{
+                                throw Rule.RuleError.NotSarisfiedForMonthTable
+                            }
                         }
                     }
                 }

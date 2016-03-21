@@ -18,11 +18,12 @@ class Human{
     let practiceRule:(mustWeekDays:[WeekDay], max:Int)
     let maxWorkingCountInAMonth:Int
     let minWorkingCountInAMonth:Int
+    let forbittenDays:[Int]
     
     // 月の担当回数をメモする。最大を越えるとエラーを投げる。
     var workingCountInAMonth:Int
     
-    init(id:Int, name:String, unableWeekDays:[WeekDay], isSuper:Bool, practiceRule:(mustWeekDays:[WeekDay], max:Int), maxWorkingCountInAMonth:Int, minWorkingCountInAMonth:Int){
+    init(id:Int, name:String, unableWeekDays:[WeekDay], isSuper:Bool, practiceRule:(mustWeekDays:[WeekDay], max:Int), maxWorkingCountInAMonth:Int, minWorkingCountInAMonth:Int, forbittenDays:[Int]){
         self.id = id
         self.name = name
         self.unableWeekDays = unableWeekDays
@@ -30,20 +31,23 @@ class Human{
         self.practiceRule = practiceRule
         self.maxWorkingCountInAMonth = maxWorkingCountInAMonth
         self.minWorkingCountInAMonth = minWorkingCountInAMonth
+        self.forbittenDays = forbittenDays
         
         self.workingCountInAMonth = 0
     }
     
-    /// RuleBとRuleCを満たしているかどうかのチェック
-    private func satisfyCommonRule(humans:[Human], rules:Rules, weekday:WeekDay, previousDaysInfo:[DayInfo]) throws -> (){
+    /// RuleBとRuleC, RuleDを満たしているかどうかのチェック
+    private func satisfyCommonRule(humans:[Human], rules:Rules, checkingDay:Int, weekday:WeekDay, previousDaysInfo:[DayInfo]) throws -> (){
         
         // 人ごとに決められている曜日であること
         try rules.individualRule[.RuleB]?.satisfyRule(objects: [self, weekday])
         // ３日前間担当者ではないこと
         try rules.individualRule[.RuleC]?.satisfyRule(objects: [self, previousDaysInfo])
+        // 禁止日ではないこと
+        try rules.individualRule[.RuleD]?.satisfyRule(objects: [self, checkingDay])
     }
     
-    static func selectTwoHumansInADay(humans:[Human], rules:Rules, weekday:WeekDay, previousDaysInfo:[DayInfo]) throws -> [Human]{
+    static func selectTwoHumansInADay(humans:[Human], rules:Rules, checkingDay:Int, weekday:WeekDay, previousDaysInfo:[DayInfo]) throws -> [Human]{
         
         
         let superHumans = humans.filter({ (human) -> Bool in
@@ -86,7 +90,7 @@ class Human{
                 do{
                     
                     try rules.individualRule[.RuleA]?.satisfyRule(objects: [toutyokus, human])
-                    try human.satisfyCommonRule(humans, rules:rules, weekday: weekday, previousDaysInfo: previousDaysInfo)
+                    try human.satisfyCommonRule(humans, rules:rules, checkingDay: checkingDay, weekday: weekday, previousDaysInfo: previousDaysInfo)
                 }catch let error as Rule.RuleError where error == Rule.RuleError.NotSatisfiedForIndividual{
                     okIndividualFlag = false
                 }
@@ -104,7 +108,7 @@ class Human{
                 
                 do{
                     try rules.individualRule[.Rule0]?.satisfyRule(objects: [human, toutyokus])
-                    try human.satisfyCommonRule(humans, rules:rules, weekday: weekday, previousDaysInfo: previousDaysInfo)
+                    try human.satisfyCommonRule(humans, rules:rules, checkingDay: checkingDay, weekday: weekday, previousDaysInfo: previousDaysInfo)
                 }catch let error as Rule.RuleError where error == Rule.RuleError.NotSatisfiedForIndividual{
                     okIndividualFlag = false
                 }

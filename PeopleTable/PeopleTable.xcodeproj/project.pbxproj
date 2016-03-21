@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FAC1F0BF1C91A97500C8A92C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0BE1C91A97500C8A92C /* AppDelegate.swift */; };
-		FAC1F0C11C91A97500C8A92C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0C01C91A97500C8A92C /* ViewController.swift */; };
+		FAC1F0C11C91A97500C8A92C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0C01C91A97500C8A92C /* HomeViewController.swift */; };
 		FAC1F0C41C91A97500C8A92C /* PeopleTable.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0C21C91A97500C8A92C /* PeopleTable.xcdatamodeld */; };
 		FAC1F0C61C91A97500C8A92C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAC1F0C51C91A97500C8A92C /* Assets.xcassets */; };
 		FAC1F0C91C91A97500C8A92C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAC1F0C71C91A97500C8A92C /* Main.storyboard */; };
@@ -22,6 +22,9 @@
 		FAC1F0FE1C94513B00C8A92C /* CoreDataManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0FD1C94513B00C8A92C /* CoreDataManagement.swift */; };
 		FAC1F1021C9599A800C8A92C /* People+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F1011C9599A800C8A92C /* People+CoreDataProperties.swift */; };
 		FAE388531C99A7C900CC08D9 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE388521C99A7C900CC08D9 /* Day.swift */; };
+		FAE388551C9CD51400CC08D9 /* DayCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE388541C9CD51400CC08D9 /* DayCollectionViewItem.swift */; };
+		FAE388591C9CD58100CC08D9 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAE388581C9CD58100CC08D9 /* Home.storyboard */; };
+		FAE3885D1C9EDECE00CC08D9 /* DayCollectionItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE3885C1C9EDECE00CC08D9 /* DayCollectionItem.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +47,7 @@
 /* Begin PBXFileReference section */
 		FAC1F0BB1C91A97500C8A92C /* PeopleTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeopleTable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC1F0BE1C91A97500C8A92C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FAC1F0C01C91A97500C8A92C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FAC1F0C01C91A97500C8A92C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = PeopleTable/HomeViewController.swift; sourceTree = "<group>"; };
 		FAC1F0C31C91A97500C8A92C /* PeopleTable.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PeopleTable.xcdatamodel; sourceTree = "<group>"; };
 		FAC1F0C51C91A97500C8A92C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FAC1F0C81C91A97500C8A92C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -62,7 +65,10 @@
 		FAC1F0FB1C944F6000C8A92C /* PeopleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleTests.swift; sourceTree = "<group>"; };
 		FAC1F0FD1C94513B00C8A92C /* CoreDataManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManagement.swift; sourceTree = "<group>"; };
 		FAC1F1011C9599A800C8A92C /* People+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "People+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		FAE388521C99A7C900CC08D9 /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
+		FAE388521C99A7C900CC08D9 /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Day.swift; path = PeopleTable/Day.swift; sourceTree = "<group>"; };
+		FAE388541C9CD51400CC08D9 /* DayCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DayCollectionViewItem.swift; path = PeopleTable/DayCollectionViewItem.swift; sourceTree = "<group>"; };
+		FAE388581C9CD58100CC08D9 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		FAE3885C1C9EDECE00CC08D9 /* DayCollectionItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayCollectionItem.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,15 +120,14 @@
 		FAC1F0BD1C91A97500C8A92C /* PeopleTable */ = {
 			isa = PBXGroup;
 			children = (
+				FAE388571C9CD54D00CC08D9 /* Setting */,
+				FAE388561C9CD51A00CC08D9 /* Home */,
 				FAC1F0BE1C91A97500C8A92C /* AppDelegate.swift */,
-				FAC1F0C01C91A97500C8A92C /* ViewController.swift */,
-				FAC1F0EC1C91B47A00C8A92C /* PeopleSettingViewController.swift */,
-				FAC1F0C51C91A97500C8A92C /* Assets.xcassets */,
 				FAC1F0C71C91A97500C8A92C /* Main.storyboard */,
+				FAC1F0C51C91A97500C8A92C /* Assets.xcassets */,
 				FAC1F0CA1C91A97500C8A92C /* Info.plist */,
 				FAC1F0C21C91A97500C8A92C /* PeopleTable.xcdatamodeld */,
 				FAC1F0EE1C91B4E000C8A92C /* LogUtil.swift */,
-				FAE388521C99A7C900CC08D9 /* Day.swift */,
 			);
 			path = PeopleTable;
 			sourceTree = "<group>";
@@ -155,6 +160,27 @@
 				FAC1F0FD1C94513B00C8A92C /* CoreDataManagement.swift */,
 			);
 			name = CoreData;
+			sourceTree = "<group>";
+		};
+		FAE388561C9CD51A00CC08D9 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				FAC1F0C01C91A97500C8A92C /* HomeViewController.swift */,
+				FAE388521C99A7C900CC08D9 /* Day.swift */,
+				FAE388541C9CD51400CC08D9 /* DayCollectionViewItem.swift */,
+				FAE388581C9CD58100CC08D9 /* Home.storyboard */,
+				FAE3885C1C9EDECE00CC08D9 /* DayCollectionItem.xib */,
+			);
+			name = Home;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		FAE388571C9CD54D00CC08D9 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				FAC1F0EC1C91B47A00C8A92C /* PeopleSettingViewController.swift */,
+			);
+			name = Setting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,8 +287,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAE388591C9CD58100CC08D9 /* Home.storyboard in Resources */,
 				FAC1F0C61C91A97500C8A92C /* Assets.xcassets in Resources */,
 				FAC1F0C91C91A97500C8A92C /* Main.storyboard in Resources */,
+				FAE3885D1C9EDECE00CC08D9 /* DayCollectionItem.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,12 +316,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAC1F1021C9599A800C8A92C /* People+CoreDataProperties.swift in Sources */,
-				FAC1F0C11C91A97500C8A92C /* ViewController.swift in Sources */,
+				FAC1F0C11C91A97500C8A92C /* HomeViewController.swift in Sources */,
 				FAC1F0BF1C91A97500C8A92C /* AppDelegate.swift in Sources */,
 				FAC1F0FA1C944B0E00C8A92C /* Records.swift in Sources */,
 				FAC1F0EF1C91B4E000C8A92C /* LogUtil.swift in Sources */,
 				FAC1F0ED1C91B47A00C8A92C /* PeopleSettingViewController.swift in Sources */,
 				FAC1F0C41C91A97500C8A92C /* PeopleTable.xcdatamodeld in Sources */,
+				FAE388551C9CD51400CC08D9 /* DayCollectionViewItem.swift in Sources */,
 				FAC1F0F31C93B87500C8A92C /* People.swift in Sources */,
 				FAE388531C99A7C900CC08D9 /* Day.swift in Sources */,
 				FAC1F0FE1C94513B00C8A92C /* CoreDataManagement.swift in Sources */,
@@ -380,7 +409,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -418,7 +447,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};

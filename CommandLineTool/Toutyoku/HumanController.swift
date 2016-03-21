@@ -54,7 +54,7 @@ class HumanController{
             inValid = false
             do{
                 try table.createTable()
-                // テーブルの評価
+                // 月テーブルの評価
                 try rules.monthRule[.RuleA]?.satisfyRule(objects: [table, humans])
                 try rules.monthRule[.RuleB]?.satisfyRule(objects: [table, humans])
                 try rules.monthRule[.RuleC]?.satisfyRule(objects: [table.days, humans])
