@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="drc-ph-sLm">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
@@ -386,13 +386,27 @@
         <!--担当者設定-->
         <scene sceneID="UEm-j3-nyj">
             <objects>
+                <customObject id="y3p-CB-H7E" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <menu autoenablesItems="NO" id="md6-eB-X8N">
+                    <items>
+                        <menuItem title="削除" id="pVY-dB-KHO">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="deletePeople:" target="drc-ph-sLm" id="2DP-AN-1Af"/>
+                            </connections>
+                        </menuItem>
+                    </items>
+                    <connections>
+                        <outlet property="delegate" destination="drc-ph-sLm" id="0Ol-zF-lZR"/>
+                    </connections>
+                </menu>
                 <viewController title="担当者設定" id="drc-ph-sLm" customClass="PeopleSettingViewController" customModule="PeopleTable" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="hlp-DL-nrd">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="257"/>
+                        <rect key="frame" x="0.0" y="0.0" width="550" height="257"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView orientation="vertical" alignment="leading" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="GuQ-kj-l0r">
-                                <rect key="frame" x="0.0" y="0.0" width="450" height="257"/>
+                                <rect key="frame" x="0.0" y="0.0" width="550" height="257"/>
                                 <beginningViews>
                                     <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h40-EF-RiM">
                                         <rect key="frame" x="-6" y="229" width="65" height="32"/>
@@ -404,14 +418,14 @@
                                             </connections>
                                         </buttonCell>
                                     </button>
-                                    <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BOs-92-Akx">
-                                        <rect key="frame" x="0.0" y="0.0" width="450" height="228"/>
+                                    <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BOs-92-Akx">
+                                        <rect key="frame" x="0.0" y="0.0" width="550" height="228"/>
                                         <clipView key="contentView" id="xlJ-TJ-nOE">
-                                            <rect key="frame" x="1" y="0.0" width="448" height="227"/>
+                                            <rect key="frame" x="1" y="0.0" width="548" height="227"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="sPy-Fc-V7d" id="OLI-oO-4mA">
-                                                    <rect key="frame" x="0.0" y="0.0" width="448" height="204"/>
+                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="sPy-Fc-V7d" id="OLI-oO-4mA" customClass="PeopleTableView" customModule="PeopleTable" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="548" height="204"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -443,7 +457,20 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                         </tableColumn>
-                                                        <tableColumn identifier="PeopleCheckBox" width="88.542468560089318" minWidth="10" maxWidth="100" id="xsw-5A-3tX">
+                                                        <tableColumn identifier="" width="100" minWidth="10" maxWidth="100" id="4qM-9y-cQA">
+                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="不可曜日">
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            </tableHeaderCell>
+                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="6of-0H-CXd">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                        </tableColumn>
+                                                        <tableColumn identifier="PeopleCheckBox" width="30" minWidth="10" maxWidth="30" id="xsw-5A-3tX">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="有効">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -459,12 +486,13 @@
                                                     <connections>
                                                         <outlet property="dataSource" destination="drc-ph-sLm" id="e1r-w7-9qe"/>
                                                         <outlet property="delegate" destination="drc-ph-sLm" id="BZf-DK-dur"/>
+                                                        <outlet property="menu" destination="md6-eB-X8N" id="jHN-BG-7kz"/>
                                                     </connections>
                                                 </tableView>
                                             </subviews>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </clipView>
-                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.16666666666666666" horizontal="YES" id="fqH-Ox-16A">
+                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="fqH-Ox-16A">
                                             <rect key="frame" x="1" y="211" width="448" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -473,12 +501,15 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" id="sPy-Fc-V7d">
-                                            <rect key="frame" x="0.0" y="0.0" width="448" height="23"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="548" height="23"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
                                 </beginningViews>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="BOs-92-Akx" secondAttribute="bottom" id="OIE-SW-YRA"/>
+                                    <constraint firstAttribute="trailing" secondItem="BOs-92-Akx" secondAttribute="trailing" id="Ws3-RO-hKk"/>
+                                    <constraint firstItem="BOs-92-Akx" firstAttribute="leading" secondItem="GuQ-kj-l0r" secondAttribute="leading" id="sw9-th-rS2"/>
                                     <constraint firstAttribute="trailing" secondItem="h40-EF-RiM" secondAttribute="trailing" id="vVT-9O-Ogj"/>
                                     <constraint firstItem="h40-EF-RiM" firstAttribute="top" secondItem="GuQ-kj-l0r" secondAttribute="top" constant="10" id="z2H-Sq-X3U"/>
                                     <constraint firstItem="h40-EF-RiM" firstAttribute="leading" secondItem="GuQ-kj-l0r" secondAttribute="leading" id="ziJ-23-6kC"/>
@@ -504,9 +535,8 @@
                         <outlet property="tableView" destination="OLI-oO-4mA" id="FIW-qK-dtA"/>
                     </connections>
                 </viewController>
-                <customObject id="y3p-CB-H7E" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="655" y="243.5"/>
+            <point key="canvasLocation" x="724" y="249.5"/>
         </scene>
         <!--Home-->
         <scene sceneID="uum-ZR-FZi">

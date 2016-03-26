@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA4F8E231CA69EF3000E12E3 /* HumanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4F8E1F1CA69EF3000E12E3 /* HumanController.swift */; };
+		FA4F8E241CA69EF3000E12E3 /* Human.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4F8E201CA69EF3000E12E3 /* Human.swift */; };
+		FA4F8E251CA69EF3000E12E3 /* MonthTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4F8E211CA69EF3000E12E3 /* MonthTable.swift */; };
+		FA4F8E261CA69EF3000E12E3 /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4F8E221CA69EF3000E12E3 /* Rule.swift */; };
 		FAC1F0BF1C91A97500C8A92C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0BE1C91A97500C8A92C /* AppDelegate.swift */; };
 		FAC1F0C11C91A97500C8A92C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0C01C91A97500C8A92C /* HomeViewController.swift */; };
 		FAC1F0C41C91A97500C8A92C /* PeopleTable.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0C21C91A97500C8A92C /* PeopleTable.xcdatamodeld */; };
@@ -25,6 +29,10 @@
 		FAE388551C9CD51400CC08D9 /* DayCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE388541C9CD51400CC08D9 /* DayCollectionViewItem.swift */; };
 		FAE388591C9CD58100CC08D9 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAE388581C9CD58100CC08D9 /* Home.storyboard */; };
 		FAE3885D1C9EDECE00CC08D9 /* DayCollectionItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE3885C1C9EDECE00CC08D9 /* DayCollectionItem.xib */; };
+		FAE388611CA19D0A00CC08D9 /* DayHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE388601CA19D0A00CC08D9 /* DayHeaderView.swift */; };
+		FAE388641CA2C49A00CC08D9 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE388631CA2C49A00CC08D9 /* DateUtil.swift */; };
+		FAEA334D1CA6DEC70078840B /* PeopleTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA334C1CA6DEC70078840B /* PeopleTableView.swift */; };
+		FAEA33531CA753530078840B /* NotAvailableWeekDay.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAEA33521CA753530078840B /* NotAvailableWeekDay.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +53,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FA4F8E1F1CA69EF3000E12E3 /* HumanController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HumanController.swift; sourceTree = "<group>"; };
+		FA4F8E201CA69EF3000E12E3 /* Human.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Human.swift; sourceTree = "<group>"; };
+		FA4F8E211CA69EF3000E12E3 /* MonthTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthTable.swift; sourceTree = "<group>"; };
+		FA4F8E221CA69EF3000E12E3 /* Rule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
 		FAC1F0BB1C91A97500C8A92C /* PeopleTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeopleTable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC1F0BE1C91A97500C8A92C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAC1F0C01C91A97500C8A92C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = PeopleTable/HomeViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +81,10 @@
 		FAE388541C9CD51400CC08D9 /* DayCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DayCollectionViewItem.swift; path = PeopleTable/DayCollectionViewItem.swift; sourceTree = "<group>"; };
 		FAE388581C9CD58100CC08D9 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		FAE3885C1C9EDECE00CC08D9 /* DayCollectionItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayCollectionItem.xib; sourceTree = "<group>"; };
+		FAE388601CA19D0A00CC08D9 /* DayHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayHeaderView.swift; sourceTree = "<group>"; };
+		FAE388631CA2C49A00CC08D9 /* DateUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
+		FAEA334C1CA6DEC70078840B /* PeopleTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleTableView.swift; sourceTree = "<group>"; };
+		FAEA33521CA753530078840B /* NotAvailableWeekDay.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NotAvailableWeekDay.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,10 +112,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA4F8E1E1CA69EBB000E12E3 /* CreateMonthTable */ = {
+			isa = PBXGroup;
+			children = (
+				FA4F8E1F1CA69EF3000E12E3 /* HumanController.swift */,
+				FA4F8E201CA69EF3000E12E3 /* Human.swift */,
+				FA4F8E211CA69EF3000E12E3 /* MonthTable.swift */,
+				FA4F8E221CA69EF3000E12E3 /* Rule.swift */,
+			);
+			name = CreateMonthTable;
+			sourceTree = "<group>";
+		};
 		FAC1F0B21C91A97500C8A92C = {
 			isa = PBXGroup;
 			children = (
-				FAC1F0F41C93B87F00C8A92C /* CoreData */,
 				FAC1F0BD1C91A97500C8A92C /* PeopleTable */,
 				FAC1F0D21C91A97500C8A92C /* PeopleTableTests */,
 				FAC1F0DD1C91A97500C8A92C /* PeopleTableUITests */,
@@ -120,6 +146,9 @@
 		FAC1F0BD1C91A97500C8A92C /* PeopleTable */ = {
 			isa = PBXGroup;
 			children = (
+				FA4F8E1E1CA69EBB000E12E3 /* CreateMonthTable */,
+				FAE388621CA2C48A00CC08D9 /* Util */,
+				FAC1F0F41C93B87F00C8A92C /* CoreData */,
 				FAE388571C9CD54D00CC08D9 /* Setting */,
 				FAE388561C9CD51A00CC08D9 /* Home */,
 				FAC1F0BE1C91A97500C8A92C /* AppDelegate.swift */,
@@ -160,6 +189,7 @@
 				FAC1F0FD1C94513B00C8A92C /* CoreDataManagement.swift */,
 			);
 			name = CoreData;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		FAE388561C9CD51A00CC08D9 /* Home */ = {
@@ -167,6 +197,7 @@
 			children = (
 				FAC1F0C01C91A97500C8A92C /* HomeViewController.swift */,
 				FAE388521C99A7C900CC08D9 /* Day.swift */,
+				FAE388601CA19D0A00CC08D9 /* DayHeaderView.swift */,
 				FAE388541C9CD51400CC08D9 /* DayCollectionViewItem.swift */,
 				FAE388581C9CD58100CC08D9 /* Home.storyboard */,
 				FAE3885C1C9EDECE00CC08D9 /* DayCollectionItem.xib */,
@@ -179,8 +210,19 @@
 			isa = PBXGroup;
 			children = (
 				FAC1F0EC1C91B47A00C8A92C /* PeopleSettingViewController.swift */,
+				FAEA334C1CA6DEC70078840B /* PeopleTableView.swift */,
+				FAEA33521CA753530078840B /* NotAvailableWeekDay.storyboard */,
 			);
 			name = Setting;
+			sourceTree = "<group>";
+		};
+		FAE388621CA2C48A00CC08D9 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				FAE388631CA2C49A00CC08D9 /* DateUtil.swift */,
+			);
+			name = Util;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,6 +333,7 @@
 				FAC1F0C61C91A97500C8A92C /* Assets.xcassets in Resources */,
 				FAC1F0C91C91A97500C8A92C /* Main.storyboard in Resources */,
 				FAE3885D1C9EDECE00CC08D9 /* DayCollectionItem.xib in Resources */,
+				FAEA33531CA753530078840B /* NotAvailableWeekDay.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +358,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAEA334D1CA6DEC70078840B /* PeopleTableView.swift in Sources */,
 				FAC1F1021C9599A800C8A92C /* People+CoreDataProperties.swift in Sources */,
 				FAC1F0C11C91A97500C8A92C /* HomeViewController.swift in Sources */,
 				FAC1F0BF1C91A97500C8A92C /* AppDelegate.swift in Sources */,
@@ -322,9 +366,15 @@
 				FAC1F0EF1C91B4E000C8A92C /* LogUtil.swift in Sources */,
 				FAC1F0ED1C91B47A00C8A92C /* PeopleSettingViewController.swift in Sources */,
 				FAC1F0C41C91A97500C8A92C /* PeopleTable.xcdatamodeld in Sources */,
+				FA4F8E241CA69EF3000E12E3 /* Human.swift in Sources */,
 				FAE388551C9CD51400CC08D9 /* DayCollectionViewItem.swift in Sources */,
+				FA4F8E251CA69EF3000E12E3 /* MonthTable.swift in Sources */,
+				FAE388611CA19D0A00CC08D9 /* DayHeaderView.swift in Sources */,
+				FA4F8E231CA69EF3000E12E3 /* HumanController.swift in Sources */,
 				FAC1F0F31C93B87500C8A92C /* People.swift in Sources */,
+				FAE388641CA2C49A00CC08D9 /* DateUtil.swift in Sources */,
 				FAE388531C99A7C900CC08D9 /* Day.swift in Sources */,
+				FA4F8E261CA69EF3000E12E3 /* Rule.swift in Sources */,
 				FAC1F0FE1C94513B00C8A92C /* CoreDataManagement.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

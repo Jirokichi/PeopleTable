@@ -55,6 +55,13 @@ class Records: NSManagedObject{
         }
     }
     
+    // 削除
+    func delete(context:NSManagedObjectContext){
+        context.deleteObject(self)
+        Records.saveContext(context)
+    }
+    
+    
     /// サブクラスで実装される
     class func _getTableName() -> String{
         fatalError("This method should be overrided")

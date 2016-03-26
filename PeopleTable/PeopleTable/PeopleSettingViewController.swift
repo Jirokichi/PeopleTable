@@ -8,9 +8,9 @@
 
 import Cocoa
 
-class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
+class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource, NSMenuDelegate {
 
-    @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet weak var tableView: PeopleTableView!
 
     let coreDataManagement = CoreDataManagement.Singleton
     
@@ -48,12 +48,33 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
                 Records.saveContext(coreDataManagement.managedObjectContext)
                 
             }
-            
+            tableView.reloadData()
         }catch{
             
         }
     }
     
+    @IBAction func deletePeople(sender: AnyObject) {
+        let index = self.tableView.clickedRow
+        let selectedPeople:People
+        if index < self.humans.count && index > 0{
+            selectedPeople = self.humans[index]
+        }else{
+            return
+        }
+        
+        let alert = NSAlert()
+        alert.messageText = "削除してもよろしいですか？"
+        alert.informativeText = "名前を入力してください"
+        alert.addButtonWithTitle("OK")
+        alert.addButtonWithTitle("キャンセル")
+        let result = alert.runModal()
+        if (result == NSAlertFirstButtonReturn) {
+            selectedPeople.delete(CoreDataManagement.Singleton.managedObjectContext)
+            loadPeopleFromDB()
+        }
+        
+    }
     
     @IBAction func addNewPeople(sender: AnyObject) {
         
@@ -108,8 +129,34 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
         }
     }
     
+//    func tableView(tableView: NSTableView, rowActionsForRow row: Int, edge: NSTableRowActionEdge) -> [NSTableViewRowAction]{
+//        
+//    }
+    func tableView(tableView: NSTableView, shouldSelectRow row: Int) -> Bool{
+        LogUtil.log()
+        return true
+    }
+    
     func tableViewSelectionDidChange(notification: NSNotification) {
-        LogUtil.log("削除ダイアログを表示")
+        LogUtil.log("セル選択時に呼ばれるメソッド-使わない予定")
+        
+//        // Swiftの場合
+//        let alert = NSAlert()
+//        alert.messageText = "削除してもよろしいですか？"
+//        //        alert.informativeText = "名前を入力してください"
+//        alert.addButtonWithTitle("OK")
+//        alert.addButtonWithTitle("キャンセル")
+//        let result = alert.runModal()
+//        if (result == NSAlertFirstButtonReturn) {
+//            LogUtil.log("OK")
+//            
+//            let clikcedIndex = self.tableView?.clickedRow
+//            LogUtil.log(clikcedIndex)
+//            LogUtil.log(self.tableView?.selectedRow)
+//            
+//        }
+        
+        
     }
     
 }
