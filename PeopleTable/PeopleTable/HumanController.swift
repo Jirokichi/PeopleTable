@@ -33,7 +33,7 @@ class HumanController{
     }
     
     
-    func startCreatingRandomTable(calendar:NSDate, rules:Rules){
+    func startCreatingRandomTable(calendar:NSDate, rules:Rules) -> MonthTable{
         
         print("Start: \(NSDate())")
         rules.view()
@@ -72,6 +72,7 @@ class HumanController{
         
         print("Finish: \(NSDate())")
         
+        return table
     }
     
     private func getLastDay(date:NSDate) -> NSDateComponents{

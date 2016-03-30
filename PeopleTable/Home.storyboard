@@ -49,7 +49,7 @@
                                                     <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kuV-iz-hTD">
                                                         <rect key="frame" x="0.0" y="0.0" width="760" height="30"/>
                                                         <subviews>
-                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XUU-kv-5Ql">
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XUU-kv-5Ql">
                                                                 <rect key="frame" x="-2" y="7" width="106" height="17"/>
                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="日" id="BwO-dO-jgh">
                                                                     <font key="font" metaFont="system"/>
@@ -57,7 +57,7 @@
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
                                                             </textField>
-                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="llO-cM-Y3D">
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="llO-cM-Y3D">
                                                                 <rect key="frame" x="108" y="7" width="105" height="17"/>
                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="月" id="xa6-sN-zN9">
                                                                     <font key="font" metaFont="system"/>
@@ -65,8 +65,8 @@
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
                                                             </textField>
-                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n1U-3Y-3j8">
-                                                                <rect key="frame" x="217" y="7" width="105" height="17"/>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="n1U-3Y-3j8">
+                                                                <rect key="frame" x="217" y="7" width="106" height="17"/>
                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="火" id="6zP-aP-MZ5">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -74,7 +74,7 @@
                                                                 </textFieldCell>
                                                             </textField>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jqa-u9-7aM">
-                                                                <rect key="frame" x="326" y="7" width="107" height="17"/>
+                                                                <rect key="frame" x="327" y="7" width="106" height="17"/>
                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="水" id="h0f-X2-rbg">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -82,23 +82,23 @@
                                                                 </textFieldCell>
                                                             </textField>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1KM-1X-ixO">
-                                                                <rect key="frame" x="437" y="7" width="105" height="17"/>
+                                                                <rect key="frame" x="437" y="7" width="106" height="17"/>
                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="木" id="7im-GG-uWg">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
                                                             </textField>
-                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uug-CW-8To">
-                                                                <rect key="frame" x="546" y="7" width="107" height="17"/>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uug-CW-8To">
+                                                                <rect key="frame" x="547" y="7" width="105" height="17"/>
                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="金" id="d99-nq-pWO">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
                                                             </textField>
-                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uw6-um-cfW">
-                                                                <rect key="frame" x="657" y="7" width="105" height="17"/>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uw6-um-cfW">
+                                                                <rect key="frame" x="656" y="7" width="106" height="17"/>
                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="土" id="sP0-XI-Hof">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -210,17 +210,127 @@
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l4R-wD-Z6A">
+                                <rect key="frame" x="770" y="494" width="230" height="196"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="T0N-su-j1w">
+                                        <rect key="frame" x="-2" y="179" width="113" height="17"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="個人に対するルール" id="V9I-Hf-mTl">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="oEv-4a-73J">
+                                        <rect key="frame" x="-2" y="155" width="187" height="18"/>
+                                        <buttonCell key="cell" type="check" title="上位(Super)が一日に一人必要" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Ijl-Nd-KyC">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="n4r-jY-aGE">
+                                        <rect key="frame" x="-2" y="133" width="131" height="18"/>
+                                        <buttonCell key="cell" type="check" title="禁止曜日を反映する" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="gGB-xb-4uD">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="iyN-Bx-Bca">
+                                        <rect key="frame" x="-2" y="111" width="114" height="18"/>
+                                        <buttonCell key="cell" type="check" title="2日は間を空ける" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="SgU-1F-4XZ">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="2JL-a0-wcp">
+                                        <rect key="frame" x="-2" y="89" width="119" height="18"/>
+                                        <buttonCell key="cell" type="check" title="禁止日を反映する" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="h52-LL-YW9">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RSd-Di-Thd">
+                                        <rect key="frame" x="-2" y="66" width="65" height="17"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="全体ルール" id="2YN-WH-rqY">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="Hrb-K9-KK5">
+                                        <rect key="frame" x="-2" y="42" width="161" height="18"/>
+                                        <buttonCell key="cell" type="check" title="土曜・日曜は1回ずつまで" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="83H-jS-Fdz">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="RsM-Tp-eg8">
+                                        <rect key="frame" x="-2" y="20" width="167" height="18"/>
+                                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="36c-bm-s8n">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <string key="title" base64-UTF8="YES">
+6KaL57+S44GEHOeUn+eUqOODq+ODvOODq+OBruacieWKueWMlg
+</string>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="hmV-is-2XN">
+                                        <rect key="frame" x="-2" y="-2" width="191" height="18"/>
+                                        <buttonCell key="cell" type="check" title="月の最大と最低回数を反映する" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="agp-Bu-hwj">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="wun-UI-Jof">
+                                <rect key="frame" x="773" y="41" width="229" height="17"/>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="A - 月(5) 火(5) 水(5) 木(5) 土(5) 日(5)" id="qT2-4E-CyK">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="g5w-Zk-d0C" secondAttribute="bottom" constant="20" id="7LB-pl-YSm"/>
                             <constraint firstItem="hxB-r0-gW2" firstAttribute="top" secondItem="xwZ-Cr-Qj7" secondAttribute="top" id="Bh0-zM-WLc"/>
+                            <constraint firstAttribute="trailing" secondItem="wun-UI-Jof" secondAttribute="trailing" id="Dxt-Rs-sPd"/>
+                            <constraint firstItem="wun-UI-Jof" firstAttribute="leading" secondItem="hxB-r0-gW2" secondAttribute="trailing" constant="15" id="KKH-VW-Hlh"/>
+                            <constraint firstItem="g5w-Zk-d0C" firstAttribute="top" secondItem="wun-UI-Jof" secondAttribute="bottom" id="Kbc-M2-dVv"/>
                             <constraint firstItem="hxB-r0-gW2" firstAttribute="leading" secondItem="xwZ-Cr-Qj7" secondAttribute="leading" id="cyo-Cs-2c1"/>
+                            <constraint firstAttribute="trailing" secondItem="l4R-wD-Z6A" secondAttribute="trailing" id="dRq-WA-Rps"/>
+                            <constraint firstItem="l4R-wD-Z6A" firstAttribute="leading" secondItem="hxB-r0-gW2" secondAttribute="trailing" constant="10" id="k1Z-31-GIf"/>
+                            <constraint firstItem="l4R-wD-Z6A" firstAttribute="top" secondItem="xwZ-Cr-Qj7" secondAttribute="top" constant="10" id="tNZ-V5-1on"/>
                             <constraint firstAttribute="trailing" secondItem="g5w-Zk-d0C" secondAttribute="trailing" constant="20" id="zXo-eh-rI6"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="C8a-No-wMN" id="TQi-1L-9bF"/>
                         <outlet property="headerView" destination="ADC-Eo-duB" id="lwh-08-QQG"/>
+                        <outlet property="resultTextField" destination="wun-UI-Jof" id="Opv-em-gcX"/>
                     </connections>
                 </viewController>
             </objects>

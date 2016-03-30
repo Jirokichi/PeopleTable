@@ -24,8 +24,6 @@ class MonthTable{
         self.dayOfLastDay = dayOfLastDay
         self.humans = humans
         self.rules = rules
-        
-        
     }
     
     func createTable() throws{
@@ -90,6 +88,19 @@ class MonthTable{
         return WeekDay(rawValue: (7+weekDayOfLastDate.rawValue - (dayOfLastDay - day)%7)%7)!
     }
     
+    /// 一ヶ月の曜日ごとのhumanの回数
+    func numberOfSpecificWeekDayInAMonth(humanName:String) -> [WeekDay:Int]{
+        var result:[WeekDay:Int] = [:]
+        
+        for day in self.days{
+            if day.workingHuman.contains({ (h) -> Bool in
+                return humanName == h.name
+            }){
+                result[day.weekday] = (result[day.weekday] ?? 0) + 1
+            }
+        }
+        return result
+    }
 }
 
 class DayInfo{

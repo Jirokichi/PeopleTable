@@ -65,7 +65,6 @@ class Human{
             return result
         })
         
-        
 //        if superHumans.count < 2{
 //            print("?")
 //            throw Rule.RuleError.NotSarisfiedForMonthTable

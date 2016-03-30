@@ -1,3 +1,4 @@
+
 //
 //  CoreDataManagement.swift
 //  PeopleTable
@@ -9,6 +10,8 @@
 import Foundation
 import Cocoa
 
+/// /Users/yuya/Library/Application Support/jp.ky.PeopleTable
+/// rm CocoaAppCD.storedata 
 class CoreDataManagement{
     static let Singleton = CoreDataManagement()
     private init(){}

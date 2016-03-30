@@ -14,8 +14,15 @@ import CoreData
 
 extension People {
 
-    @NSManaged var createdDate: NSDate?
-    @NSManaged var name: String?
-    @NSManaged var status: NSNumber?
+    @NSManaged var createdDate: NSDate
+    @NSManaged var name: String
+    @NSManaged var unavailableWeekDays: String
+    @NSManaged var requiredWeekDays: String
+    @NSManaged var forbittenDays:String
+    @NSManaged var limitOfRequiredWeekDays:NSNumber
+    @NSManaged var maxWorkingCountInAMonth:NSNumber
+    @NSManaged var minWorkingCountInAMonth:NSNumber
+    @NSManaged var status: Bool
+    @NSManaged var isSuper: Bool
 
 }

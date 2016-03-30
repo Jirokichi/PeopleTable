@@ -26,18 +26,15 @@ class DayCollectionViewItem: NSCollectionViewItem {
         LogUtil.log("viewDidLoad - " + dayLabel.stringValue)
     }
     
-    func setData(number:Int, multiPeople:[People]){
+    func setData(number:Int, multiPeople:[People], humanAName:String? = nil, humanBName:String? = nil){
         
         self.humanAPopUpButton.removeAllItems()
         self.humanBPopUpButton.removeAllItems()
         
         var displayedValuesForPopUpButton:[String] = []
         for people in multiPeople where people.status == true{
-            if let name = people.name{
-                displayedValuesForPopUpButton.append("\(name)")
-            }
+            displayedValuesForPopUpButton.append("\(people.name)")
         }
-        
         
         self.humanAPopUpButton.addItemWithTitle("-")
         self.humanBPopUpButton.addItemWithTitle("-")
@@ -46,8 +43,12 @@ class DayCollectionViewItem: NSCollectionViewItem {
             self.humanBPopUpButton.addItemWithTitle(item)
         }
         
-        
-        
+        if let humanAName = humanAName{
+            self.humanAPopUpButton.selectItemWithTitle(humanAName)
+        }
+        if let humanBName = humanBName{
+            self.humanBPopUpButton.selectItemWithTitle(humanBName)
+        }
         
         
         if number == -1{

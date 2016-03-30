@@ -17,12 +17,22 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
     enum TableId:String{
         case PeopleId = "PeopleId"
         case PeopleName = "PeopleName"
+        case SuperCheckBox = "SuperCheckBox"
         case PeopleCheckBox = "PeopleCheckBox"
+        case PeopleUnavableWeekDays = "PeopleUnavableWeekDays"
+        case RequiredWeekDays = "RequiredWeekDays"
+        case LimitOfRequiredWeekDays = "LimitOfRequiredWeekDays"
+        case MaxWorkingCountInAMonth = "MaxWorkingCountInAMonth"
+        case MinWorkingCountInAMonth = "MinWorkingCountInAMonth"
         case Unknow
         
         init(tableId:String?){
             self = TableId(rawValue: (tableId ?? "")) ?? Unknow
         }
+    }
+    
+    struct SegmentedControlId{
+        static let Sum = 7
     }
     
     var humans:[People] = []
@@ -35,18 +45,14 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
         loadPeopleFromDB()
     }
     
+    
     private func loadPeopleFromDB(){
         do{
             humans.removeAll()
             humans =  try People.fetchAllRecords(coreDataManagement.managedObjectContext, sortDescriptor: People.createSortDescriptor())
             
             if humans.count < 1{
-                
-                humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(NSDate(), name: "A", status: false))
-                humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(NSDate(), name: "B", status: false))
-                
-                Records.saveContext(coreDataManagement.managedObjectContext)
-                
+                humans = People.createDefaultPeoples(coreDataManagement)
             }
             tableView.reloadData()
         }catch{
@@ -79,7 +85,16 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
     @IBAction func addNewPeople(sender: AnyObject) {
         
         LogUtil.log("addNewPeople")
-        humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(NSDate(), name: "New", status: false))
+        humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(
+            NSDate(),
+            name: "New",
+            status: false,
+            unavailableWeekDays: People.PTWeekDays(jsonDict: [:]),
+            requiredWeekDays: People.PTWeekDays(jsonDict: [:]),
+            limitOfRequiredWeekDays: 0,
+            isSuper: false,
+            maxWorkingCountInAMonth: 6,
+            minWorkingCountInAMonth: 4))
         Records.saveContext(coreDataManagement.managedObjectContext)
         
         tableView.reloadData()
@@ -92,39 +107,193 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
     }
     
 
-    
+    // セルに値をセットする際に呼び出される
     func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
+        
+        let human = humans[row]
         switch TableId(tableId: tableColumn?.identifier){
         case .PeopleId:
             return "\(row + 1)"
         case .PeopleName:
-            return humans[row].name
+            return human.name
+        case .SuperCheckBox:
+            return human.isSuper
         case .PeopleCheckBox:
-            return humans[row].status
+            return human.status
+        case .PeopleUnavableWeekDays:
+            
+            if let json = People.PTWeekDays.getDicsFromJson(human.unavailableWeekDays)?.jsonDict{
+                if let cell = tableColumn?.dataCell as? NSSegmentedCell{
+                    
+                    // Reset
+                    for i in 0...(cell.segmentCount-2){
+                        cell.setSelected(false, forSegment: i)
+                    }
+                    cell.setSelected(true, forSegment: (cell.segmentCount-1))
+                    
+                    var num = 0
+                    for (weekDay, status) in json{
+                        if status{
+                            cell.setSelected(status, forSegment: weekDay.rawValue)
+                            num++
+                        }
+                    }
+                    
+                    cell.setLabel("\(num)", forSegment: (cell.segmentCount-1))
+                    cell.setEnabled(false, forSegment: (cell.segmentCount-1))
+                    return cell
+                }
+            }
+        case .RequiredWeekDays:
+            
+            if let json = People.PTWeekDays.getDicsFromJson(human.requiredWeekDays)?.jsonDict{
+                if let cell = tableColumn?.dataCell as? NSSegmentedCell{
+                    
+                    // Reset
+                    for i in 0...(cell.segmentCount-2){
+                        cell.setSelected(false, forSegment: i)
+                    }
+                    cell.setSelected(true, forSegment: (cell.segmentCount-1))
+                    
+                    var num = 0
+                    for (weekDay, status) in json{
+                        if status{
+                            cell.setSelected(status, forSegment: weekDay.rawValue)
+                            num++
+                        }
+                    }
+                    
+                    cell.setLabel("\(num)", forSegment: (cell.segmentCount-1))
+                    cell.setEnabled(false, forSegment: (cell.segmentCount-1))
+                    return cell
+                }
+            }
+        case .LimitOfRequiredWeekDays:
+            return human.limitOfRequiredWeekDays
+        case .MaxWorkingCountInAMonth:
+            return human.maxWorkingCountInAMonth
+        case .MinWorkingCountInAMonth:
+            return human.minWorkingCountInAMonth
+            
         case .Unknow:
             return ""
         }
+        return ""
     }
     
+    // セルの状態が変化したときに呼び出される
     func tableView(tableView: NSTableView, setObjectValue object: AnyObject?, forTableColumn tableColumn: NSTableColumn?, row: Int){
         
+        let human = humans[row]
         switch TableId(tableId: tableColumn?.identifier){
         case .PeopleName:
             LogUtil.log("PeopleName - row:\(row) - (\(object))")
             if let name = object as? String{
-                humans[row].name = name
-                Records.saveContext(coreDataManagement.managedObjectContext)
-            }
-            break
-        case .PeopleCheckBox:
-            LogUtil.log("PeopleCheckBox - row:\(row) - (\(object))")
-            if let status = object as? Bool{
-                humans[row].status = status
+                human.name = name
                 Records.saveContext(coreDataManagement.managedObjectContext)
             }
             break
             
-        default:
+        case .SuperCheckBox:
+            LogUtil.log("SuperCheckBox - row:\(row) - (\(object))")
+            if let isSuper = object as? Bool{
+                human.isSuper = isSuper
+                Records.saveContext(coreDataManagement.managedObjectContext)
+            }
+        case .PeopleCheckBox:
+            LogUtil.log("PeopleCheckBox - row:\(row) - (\(object))")
+            if let status = object as? Bool{
+                human.status = status
+                Records.saveContext(coreDataManagement.managedObjectContext)
+            }
+            break
+            
+        case .PeopleUnavableWeekDays:
+            LogUtil.log("PeopleUnavableWeekDays - row:\(row) - (\(object))")
+            if let selectedSement = object as? Int{
+                // まとめ用のボタンの変更なら無視する
+                if selectedSement == SegmentedControlId.Sum{
+                    return
+                }
+                
+                let jsonWeekDaysStatus = human.unavailableWeekDays
+                /// jsonでは処理ができないためUnavailableWeekDays@Structに変換する
+                var dicWeekDaysStatus = People.PTWeekDays.getDicsFromJson(jsonWeekDaysStatus)
+                
+                // ステータスが変換される曜日を取得
+                if let weekDay = WeekDay(rawValue: selectedSement){
+                    
+                    // 反転(true/false)が必要な曜日のためにdicWeekDaysStatusを更新する
+                    dicWeekDaysStatus?.updateJsonDict(weekDay)
+                    
+                    if let unailableWeekDays = dicWeekDaysStatus?.getJsonFromDict(){
+                        human.unavailableWeekDays = unailableWeekDays
+                        Records.saveContext(coreDataManagement.managedObjectContext)
+                    }
+                    
+                }
+                
+            }
+        case .RequiredWeekDays:
+            LogUtil.log("RequiredWeekDays - row:\(row) - (\(object))")
+            if let selectedSement = object as? Int{
+                // まとめ用のボタンの変更なら無視する
+                if selectedSement == SegmentedControlId.Sum{
+                    return
+                }
+                
+                let jsonWeekDaysStatus = human.requiredWeekDays
+                /// jsonでは処理ができないためRequiredWeekDays@Structに変換する
+                var dicWeekDaysStatus = People.PTWeekDays.getDicsFromJson(jsonWeekDaysStatus)
+                
+                // ステータスが変換される曜日を取得
+                if let weekDay = WeekDay(rawValue: selectedSement){
+                    
+                    // 反転(true/false)が必要な曜日のためにdicWeekDaysStatusを更新する
+                    dicWeekDaysStatus?.updateJsonDict(weekDay)
+                    
+                    human.requiredWeekDays = dicWeekDaysStatus?.getJsonFromDict() ?? ""
+                    Records.saveContext(coreDataManagement.managedObjectContext)
+                    
+                }
+                
+            }
+            
+        case .LimitOfRequiredWeekDays:
+            
+            LogUtil.log("LimitOfRequiredWeekDays - row:\(row) - (\(object))")
+            
+            if let object = object as? String{
+                if let limit = Int(object) where limit >= 0{
+                    human.limitOfRequiredWeekDays = limit
+                    Records.saveContext(coreDataManagement.managedObjectContext)
+                }
+            }
+            break
+        case .MaxWorkingCountInAMonth:
+            
+            LogUtil.log("MaxWorkingCountInAMonth - row:\(row) - (\(object))")
+            
+            if let object = object as? String{
+                if let limit = Int(object) where limit > 0{
+                    human.maxWorkingCountInAMonth = limit
+                    Records.saveContext(coreDataManagement.managedObjectContext)
+                }
+            }
+            break
+        case .MinWorkingCountInAMonth:
+            
+            LogUtil.log("MinWorkingCountInAMonth - row:\(row) - (\(object))")
+            
+            if let object = object as? String{
+                if let limit = Int(object) where limit >= 0{
+                    human.minWorkingCountInAMonth = limit
+                    Records.saveContext(coreDataManagement.managedObjectContext)
+                }
+            }
+            break
+            
+            default:
             break
         }
     }
@@ -140,21 +309,7 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
     func tableViewSelectionDidChange(notification: NSNotification) {
         LogUtil.log("セル選択時に呼ばれるメソッド-使わない予定")
         
-//        // Swiftの場合
-//        let alert = NSAlert()
-//        alert.messageText = "削除してもよろしいですか？"
-//        //        alert.informativeText = "名前を入力してください"
-//        alert.addButtonWithTitle("OK")
-//        alert.addButtonWithTitle("キャンセル")
-//        let result = alert.runModal()
-//        if (result == NSAlertFirstButtonReturn) {
-//            LogUtil.log("OK")
-//            
-//            let clikcedIndex = self.tableView?.clickedRow
-//            LogUtil.log(clikcedIndex)
-//            LogUtil.log(self.tableView?.selectedRow)
-//            
-//        }
+
         
         
     }
