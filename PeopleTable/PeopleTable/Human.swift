@@ -1,3 +1,4 @@
+
 //
 //  Human.swift
 //  Toutyoku
@@ -22,6 +23,10 @@ class Human{
     
     // 月の担当回数をメモする。最大を越えるとエラーを投げる。
     var workingCountInAMonth:Int
+    var workingCountOnEachWeek:[WeekDay:Int] = [:]
+    
+    
+    
     
     init(id:Int, name:String, unableWeekDays:[WeekDay], isSuper:Bool, practiceRule:(mustWeekDays:[WeekDay], max:Int), maxWorkingCountInAMonth:Int, minWorkingCountInAMonth:Int, forbittenDays:[Int]){
         self.id = id
@@ -34,44 +39,16 @@ class Human{
         self.forbittenDays = forbittenDays
         
         self.workingCountInAMonth = 0
+        
+        
     }
     
-    /// RuleBとRuleC, RuleDを満たしているかどうかのチェック
-    private func satisfyCommonRule(humans:[Human], rules:Rules, checkingDay:Int, weekday:WeekDay, previousDaysInfo:[DayInfo]) throws -> (){
+    static func selectTwoHumansInADay(humans:[Human], rules:CRules, checkingDay:Int, weekday:WeekDay, previousDaysInfo:[DayInfo]) throws -> [Human]{
         
-        // 人ごとに決められている曜日であること
-        try rules.individualRule[.RuleB]?.satisfyRule(objects: [self, weekday])
-        // ３日前間担当者ではないこと
-        try rules.individualRule[.RuleC]?.satisfyRule(objects: [self, previousDaysInfo])
-        // 禁止日ではないこと
-        try rules.individualRule[.RuleD]?.satisfyRule(objects: [self, checkingDay])
-    }
-    
-    static func selectTwoHumansInADay(humans:[Human], rules:Rules, checkingDay:Int, weekday:WeekDay, previousDaysInfo:[DayInfo]) throws -> [Human]{
+        let superHumans = try Human.getSpecificHumans(humans, rules:rules, isSuper:true, checkingDay:checkingDay, weekday:weekday, previousDaysInfo:previousDaysInfo)
+        let lowHumans = try Human.getSpecificHumans(humans, rules:rules, isSuper:false, checkingDay:checkingDay, weekday:weekday, previousDaysInfo:previousDaysInfo)
         
         
-        let superHumans = humans.filter({ (human) -> Bool in
-            var result = human.isSuper
-//            if rules.monthRule[2].valid{
-//                result = result && human.workingCountInAMonth < human.maxWorkingCountInAMonth
-//            }
-            return result
-        })
-        let lowHumans = humans.filter({ (human) -> Bool in
-            var result = !human.isSuper
-//            if rules.monthRule[2].valid{
-//                result = result && human.workingCountInAMonth < human.maxWorkingCountInAMonth
-//            }
-            return result
-        })
-        
-//        if superHumans.count < 2{
-//            print("?")
-//            throw Rule.RuleError.NotSarisfiedForMonthTable
-//        }
-        
-        // 人数
-        let countForHumanA:UInt32 = UInt32(superHumans.count)
         
         var toutyokus:[Human] = []
         var human:Human
@@ -80,44 +57,113 @@ class Human{
         var okWholeFlag:Bool
         repeat{
             okWholeFlag = true
-            
+            toutyokus.removeAll()
             // HumanAの決定
-            var okIndividualFlag:Bool
-            repeat{
-                okIndividualFlag = true
-                human = superHumans[Int(arc4random_uniform(countForHumanA))]
-                do{
-                    
-                    try rules.individualRule[.RuleA]?.satisfyRule(objects: [toutyokus, human])
-                    try human.satisfyCommonRule(humans, rules:rules, checkingDay: checkingDay, weekday: weekday, previousDaysInfo: previousDaysInfo)
-                }catch let error as Rule.RuleError where error == Rule.RuleError.NotSatisfiedForIndividual{
-                    okIndividualFlag = false
-                }
-            }while(!okIndividualFlag)
-            
+            human = Human.getRandomValue(superHumans)
             toutyokus.append(human)
             
-            // HumanBの決定
-            repeat{
-                okIndividualFlag = true
-                let willSelectSuper = ( Int(arc4random_uniform(100)) > Int(rules.percentage * 100 ))
-                let humansForHumanB = willSelectSuper ? superHumans : lowHumans
-                let countForHumanB:UInt32 = UInt32(humansForHumanB.count)
-                human = humansForHumanB[Int(arc4random_uniform(countForHumanB))]
-                
-                do{
-                    try rules.individualRule[.Rule0]?.satisfyRule(objects: [human, toutyokus])
-                    try human.satisfyCommonRule(humans, rules:rules, checkingDay: checkingDay, weekday: weekday, previousDaysInfo: previousDaysInfo)
-                }catch let error as Rule.RuleError where error == Rule.RuleError.NotSatisfiedForIndividual{
-                    okIndividualFlag = false
+            do{
+                if superHumans.count >= 2{
+                    let willSelectSuper = ( Int(arc4random_uniform(100)) > Int(rules.percentage * 100 ))
+                    if willSelectSuper{
+                        human = Human.getRandomValue(superHumans)
+                        try rules.individualRule[.Rule0]?.satisfyRule(objects: [human, toutyokus])
+                    }else{
+                        human = Human.getRandomValue(lowHumans)
+                    }
+                }else{
+                    human = Human.getRandomValue(lowHumans)
                 }
-            }while(!okIndividualFlag)
-            
-            toutyokus.append(human)
+                toutyokus.append(human)
+            }catch let error as CRule.RuleError where error == CRule.RuleError.NotSatisfiedForIndividual{
+                okWholeFlag = false
+            }
             
         }while(!okWholeFlag)
         
         return toutyokus
+    }
+    
+    private static func getSpecificHumans(humans:[Human], rules:CRules, isSuper:Bool, checkingDay:Int, weekday:WeekDay, previousDaysInfo:[DayInfo]) throws -> [Human]{
+        let specificHumans = humans.filter({ (human) -> Bool in
+            
+            
+            if let rule = rules.individualRule[.RuleSuperUser]{
+                if rule.valid{
+                    if (human.isSuper != isSuper){
+                        return false
+                    }
+                }
+            }
+            
+            if let rule = rules.individualRule[.RuleUnavailableWeekDays]{
+                if rule.valid{
+                    if (human.unableWeekDays.contains(weekday)){
+                        return false
+                    }
+                }
+            }
+            
+            if let rule = rules.individualRule[.RuleInterval]{
+                if rule.valid{
+                    for day in previousDaysInfo{
+                        for workedHuman in day.workingHuman{
+                            if human.id == workedHuman.id{
+                                return false
+                            }
+                        }
+                    }
+                }
+            }
+            
+            if let rule = rules.individualRule[.RuleUnavailableDays]{
+                if rule.valid{
+                    if (human.forbittenDays.contains(checkingDay)){
+                        return false
+                    }
+                }
+            }
+            
+            if let rule = rules.monthRule[.RuleCountsInMonth]{
+                if rule.valid{
+                    if (human.workingCountInAMonth == human.maxWorkingCountInAMonth){
+                        return false
+                    }
+                }
+            }
+            
+            if let rule = rules.monthRule[.RulePractice]{
+                if rule.valid{
+                    if human.practiceRule.max > 0{
+                        if human.practiceRule.mustWeekDays.contains(weekday){
+                            if human.practiceRule.max == (human.workingCountOnEachWeek[weekday] ?? 0){
+                                return false
+                            }
+                        }
+                    }
+                }
+            }
+            
+            if let rule = rules.monthRule[.RuleWeekEnd]{
+                if rule.valid{
+                    if (weekday == WeekDay.Saturday || weekday == WeekDay.Sunday){
+                        if (human.workingCountOnEachWeek[weekday] ?? 0) == 1{
+                            return false
+                        }
+                    }
+                }
+            }
+            
+            return true
+        })
+        if specificHumans.count < 1{
+            throw CRule.RuleError.NotSarisfiedForMonthTable
+        }
+        return specificHumans
+    }
+    
+    private static func getRandomValue<T>(array:[T]) -> T{
+        return array[Int(arc4random_uniform(UInt32(array.count)))]
     }
 }
 

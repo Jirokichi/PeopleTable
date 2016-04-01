@@ -10,7 +10,7 @@ import Foundation
 
 
 // ルールを実行するかどうかのフラグ
-struct Rule{
+struct CRule{
     /// ルールの名前
     let name:String
     /// ルールを利用するかどうか
@@ -22,6 +22,7 @@ struct Rule{
     enum RuleError :ErrorType{
         case NotSatisfiedForIndividual
         case NotSarisfiedForMonthTable
+        case Stop
     }
     
     
@@ -44,24 +45,24 @@ struct Rule{
     }
 }
 
-struct Rules{
+struct CRules{
     
     enum Individual{
         case Rule0
-        case RuleA
-        case RuleB
-        case RuleC
-        case RuleD
+        case RuleSuperUser
+        case RuleUnavailableWeekDays
+        case RuleInterval
+        case RuleUnavailableDays
     }
     
     enum Month{
-        case RuleA
-        case RuleB
-        case RuleC
+        case RuleWeekEnd
+        case RulePractice
+        case RuleCountsInMonth
     }
     
-    var individualRule:Dictionary<Individual, Rule>
-    var monthRule:Dictionary<Month, Rule>
+    var individualRule:Dictionary<Individual, CRule>
+    var monthRule:Dictionary<Month, CRule>
     // 二人目で下位の人が出る確率（片方は必ず上位なので、乱数で発生しやすくしておかないと偏りがでてしまう）
     let percentage:Double
     
@@ -86,9 +87,9 @@ struct Rules{
         }
     }
     
-    mutating func createIndividualRule(rule0:Bool, ruleA:Bool, ruleB:Bool, ruleC:Bool, ruleD:Bool){
+    mutating func createIndividualRule(rule0:Bool, RuleSuperUser:Bool, RuleUnavailableWeekDays:Bool, RuleInterval:Bool, RuleUnavailableDays:Bool){
         /// ルール0: 同一ユーザーは1日に選択できない
-        individualRule[.Rule0] = Rule(name: "Rule0", valid: rule0) { (objects:[Any]) throws -> () in
+        individualRule[.Rule0] = CRule(name: "Rule0", valid: rule0) { (objects:[Any]) throws -> () in
             
             if objects.count != 2{
                 fatalError()
@@ -98,13 +99,13 @@ struct Rules{
             
             for toutyoku in toutyokus{
                 if human.name == toutyoku.name{
-                    throw Rule.RuleError.NotSatisfiedForIndividual
+                    throw CRule.RuleError.NotSatisfiedForIndividual
                 }
             }
         }
         
         /// ルールA: 一人目は上位である
-        individualRule[.RuleA] = Rule(name: "RuleA", valid: ruleA) { (objects:[Any]) throws -> () in
+        individualRule[.RuleSuperUser] = CRule(name: "RuleSuperUser", valid: RuleSuperUser) { (objects:[Any]) throws -> () in
             
             if objects.count != 2{
                 fatalError()
@@ -119,13 +120,13 @@ struct Rules{
             
             // もしSuperでないならば、エラーを返す
             if !object.isSuper{
-                throw Rule.RuleError.NotSatisfiedForIndividual
+                throw CRule.RuleError.NotSatisfiedForIndividual
             }
             
         }
         
         /// ルールB: 各人で決められている禁止曜日でない
-        individualRule[.RuleB] = Rule(name: "RuleB", valid: ruleB) { (objects:[Any]) throws -> () in
+        individualRule[.RuleUnavailableWeekDays] = CRule(name: "RuleUnavailableWeekDays", valid: RuleUnavailableWeekDays) { (objects:[Any]) throws -> () in
             if objects.count != 2{
                 fatalError()
             }
@@ -135,13 +136,13 @@ struct Rules{
             
             // 禁止曜日だったならエラーを返す
             if human.unableWeekDays.contains(weekday){
-                throw Rule.RuleError.NotSatisfiedForIndividual
+                throw CRule.RuleError.NotSatisfiedForIndividual
             }
             
         }
         
         /// ルールC: 前日及び前前日、前前前日の担当でない
-        individualRule[.RuleC] = Rule(name: "RuleC", valid: ruleC) { (objects:[Any]) throws -> () in
+        individualRule[.RuleInterval] = CRule(name: "RuleInterval", valid: RuleInterval) { (objects:[Any]) throws -> () in
             if objects.count != 2{
                 fatalError()
             }
@@ -154,13 +155,13 @@ struct Rules{
                 let humanB = day.workingHuman[1]
                 if (human.name == humanA.name || human.name == humanB.name){
                     // 直近で働いていたらエラーを返す
-                    throw Rule.RuleError.NotSatisfiedForIndividual
+                    throw CRule.RuleError.NotSatisfiedForIndividual
                 }
             }
         }
         
         /// ルールC: 禁止日でない
-        individualRule[.RuleD] = Rule(name: "RuleD", valid: ruleD) { (objects:[Any]) throws -> () in
+        individualRule[.RuleUnavailableDays] = CRule(name: "RuleUnavailableDays", valid: RuleUnavailableDays) { (objects:[Any]) throws -> () in
             if objects.count != 2{
                 fatalError()
             }
@@ -168,15 +169,15 @@ struct Rules{
             guard let day = objects[1] as? Int else{fatalError()}
             
             if (human.forbittenDays.contains(day)){
-                throw Rule.RuleError.NotSatisfiedForIndividual
+                throw CRule.RuleError.NotSatisfiedForIndividual
                 
             }
         }
     }
     
-    mutating func createMonthRule(ruleA:Bool, ruleB:Bool, ruleC:Bool){
+    mutating func createMonthRule(RuleWeekEnd:Bool, RulePractice:Bool, RuleCountsInMonth:Bool){
         /// ルールA: 土曜・日曜日は一回ずつ
-        monthRule[.RuleA] = Rule(name: "RuleA", valid: ruleA) { (objects:[Any]) throws -> () in
+        monthRule[.RuleWeekEnd] = CRule(name: "RuleWeekEnd", valid: RuleWeekEnd) { (objects:[Any]) throws -> () in
             
             if objects.count != 2{
                 fatalError()
@@ -212,14 +213,14 @@ struct Rules{
                 //                print("\(name):(saturdayCount, sundayCount) = (\(saturdayCount), \(sundayCount))")
                 if saturdayCount > 1 || sundayCount > 1{
 //                    print("RuleA fail -------------------------------")
-                    throw Rule.RuleError.NotSarisfiedForMonthTable
+                    throw CRule.RuleError.NotSarisfiedForMonthTable
                 }
                 
             }
             
         }
         /// 見習い生用ルール(特定の曜日で少なくとも一回はやらないといけず、上限もきまっている)
-        monthRule[.RuleB] = Rule(name: "RuleB", valid: ruleB) { (objects:[Any]) throws -> () in
+        monthRule[.RulePractice] = CRule(name: "RulePractice", valid: RulePractice) { (objects:[Any]) throws -> () in
             
             if objects.count != 2{
                 fatalError()
@@ -251,14 +252,14 @@ struct Rules{
                     print("\(name)(\(week)) = (\(counts[week])")
                     if let count = counts[week] where count > human.practiceRule.max || count < 1{
                         print("RuleB fail -------------------------------")
-                        throw Rule.RuleError.NotSarisfiedForMonthTable
+                        throw CRule.RuleError.NotSarisfiedForMonthTable
                     }
                 }
             }
         }
         
         /// 月の最大と最低回数を満たしているかのチェック
-        monthRule[.RuleC] = Rule(name: "RuleC", valid: ruleC) { (objects:[Any]) throws -> () in
+        monthRule[.RuleCountsInMonth] = CRule(name: "RuleCountsInMonth", valid: RuleCountsInMonth) { (objects:[Any]) throws -> () in
             
             if objects.count != 2{
                 fatalError()
@@ -282,7 +283,7 @@ struct Rules{
                 print("\(human.name):\(counts[human.id])")
                 if counts[human.id] < human.minWorkingCountInAMonth || counts[human.id] > human.maxWorkingCountInAMonth{
                     print("RuleC fail -------------------------------")
-                    throw Rule.RuleError.NotSarisfiedForMonthTable
+                    throw CRule.RuleError.NotSarisfiedForMonthTable
                 }
             }
         }

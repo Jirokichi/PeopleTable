@@ -13,8 +13,18 @@
         <attribute name="unavailableWeekDays" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Records" representedClassName=".Records" syncable="YES"/>
+    <entity name="Rules" representedClassName=".Rules" parentEntity="Records" syncable="YES">
+        <attribute name="countInMonth" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="interval" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="practice" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="superUser" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="unavailableDays" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="unavailableWeekDays" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="weekEnd" optional="YES" attributeType="Boolean" syncable="YES"/>
+    </entity>
     <elements>
         <element name="People" positionX="-63" positionY="-18" width="128" height="195"/>
-        <element name="Records" positionX="-54" positionY="18" width="128" height="45"/>
+        <element name="Records" positionX="144" positionY="-126" width="128" height="45"/>
+        <element name="Rules" positionX="160" positionY="-6" width="128" height="148"/>
     </elements>
 </model>

@@ -33,18 +33,17 @@ class HumanController{
     }
     
     
-    func startCreatingRandomTable(calendar:NSDate, rules:Rules) -> MonthTable{
+    func startCreatingRandomTable(calendar:NSDate, rules:CRules, inout running:Bool) throws -> MonthTable{
         
         print("Start: \(NSDate())")
         rules.view()
         
-        // 今月の最終日の取得
+        // 最終日付の取得
         let lastDayInThisMonth:NSDateComponents = getLastDay(calendar)
         
-        
-        // 今月の最終日の取得
+        // 最終日の取得
         let theNumberOfADay:Int = lastDayInThisMonth.day
-        // 今月の最終日の曜日
+        // 最終日の曜日
         let weekDayOfADay = WeekDay(rawValue: lastDayInThisMonth.weekday-1)!
         
         var inValid:Bool
@@ -53,17 +52,18 @@ class HumanController{
         repeat{
             inValid = false
             do{
+                if !running{
+                    throw CRule.RuleError.Stop
+                }
                 try table.createTable()
                 // 月テーブルの評価
-                try rules.monthRule[.RuleA]?.satisfyRule(objects: [table, humans])
-                try rules.monthRule[.RuleB]?.satisfyRule(objects: [table, humans])
-                try rules.monthRule[.RuleC]?.satisfyRule(objects: [table.days, humans])
+                try rules.monthRule[.RuleWeekEnd]?.satisfyRule(objects: [table, humans])
+                try rules.monthRule[.RulePractice]?.satisfyRule(objects: [table, humans])
+                try rules.monthRule[.RuleCountsInMonth]?.satisfyRule(objects: [table.days, humans])
                 
                 
-            }catch let error as Rule.RuleError where error == Rule.RuleError.NotSarisfiedForMonthTable{
+            }catch let error as CRule.RuleError where error == CRule.RuleError.NotSarisfiedForMonthTable{
                 inValid = true
-            }catch{
-                fatalError()
             }
         }while inValid
         

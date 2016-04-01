@@ -24,8 +24,21 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
     
     var multiPeople:[People] = []
     
+    //ルールのチェックボックス
+    @IBOutlet weak var checkBoxForSuper: NSButton!
+    @IBOutlet weak var checkBoxForUnavailableWeekDays: NSButton!
+    @IBOutlet weak var checkBoxForInterval: NSButton!
+    @IBOutlet weak var checkBoxForUnavailableDays: NSButton!
+    
+    @IBOutlet weak var checkBoxForWeekEnd: NSButton!
+    @IBOutlet weak var checkBoxForPractice: NSButton!
+    @IBOutlet weak var checkBoxForCountInMonth: NSButton!
+    
+    @IBOutlet weak var startButton: NSButton!
+    
     let coreDataManagement = CoreDataManagement.Singleton
     var manePeople:[People] = []
+    var rule:Rules?
     
     var table:MonthTable? = nil
     var running = false;
@@ -48,6 +61,20 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
         
         do{
             self.multiPeople = try People.fetchAllRecords(CoreDataManagement.Singleton.managedObjectContext, sortDescriptor: People.createSortDescriptor())
+            
+            let rules:[Rules] = try Rules.fetchAllRecords(coreDataManagement.managedObjectContext)
+            if rules.count == 1{
+                rule = rules[0]
+            }else{
+                try Rules.deleteAllRecords(coreDataManagement.managedObjectContext)
+                rule = Rules(context: coreDataManagement.managedObjectContext).updateParameters(
+                    true, unavailableWeekDays: true, interval: true, unavailableDays: true, weekEnd: true, practice: true, countInMonth: true)
+                Records.saveContext(coreDataManagement.managedObjectContext)
+            }
+            
+            self.updateRules()
+            
+            
         }catch{
             LogUtil.log("人情報のフェッチに失敗")
         }
@@ -150,16 +177,101 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
     }
     
     
+    func updateRules(){
+        if let rule = rule{
+            self.checkBoxForSuper.state = (rule.superUser ? NSOnState : NSOffState)
+            self.checkBoxForUnavailableWeekDays.state = (rule.unavailableWeekDays ? NSOnState : NSOffState)
+            self.checkBoxForInterval.state = (rule.interval ? NSOnState : NSOffState)
+            self.checkBoxForUnavailableDays.state = (rule.unavailableDays ? NSOnState : NSOffState)
+            self.checkBoxForWeekEnd.state = (rule.weekEnd ? NSOnState : NSOffState)
+            self.checkBoxForPractice.state = (rule.practice ? NSOnState : NSOffState)
+            self.checkBoxForCountInMonth.state = (rule.countInMonth ? NSOnState : NSOffState)
+        }
+    }
+    
+    // ルールのチェックボックス押下時のアクション
+    @IBAction func changeSuper(sender: NSButtonCell) {
+        if running{
+            sender.state = (sender.state == NSOnState ? NSOffState : NSOnState)
+            return
+        }
+        if let rule = rule{
+            rule.superUser = !(rule.superUser)
+            Records.saveContext(coreDataManagement.managedObjectContext)
+        }
+    }
+    @IBAction func changeUnavailableWeekDays(sender: NSButton) {
+        if running{
+            sender.state = (sender.state == NSOnState ? NSOffState : NSOnState)
+            return
+        }
+        if let rule = rule{
+            rule.unavailableWeekDays = !(rule.unavailableWeekDays)
+            Records.saveContext(coreDataManagement.managedObjectContext)
+        }
+    }
+    @IBAction func checkInterval(sender: NSButton) {
+        if running{
+            sender.state = (sender.state == NSOnState ? NSOffState : NSOnState)
+            return
+        }
+        if let rule = rule{
+            rule.interval = !(rule.interval)
+            Records.saveContext(coreDataManagement.managedObjectContext)
+        }
+    }
+    @IBAction func checkUnavailableDays(sender: NSButton) {
+        if running{
+            sender.state = (sender.state == NSOnState ? NSOffState : NSOnState)
+            return
+        }
+        if let rule = rule{
+            rule.unavailableDays = !(rule.unavailableDays)
+            Records.saveContext(coreDataManagement.managedObjectContext)
+        }
+    }
+    @IBAction func chageWeekEnd(sender: NSButton) {
+        if running{
+            sender.state = (sender.state == NSOnState ? NSOffState : NSOnState)
+            return
+        }
+        if let rule = rule{
+            rule.weekEnd = !(rule.weekEnd)
+            Records.saveContext(coreDataManagement.managedObjectContext)
+        }
+    }
+    @IBAction func changePractice(sender: NSButton) {
+        if running{
+            sender.state = (sender.state == NSOnState ? NSOffState : NSOnState)
+            return
+        }
+        if let rule = rule{
+            rule.practice = !(rule.practice)
+            Records.saveContext(coreDataManagement.managedObjectContext)
+        }
+    }
+    @IBAction func changeCountInMonth(sender: NSButton) {
+        if running{
+            sender.state = (sender.state == NSOnState ? NSOffState : NSOnState)
+            return
+        }
+        if let rule = rule{
+            rule.countInMonth = !(rule.countInMonth)
+            Records.saveContext(coreDataManagement.managedObjectContext)
+        }
+    }
+    
+    
+    
     @IBAction func clickOnStartButton(sender: AnyObject) {
         LogUtil.log()
         
+        
+        guard let rule = rule else {return}
         if running{
             DialogUtil.startDialog("実行中です。キャンセルする場合はOKボタンを押下してください", onClickOKButton: { () -> () in
-                
+                self.running = false
             })
-           
-            
-            
             return
         }
         
@@ -168,8 +280,6 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
             
             var humans:[Human] = []
             var id = 0
-            
-//            
             for people:People in manePeople{
                 if people.status == false{
                     continue
@@ -183,21 +293,30 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
             }
             
             LogUtil.log(humans)
-            var rules = Rules(percentage: 0.75)
-            rules.createIndividualRule(true, ruleA: true, ruleB: true, ruleC: false, ruleD: true)
-            rules.createMonthRule(true, ruleB: false, ruleC: false)
+            var rules = CRules(percentage: 0.75)
+            rules.createIndividualRule(true,
+                RuleSuperUser: rule.superUser,
+                RuleUnavailableWeekDays: rule.unavailableWeekDays,
+                RuleInterval: rule.interval,
+                RuleUnavailableDays: rule.unavailableWeekDays
+            )
+            rules.createMonthRule(rule.weekEnd,
+                RulePractice: rule.practice,
+                RuleCountsInMonth: rule.countInMonth)
             
             let controller = HumanController(humans: humans)
             
             print("ユーザー数:\(controller.humans.count)")
             
             running = true
+            startButton.title = "実行中..."
             let grobalQueue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0)
             dispatch_async(grobalQueue, {
-                self.table = controller.startCreatingRandomTable(self.targetYearMonth, rules:rules)
+                self.table = try? controller.startCreatingRandomTable(self.targetYearMonth, rules:rules, running:&self.running)
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     self.running = false
+                    self.startButton.title = "開始"
                     do{
                         try self.upatePeoples()
                     }catch{

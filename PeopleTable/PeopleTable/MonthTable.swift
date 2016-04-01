@@ -14,11 +14,11 @@ class MonthTable{
     let dayOfLastDay:Int // 月の最終日
     let weekDayOfLastDate:WeekDay // 月の最終日の曜日
     let humans:[Human]
-    let rules:Rules
+    let rules:CRules
     
     /// 月の最終日の情報をもとに月の担当者を含めたカレンダーを作成する
     /// ここでは、最低条件のみ反映して担当者を決定する
-    init(dayOfLastDay:Int, weekDayOfLastDay:WeekDay, humans:[Human], rules:Rules){
+    init(dayOfLastDay:Int, weekDayOfLastDay:WeekDay, humans:[Human], rules:CRules){
         self.days = []
         self.weekDayOfLastDate = weekDayOfLastDay
         self.dayOfLastDay = dayOfLastDay
@@ -30,6 +30,7 @@ class MonthTable{
         days.removeAll()
         for human in humans{
             human.workingCountInAMonth = 0
+            human.workingCountOnEachWeek.removeAll()
         }
         
         for (var i = 0; i < dayOfLastDay; i++){
@@ -47,18 +48,18 @@ class MonthTable{
             
             
             
-            if rules.monthRule[.RuleC]!.valid{
-                for toutyoku in toutyokus{
-                    for human in humans{
-                        if human.id == toutyoku.id{
-                            human.workingCountInAMonth++
-                            if human.workingCountInAMonth > human.maxWorkingCountInAMonth{
-                                throw Rule.RuleError.NotSarisfiedForMonthTable
-                            }
-                        }
+            
+            for toutyoku in toutyokus{
+                for human in humans{
+                    if human.id == toutyoku.id{
+                        human.workingCountInAMonth = human.workingCountInAMonth + 1
+                        human.workingCountOnEachWeek[day.weekday] = (human.workingCountOnEachWeek[day.weekday] ?? 0) + 1
                     }
                 }
             }
+            
+            
+            
             
         }
     }

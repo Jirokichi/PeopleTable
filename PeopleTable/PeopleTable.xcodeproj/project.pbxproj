@@ -10,7 +10,7 @@
 		FA4F8E231CA69EF3000E12E3 /* HumanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4F8E1F1CA69EF3000E12E3 /* HumanController.swift */; };
 		FA4F8E241CA69EF3000E12E3 /* Human.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4F8E201CA69EF3000E12E3 /* Human.swift */; };
 		FA4F8E251CA69EF3000E12E3 /* MonthTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4F8E211CA69EF3000E12E3 /* MonthTable.swift */; };
-		FA4F8E261CA69EF3000E12E3 /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4F8E221CA69EF3000E12E3 /* Rule.swift */; };
+		FA4F8E261CA69EF3000E12E3 /* CRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4F8E221CA69EF3000E12E3 /* CRule.swift */; };
 		FAC1F0BF1C91A97500C8A92C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0BE1C91A97500C8A92C /* AppDelegate.swift */; };
 		FAC1F0C11C91A97500C8A92C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0C01C91A97500C8A92C /* HomeViewController.swift */; };
 		FAC1F0C41C91A97500C8A92C /* PeopleTable.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0C21C91A97500C8A92C /* PeopleTable.xcdatamodeld */; };
@@ -35,6 +35,8 @@
 		FAEA33531CA753530078840B /* NotAvailableWeekDay.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAEA33521CA753530078840B /* NotAvailableWeekDay.storyboard */; };
 		FAEA33561CA755250078840B /* UnavableWeekDaysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA33541CA755250078840B /* UnavableWeekDaysViewController.swift */; };
 		FAEA335A1CAC2EB60078840B /* DialogUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA33591CAC2EB60078840B /* DialogUtil.swift */; };
+		FAEA33691CAD4D890078840B /* Rules+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA33671CAD4D890078840B /* Rules+CoreDataProperties.swift */; };
+		FAEA336A1CAD4D890078840B /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA33681CAD4D890078840B /* Rules.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,7 +60,7 @@
 		FA4F8E1F1CA69EF3000E12E3 /* HumanController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HumanController.swift; sourceTree = "<group>"; };
 		FA4F8E201CA69EF3000E12E3 /* Human.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Human.swift; sourceTree = "<group>"; };
 		FA4F8E211CA69EF3000E12E3 /* MonthTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthTable.swift; sourceTree = "<group>"; };
-		FA4F8E221CA69EF3000E12E3 /* Rule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
+		FA4F8E221CA69EF3000E12E3 /* CRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRule.swift; sourceTree = "<group>"; };
 		FAC1F0BB1C91A97500C8A92C /* PeopleTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeopleTable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC1F0BE1C91A97500C8A92C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAC1F0C01C91A97500C8A92C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = PeopleTable/HomeViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +91,8 @@
 		FAEA33521CA753530078840B /* NotAvailableWeekDay.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NotAvailableWeekDay.storyboard; sourceTree = "<group>"; };
 		FAEA33541CA755250078840B /* UnavableWeekDaysViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnavableWeekDaysViewController.swift; sourceTree = "<group>"; };
 		FAEA33591CAC2EB60078840B /* DialogUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogUtil.swift; sourceTree = "<group>"; };
+		FAEA33671CAD4D890078840B /* Rules+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rules+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		FAEA33681CAD4D890078840B /* Rules.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,7 +126,7 @@
 				FA4F8E1F1CA69EF3000E12E3 /* HumanController.swift */,
 				FA4F8E201CA69EF3000E12E3 /* Human.swift */,
 				FA4F8E211CA69EF3000E12E3 /* MonthTable.swift */,
-				FA4F8E221CA69EF3000E12E3 /* Rule.swift */,
+				FA4F8E221CA69EF3000E12E3 /* CRule.swift */,
 			);
 			name = CreateMonthTable;
 			sourceTree = "<group>";
@@ -187,6 +191,8 @@
 		FAC1F0F41C93B87F00C8A92C /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				FAEA33671CAD4D890078840B /* Rules+CoreDataProperties.swift */,
+				FAEA33681CAD4D890078840B /* Rules.swift */,
 				FAC1F1011C9599A800C8A92C /* People+CoreDataProperties.swift */,
 				FAC1F0F11C93B87500C8A92C /* People.swift */,
 				FAC1F0F91C944B0E00C8A92C /* Records.swift */,
@@ -382,6 +388,7 @@
 				FAC1F0C41C91A97500C8A92C /* PeopleTable.xcdatamodeld in Sources */,
 				FA4F8E241CA69EF3000E12E3 /* Human.swift in Sources */,
 				FAE388551C9CD51400CC08D9 /* DayCollectionViewItem.swift in Sources */,
+				FAEA33691CAD4D890078840B /* Rules+CoreDataProperties.swift in Sources */,
 				FA4F8E251CA69EF3000E12E3 /* MonthTable.swift in Sources */,
 				FAE388611CA19D0A00CC08D9 /* DayHeaderView.swift in Sources */,
 				FA4F8E231CA69EF3000E12E3 /* HumanController.swift in Sources */,
@@ -389,7 +396,8 @@
 				FAC1F0F31C93B87500C8A92C /* People.swift in Sources */,
 				FAE388641CA2C49A00CC08D9 /* DateUtil.swift in Sources */,
 				FAE388531C99A7C900CC08D9 /* Day.swift in Sources */,
-				FA4F8E261CA69EF3000E12E3 /* Rule.swift in Sources */,
+				FA4F8E261CA69EF3000E12E3 /* CRule.swift in Sources */,
+				FAEA336A1CAD4D890078840B /* Rules.swift in Sources */,
 				FAEA33561CA755250078840B /* UnavableWeekDaysViewController.swift in Sources */,
 				FAC1F0FE1C94513B00C8A92C /* CoreDataManagement.swift in Sources */,
 			);
