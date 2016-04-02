@@ -168,7 +168,7 @@ class People: Records {
     }
     
     
-    func updateParameters(createdDate:NSDate, name:String, status:Bool, unavailableWeekDays:PTWeekDays, requiredWeekDays:PTWeekDays, limitOfRequiredWeekDays:Int, isSuper:Bool, maxWorkingCountInAMonth:Int, minWorkingCountInAMonth:Int) -> People{
+    func updateParameters(createdDate:NSDate, name:String, status:Bool, unavailableWeekDays:PTWeekDays, requiredWeekDays:PTWeekDays, limitOfRequiredWeekDays:Int, isSuper:Bool, maxWorkingCountInAMonth:Int, minWorkingCountInAMonth:Int, unavailableDays:String) -> People{
         self.createdDate = createdDate
         self.name = name
         self.status = status
@@ -178,6 +178,7 @@ class People: Records {
         self.isSuper = isSuper
         self.maxWorkingCountInAMonth = maxWorkingCountInAMonth
         self.minWorkingCountInAMonth = minWorkingCountInAMonth
+        self.unavailableDays = unavailableDays
         
         return self
     }
@@ -198,7 +199,8 @@ class People: Records {
             limitOfRequiredWeekDays: 0,
             isSuper: true,
             maxWorkingCountInAMonth: 6,
-            minWorkingCountInAMonth: 4)
+            minWorkingCountInAMonth: 4,
+            unavailableDays: "1,4")
         )
         
         humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(
@@ -210,7 +212,8 @@ class People: Records {
             limitOfRequiredWeekDays: 0,
             isSuper: true,
             maxWorkingCountInAMonth: 6,
-            minWorkingCountInAMonth: 4
+            minWorkingCountInAMonth: 4,
+            unavailableDays: ""
             ))
         
         
@@ -223,7 +226,8 @@ class People: Records {
             limitOfRequiredWeekDays: 0,
             isSuper: true,
             maxWorkingCountInAMonth: 6,
-            minWorkingCountInAMonth: 4))
+            minWorkingCountInAMonth: 4,
+            unavailableDays: ""))
         
         humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(
             NSDate(),
@@ -234,7 +238,8 @@ class People: Records {
             limitOfRequiredWeekDays: 0,
             isSuper: true,
             maxWorkingCountInAMonth: 6,
-            minWorkingCountInAMonth: 4))
+            minWorkingCountInAMonth: 4,
+            unavailableDays: ""))
         
         
         
@@ -247,7 +252,8 @@ class People: Records {
             limitOfRequiredWeekDays: 0,
             isSuper: true,
             maxWorkingCountInAMonth: 6,
-            minWorkingCountInAMonth: 4))
+            minWorkingCountInAMonth: 4,
+            unavailableDays: ""))
         
         humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(
             NSDate(),
@@ -258,7 +264,8 @@ class People: Records {
             limitOfRequiredWeekDays: 0,
             isSuper: true,
             maxWorkingCountInAMonth: 6,
-            minWorkingCountInAMonth: 4))
+            minWorkingCountInAMonth: 4,
+            unavailableDays: ""))
         
         humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(
             NSDate(),
@@ -269,7 +276,8 @@ class People: Records {
             limitOfRequiredWeekDays: 2,
             isSuper: false,
             maxWorkingCountInAMonth: 6,
-            minWorkingCountInAMonth: 4))
+            minWorkingCountInAMonth: 4,
+            unavailableDays: ""))
         
         humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(
             NSDate(),
@@ -280,7 +288,8 @@ class People: Records {
             limitOfRequiredWeekDays: 2,
             isSuper: false,
             maxWorkingCountInAMonth: 6,
-            minWorkingCountInAMonth: 4))
+            minWorkingCountInAMonth: 4,
+            unavailableDays: ""))
         humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(
             NSDate(),
             name: "I",
@@ -290,7 +299,8 @@ class People: Records {
             limitOfRequiredWeekDays: 2,
             isSuper: false,
             maxWorkingCountInAMonth: 6,
-            minWorkingCountInAMonth: 4))
+            minWorkingCountInAMonth: 4,
+            unavailableDays: ""))
         
         humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(
             NSDate(),
@@ -301,7 +311,8 @@ class People: Records {
             limitOfRequiredWeekDays: 0,
             isSuper: false,
             maxWorkingCountInAMonth: 6,
-            minWorkingCountInAMonth: 4))
+            minWorkingCountInAMonth: 4,
+            unavailableDays: ""))
         
         humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(
             NSDate(),
@@ -312,7 +323,8 @@ class People: Records {
             limitOfRequiredWeekDays: 0,
             isSuper: false,
             maxWorkingCountInAMonth: 6,
-            minWorkingCountInAMonth: 4))
+            minWorkingCountInAMonth: 4,
+            unavailableDays: ""))
         
         Records.saveContext(coreDataManagement.managedObjectContext)
         return humans

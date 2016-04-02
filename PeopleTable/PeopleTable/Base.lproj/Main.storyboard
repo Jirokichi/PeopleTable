@@ -34,7 +34,7 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="File" id="dMs-cI-mzQ">
+                            <menuItem title="File" hidden="YES" id="dMs-cI-mzQ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="File" id="bib-Uj-vzu">
                                     <items>
@@ -98,7 +98,7 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Edit" id="5QF-Oa-p0T">
+                            <menuItem title="Edit" hidden="YES" id="5QF-Oa-p0T">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Edit" id="W48-6f-4Dl">
                                     <items>
@@ -317,7 +317,7 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Window" id="aUF-d1-5bR">
+                            <menuItem title="Window" hidden="YES" id="aUF-d1-5bR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
                                     <items>
@@ -342,7 +342,7 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Help" id="wpr-3q-Mcd">
+                            <menuItem title="Help" hidden="YES" id="wpr-3q-Mcd">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                                     <items>
@@ -368,7 +368,7 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
+                <windowController id="B8D-0N-5wS" customClass="MyWindowController" customModule="PeopleTable" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -402,11 +402,11 @@
                 </menu>
                 <viewController title="担当者設定" id="drc-ph-sLm" customClass="PeopleSettingViewController" customModule="PeopleTable" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="hlp-DL-nrd">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="500"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1200" height="500"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView orientation="vertical" alignment="leading" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="GuQ-kj-l0r">
-                                <rect key="frame" x="0.0" y="0.0" width="1000" height="500"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1200" height="500"/>
                                 <beginningViews>
                                     <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h40-EF-RiM">
                                         <rect key="frame" x="-6" y="472" width="65" height="32"/>
@@ -421,13 +421,13 @@
                                 </beginningViews>
                                 <endViews>
                                     <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BOs-92-Akx">
-                                        <rect key="frame" x="0.0" y="0.0" width="1000" height="471"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1200" height="471"/>
                                         <clipView key="contentView" id="xlJ-TJ-nOE">
-                                            <rect key="frame" x="1" y="0.0" width="998" height="470"/>
+                                            <rect key="frame" x="1" y="0.0" width="1198" height="470"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" headerView="sPy-Fc-V7d" id="OLI-oO-4mA" customClass="PeopleTableView" customModule="PeopleTable" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="998" height="447"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="1198" height="447"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -459,7 +459,7 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                         </tableColumn>
-                                                        <tableColumn identifier="SuperCheckBox" width="30" minWidth="10" maxWidth="30" id="xOl-8D-aC0">
+                                                        <tableColumn identifier="SuperCheckBox" width="29" minWidth="10" maxWidth="30" id="xOl-8D-aC0">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="上位">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -556,7 +556,7 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                         </tableColumn>
-                                                        <tableColumn identifier="PeopleCheckBox" width="30" minWidth="10" maxWidth="30" id="xsw-5A-3tX">
+                                                        <tableColumn identifier="PeopleCheckBox" width="29" minWidth="10" maxWidth="30" id="xsw-5A-3tX">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="有効">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -568,22 +568,17 @@
                                                             </buttonCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                         </tableColumn>
-                                                        <tableColumn identifier="" width="100" minWidth="10" maxWidth="100" id="084-9U-gxX">
+                                                        <tableColumn identifier="UnavailableDays" width="200" minWidth="10" maxWidth="3.4028234663852886e+38" id="yvW-9g-fcK">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="禁止日">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </tableHeaderCell>
-                                                            <comboBoxCell key="dataCell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="zI0-Dd-74J">
+                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" placeholderString="半角のカンマ区切りで数字を入力してください" id="OhX-Vv-kCp">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                <objectValues>
-                                                                    <string>Item 1</string>
-                                                                    <string>Item 2</string>
-                                                                    <string>Item 3</string>
-                                                                </objectValues>
-                                                            </comboBoxCell>
+                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                         </tableColumn>
                                                     </tableColumns>
@@ -597,7 +592,7 @@
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="fqH-Ox-16A">
-                                            <rect key="frame" x="1" y="211" width="798" height="16"/>
+                                            <rect key="frame" x="1" y="454" width="998" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="0xh-Mi-AS9">
@@ -605,7 +600,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" id="sPy-Fc-V7d">
-                                            <rect key="frame" x="0.0" y="0.0" width="998" height="23"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1198" height="23"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>

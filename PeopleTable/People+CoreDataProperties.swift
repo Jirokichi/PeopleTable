@@ -18,6 +18,7 @@ extension People {
     @NSManaged var name: String
     @NSManaged var unavailableWeekDays: String
     @NSManaged var requiredWeekDays: String
+    @NSManaged var unavailableDays: String
     @NSManaged var forbittenDays:String
     @NSManaged var limitOfRequiredWeekDays:NSNumber
     @NSManaged var maxWorkingCountInAMonth:NSNumber

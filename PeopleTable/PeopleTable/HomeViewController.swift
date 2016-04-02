@@ -10,6 +10,11 @@ import Cocoa
 
 class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollectionViewDelegate, NSDatePickerCellDelegate{
 
+    struct NotificationCenter{
+        static let ID = "UpadeSettingInfo"
+    }
+    
+    
     static let BackGroundColor = NSColor.whiteColor().CGColor
     
     @IBOutlet weak var headerView: DayHeaderView!
@@ -37,11 +42,26 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
     @IBOutlet weak var startButton: NSButton!
     
     let coreDataManagement = CoreDataManagement.Singleton
-    var manePeople:[People] = []
     var rule:Rules?
     
     var table:MonthTable? = nil
     var running = false;
+    
+    deinit{
+        LogUtil.log("finish")
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        LogUtil.log()
+    }
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        LogUtil.log()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -60,7 +80,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
         self.updateMonthData(NSDate())
         
         do{
-            self.multiPeople = try People.fetchAllRecords(CoreDataManagement.Singleton.managedObjectContext, sortDescriptor: People.createSortDescriptor())
+//            self.multiPeople = try People.fetchAllRecords(CoreDataManagement.Singleton.managedObjectContext, sortDescriptor: People.createSortDescriptor())
             
             let rules:[Rules] = try Rules.fetchAllRecords(coreDataManagement.managedObjectContext)
             if rules.count == 1{
@@ -83,6 +103,24 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
         headerView.layer?.backgroundColor = HomeViewController.BackGroundColor
         headerView.layer?.borderWidth = 1
         headerView.layer?.borderWidth = 1
+        
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateSettingInfo:", name: NotificationCenter.ID, object: nil)
+
+    }
+    
+    func updateSettingInfo(notification:NSNotification?){
+        LogUtil.log()
+        DialogUtil.startDialog("警告", message: "設定が変更されました。一度結果をリセットしてもよろしいでしょうか？") { () -> () in
+            LogUtil.log()
+            self.table = nil
+            do{
+                try self.upatePeoples()
+                self.collectionView.reloadData()
+            }catch{
+                LogUtil.log("Error")
+            }
+        }
     }
     
     private func updateMonthData(day:NSDate){
@@ -141,16 +179,16 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
             }
     }
     func upatePeoples() throws{
-        manePeople.removeAll()
-        manePeople =  try People.fetchAllRecords(coreDataManagement.managedObjectContext, sortDescriptor: People.createSortDescriptor())
+        multiPeople.removeAll()
+        multiPeople =  try People.fetchAllRecords(coreDataManagement.managedObjectContext, sortDescriptor: People.createSortDescriptor())
         
-        if manePeople.count < 1{
-            manePeople = People.createDefaultPeoples(coreDataManagement)
+        if multiPeople.count < 1{
+            multiPeople = People.createDefaultPeoples(coreDataManagement)
         }
      
         var result:String = "----------------------------------"
         result = result + "\n" + "名前(合計): 月/火/水/木/金/土/日"
-        for people in manePeople{
+        for people in multiPeople{
             var peopleInfo = people.name
             if let table = self.table{
                 let weekDaysInfo:[WeekDay:Int] = table.numberOfSpecificWeekDayInAMonth(people.name)
@@ -280,14 +318,30 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
             
             var humans:[Human] = []
             var id = 0
-            for people:People in manePeople{
+            for people:People in multiPeople{
                 if people.status == false{
                     continue
                 }
                 let weekdaysInfo:People.PTWeekDays = People.PTWeekDays.getDicsFromJson(people.unavailableWeekDays)!
                 let mustWeekDays:People.PTWeekDays = People.PTWeekDays.getDicsFromJson(people.requiredWeekDays)!
                 
-                let human = Human(id: id, name: people.name, unableWeekDays: weekdaysInfo.getWeekDays(), isSuper: people.isSuper, practiceRule: (mustWeekDays: mustWeekDays.getWeekDays(), max: people.limitOfRequiredWeekDays as Int), maxWorkingCountInAMonth: people.maxWorkingCountInAMonth as Int, minWorkingCountInAMonth: people.minWorkingCountInAMonth as Int, forbittenDays: [])
+                
+                
+                var forbittenDays:[Int] = []
+                let str = people.unavailableDays as NSString
+                for numStr in str.componentsSeparatedByString(","){
+                    var lNumStr = numStr
+                    if lNumStr.containsString(" "){
+                        lNumStr = lNumStr.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+                    }
+                    if let num = Int(lNumStr) where num > 0 && num < 32{
+                        forbittenDays.append(num)
+                    }
+                }
+                
+                
+                
+                let human = Human(id: id, name: people.name, unableWeekDays: weekdaysInfo.getWeekDays(), isSuper: people.isSuper, practiceRule: (mustWeekDays: mustWeekDays.getWeekDays(), max: people.limitOfRequiredWeekDays as Int), maxWorkingCountInAMonth: people.maxWorkingCountInAMonth as Int, minWorkingCountInAMonth: people.minWorkingCountInAMonth as Int, forbittenDays: forbittenDays)
                 humans.append(human)
                 id = id + 1
             }
@@ -332,7 +386,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
             LogUtil.log("Error")
         }
     }
-    
+
     
 
 }

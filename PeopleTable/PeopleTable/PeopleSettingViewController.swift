@@ -24,12 +24,19 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
         case LimitOfRequiredWeekDays = "LimitOfRequiredWeekDays"
         case MaxWorkingCountInAMonth = "MaxWorkingCountInAMonth"
         case MinWorkingCountInAMonth = "MinWorkingCountInAMonth"
+        case UnavailableDays = "UnavailableDays"
         case Unknow
         
         init(tableId:String?){
             self = TableId(rawValue: (tableId ?? "")) ?? Unknow
         }
     }
+    
+    deinit{
+        LogUtil.log("設定終了")
+        NSNotificationCenter.defaultCenter().postNotificationName(HomeViewController.NotificationCenter.ID, object: nil)
+    }
+    
     
     struct SegmentedControlId{
         static let Sum = 7
@@ -94,7 +101,8 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
             limitOfRequiredWeekDays: 0,
             isSuper: false,
             maxWorkingCountInAMonth: 6,
-            minWorkingCountInAMonth: 4))
+            minWorkingCountInAMonth: 4,
+            unavailableDays: ""))
         Records.saveContext(coreDataManagement.managedObjectContext)
         
         tableView.reloadData()
@@ -174,7 +182,8 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
             return human.maxWorkingCountInAMonth
         case .MinWorkingCountInAMonth:
             return human.minWorkingCountInAMonth
-            
+        case .UnavailableDays:
+            return human.unavailableDays
         case .Unknow:
             return ""
         }
@@ -293,9 +302,46 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
             }
             break
             
+        case .UnavailableDays:
+            
+            LogUtil.log("UnavailableDays - row:\(row) - (\(object))")
+            
+            if let unavailableDays = object as? String{
+                
+                if self.checkUnavailableDaysFormat(unavailableDays) || unavailableDays == ""{
+                    human.unavailableDays = unavailableDays
+                    Records.saveContext(coreDataManagement.managedObjectContext)
+                }else
+                {
+                    DialogUtil.startDialog("フォーマットエラー", message: "数字は1-31のみです。また、半角の「,」(カンマ)で区切る必要があります。手抜きましたすみません。", onClickOKButton: { () -> () in
+                        
+                    })
+                }
+                
+            }
+            
             default:
             break
         }
+    }
+    
+    func checkUnavailableDaysFormat(unavailableDays:String) -> Bool{
+        var result = true
+        let str = unavailableDays as NSString
+        var nums:[Int] = []
+        for numStr in str.componentsSeparatedByString(","){
+            var lNumStr = numStr
+            if lNumStr.containsString(" "){
+                lNumStr = lNumStr.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+            }
+            if let num = Int(lNumStr) where num > 0 && num < 32{
+                nums.append(num)
+            }else{
+                result = false
+            }
+        }
+        
+        return result
     }
     
 //    func tableView(tableView: NSTableView, rowActionsForRow row: Int, edge: NSTableRowActionEdge) -> [NSTableViewRowAction]{
@@ -308,9 +354,6 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
     
     func tableViewSelectionDidChange(notification: NSNotification) {
         LogUtil.log("セル選択時に呼ばれるメソッド-使わない予定")
-        
-
-        
         
     }
     
