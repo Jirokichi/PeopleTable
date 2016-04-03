@@ -26,7 +26,6 @@
 		FAC1F0FC1C944F6000C8A92C /* PeopleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0FB1C944F6000C8A92C /* PeopleTests.swift */; };
 		FAC1F0FE1C94513B00C8A92C /* CoreDataManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0FD1C94513B00C8A92C /* CoreDataManagement.swift */; };
 		FAC1F1021C9599A800C8A92C /* People+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F1011C9599A800C8A92C /* People+CoreDataProperties.swift */; };
-		FAE388531C99A7C900CC08D9 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE388521C99A7C900CC08D9 /* Day.swift */; };
 		FAE388551C9CD51400CC08D9 /* DayCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE388541C9CD51400CC08D9 /* DayCollectionViewItem.swift */; };
 		FAE388591C9CD58100CC08D9 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAE388581C9CD58100CC08D9 /* Home.storyboard */; };
 		FAE3885D1C9EDECE00CC08D9 /* DayCollectionItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE3885C1C9EDECE00CC08D9 /* DayCollectionItem.xib */; };
@@ -83,7 +82,6 @@
 		FAC1F0FB1C944F6000C8A92C /* PeopleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleTests.swift; sourceTree = "<group>"; };
 		FAC1F0FD1C94513B00C8A92C /* CoreDataManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManagement.swift; sourceTree = "<group>"; };
 		FAC1F1011C9599A800C8A92C /* People+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "People+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		FAE388521C99A7C900CC08D9 /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Day.swift; path = PeopleTable/Day.swift; sourceTree = "<group>"; };
 		FAE388541C9CD51400CC08D9 /* DayCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DayCollectionViewItem.swift; path = PeopleTable/DayCollectionViewItem.swift; sourceTree = "<group>"; };
 		FAE388581C9CD58100CC08D9 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		FAE3885C1C9EDECE00CC08D9 /* DayCollectionItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayCollectionItem.xib; sourceTree = "<group>"; };
@@ -209,7 +207,6 @@
 			isa = PBXGroup;
 			children = (
 				FAC1F0C01C91A97500C8A92C /* HomeViewController.swift */,
-				FAE388521C99A7C900CC08D9 /* Day.swift */,
 				FAE388601CA19D0A00CC08D9 /* DayHeaderView.swift */,
 				FAE388541C9CD51400CC08D9 /* DayCollectionViewItem.swift */,
 				FAE388581C9CD58100CC08D9 /* Home.storyboard */,
@@ -398,7 +395,6 @@
 				FAEA335A1CAC2EB60078840B /* DialogUtil.swift in Sources */,
 				FAC1F0F31C93B87500C8A92C /* People.swift in Sources */,
 				FAE388641CA2C49A00CC08D9 /* DateUtil.swift in Sources */,
-				FAE388531C99A7C900CC08D9 /* Day.swift in Sources */,
 				FA4F8E261CA69EF3000E12E3 /* CRule.swift in Sources */,
 				FAEA336A1CAD4D890078840B /* Rules.swift in Sources */,
 				FA85527F1CAF52B600D58C7A /* MyWindowController.swift in Sources */,

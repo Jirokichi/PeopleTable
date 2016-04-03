@@ -336,6 +336,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
         }
         
         do{
+            // 設定ページが閉じられる前に変更されている可能性があるため担当者の情報を更新する。
             try self.upatePeoples()
             
             var humans:[Human] = []
