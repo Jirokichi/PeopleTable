@@ -26,13 +26,13 @@ class DayCollectionViewItem: NSCollectionViewItem {
         LogUtil.log("viewDidLoad - " + dayLabel.stringValue)
     }
     
-    func setData(number:Int, multiPeople:[People], humanAName:String? = nil, humanBName:String? = nil){
+    func setData(number:Int, workingPeople:[People], humanAName:String? = nil, humanBName:String? = nil){
         
         self.humanAPopUpButton.removeAllItems()
         self.humanBPopUpButton.removeAllItems()
         
         var displayedValuesForPopUpButton:[String] = []
-        for people in multiPeople where people.status == true{
+        for people in workingPeople where people.status == true{
             displayedValuesForPopUpButton.append("\(people.name)")
         }
         
