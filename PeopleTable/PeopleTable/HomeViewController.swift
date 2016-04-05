@@ -50,7 +50,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
     private var targetMonthInfo:TargetMonthInfo = TargetMonthInfo()
     
     // MARK: - 変数 >> CoreData情報
-    let coreDataManagement = CoreDataManagement.Singleton
+    let coreDataManagement = CoreDataManagement.Instance
     var workingPeople:[People] = []
     var rule:Rules?
     
@@ -201,7 +201,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
     
     func collectionView(collectionView: NSCollectionView, itemForRepresentedObjectAtIndexPath indexPath: NSIndexPath) -> NSCollectionViewItem {
         
-        let collectionViewItem = self.collectionView.makeItemWithIdentifier(DayCollectionViewItem.StoryBoardId, forIndexPath: indexPath)
+        let collectionViewItem = self.collectionView.makeItemWithIdentifier(DayCollectionViewItem.XibName, forIndexPath: indexPath)
         
         if let dayItem = collectionViewItem as? DayCollectionViewItem{
             dayItem.view.wantsLayer = true // ビューの中のレイアーの設定をするためにはこのフラグを立てる必要がある（iOSでは不要）

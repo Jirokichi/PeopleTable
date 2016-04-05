@@ -20,12 +20,6 @@ class PeopleTableTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        let str = "testttttttt"
-        print(LogUtil.shortString(str))
-        LogUtil.log()
-    }
-    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measureBlock {

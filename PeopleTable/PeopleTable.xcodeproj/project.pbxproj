@@ -32,8 +32,6 @@
 		FAE388611CA19D0A00CC08D9 /* DayHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE388601CA19D0A00CC08D9 /* DayHeaderView.swift */; };
 		FAE388641CA2C49A00CC08D9 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE388631CA2C49A00CC08D9 /* DateUtil.swift */; };
 		FAEA334D1CA6DEC70078840B /* PeopleTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA334C1CA6DEC70078840B /* PeopleTableView.swift */; };
-		FAEA33531CA753530078840B /* NotAvailableWeekDay.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAEA33521CA753530078840B /* NotAvailableWeekDay.storyboard */; };
-		FAEA33561CA755250078840B /* UnavableWeekDaysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA33541CA755250078840B /* UnavableWeekDaysViewController.swift */; };
 		FAEA335A1CAC2EB60078840B /* DialogUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA33591CAC2EB60078840B /* DialogUtil.swift */; };
 		FAEA33691CAD4D890078840B /* Rules+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA33671CAD4D890078840B /* Rules+CoreDataProperties.swift */; };
 		FAEA336A1CAD4D890078840B /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA33681CAD4D890078840B /* Rules.swift */; };
@@ -88,8 +86,6 @@
 		FAE388601CA19D0A00CC08D9 /* DayHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayHeaderView.swift; sourceTree = "<group>"; };
 		FAE388631CA2C49A00CC08D9 /* DateUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
 		FAEA334C1CA6DEC70078840B /* PeopleTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleTableView.swift; sourceTree = "<group>"; };
-		FAEA33521CA753530078840B /* NotAvailableWeekDay.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NotAvailableWeekDay.storyboard; sourceTree = "<group>"; };
-		FAEA33541CA755250078840B /* UnavableWeekDaysViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnavableWeekDaysViewController.swift; sourceTree = "<group>"; };
 		FAEA33591CAC2EB60078840B /* DialogUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogUtil.swift; sourceTree = "<group>"; };
 		FAEA33671CAD4D890078840B /* Rules+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rules+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		FAEA33681CAD4D890078840B /* Rules.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
@@ -219,7 +215,6 @@
 		FAE388571C9CD54D00CC08D9 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				FAEA33581CA759150078840B /* NotUsed */,
 				FAC1F0EC1C91B47A00C8A92C /* PeopleSettingViewController.swift */,
 				FAEA334C1CA6DEC70078840B /* PeopleTableView.swift */,
 			);
@@ -234,15 +229,6 @@
 			);
 			name = Util;
 			path = ..;
-			sourceTree = "<group>";
-		};
-		FAEA33581CA759150078840B /* NotUsed */ = {
-			isa = PBXGroup;
-			children = (
-				FAEA33521CA753530078840B /* NotAvailableWeekDay.storyboard */,
-				FAEA33541CA755250078840B /* UnavableWeekDaysViewController.swift */,
-			);
-			name = NotUsed;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -353,7 +339,6 @@
 				FAC1F0C61C91A97500C8A92C /* Assets.xcassets in Resources */,
 				FAC1F0C91C91A97500C8A92C /* Main.storyboard in Resources */,
 				FAE3885D1C9EDECE00CC08D9 /* DayCollectionItem.xib in Resources */,
-				FAEA33531CA753530078840B /* NotAvailableWeekDay.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,7 +383,6 @@
 				FA4F8E261CA69EF3000E12E3 /* CRule.swift in Sources */,
 				FAEA336A1CAD4D890078840B /* Rules.swift in Sources */,
 				FA85527F1CAF52B600D58C7A /* MyWindowController.swift in Sources */,
-				FAEA33561CA755250078840B /* UnavableWeekDaysViewController.swift in Sources */,
 				FAC1F0FE1C94513B00C8A92C /* CoreDataManagement.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

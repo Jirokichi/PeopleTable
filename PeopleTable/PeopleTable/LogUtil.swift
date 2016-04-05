@@ -26,16 +26,4 @@ class LogUtil{
         //            print("[\(dateFormatter.stringFromDate(NSDate()))]:\(lineNumber) - \(functionName):\(object)")
     }
     
-    static func shortString(string:String) -> String{
-        var str = string
-        var i = 0
-        for index in str.rangeOfString(str)!{
-            if i > 5{
-                str.removeAtIndex(index.predecessor())
-            }
-            i++
-        }
-        return str
-    }
-    
 }

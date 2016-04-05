@@ -10,7 +10,7 @@ import Cocoa
 
 class DayCollectionViewItem: NSCollectionViewItem {
 
-    static let StoryBoardId = "DayCollectionItem"
+    static let XibName = "DayCollectionItem"
     
     @IBOutlet weak var humanAPopUpButton: NSPopUpButton!
     

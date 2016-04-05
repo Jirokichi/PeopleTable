@@ -12,7 +12,7 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
 
     @IBOutlet weak var tableView: PeopleTableView!
 
-    let coreDataManagement = CoreDataManagement.Singleton
+    let coreDataManagement = CoreDataManagement.Instance
     
     enum TableId:String{
         case PeopleId = "PeopleId"
@@ -83,7 +83,7 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
         alert.addButtonWithTitle("キャンセル")
         let result = alert.runModal()
         if (result == NSAlertFirstButtonReturn) {
-            selectedPeople.delete(CoreDataManagement.Singleton.managedObjectContext)
+            selectedPeople.delete(CoreDataManagement.Instance.managedObjectContext)
             loadPeopleFromDB()
         }
         

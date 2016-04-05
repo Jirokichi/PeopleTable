@@ -408,8 +408,8 @@
                             <stackView orientation="vertical" alignment="leading" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="GuQ-kj-l0r">
                                 <rect key="frame" x="0.0" y="0.0" width="1200" height="500"/>
                                 <beginningViews>
-                                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h40-EF-RiM">
-                                        <rect key="frame" x="-6" y="472" width="65" height="32"/>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h40-EF-RiM">
+                                        <rect key="frame" x="-6" y="472" width="1212" height="32"/>
                                         <buttonCell key="cell" type="push" title="追加" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LJZ-yl-2b5">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -420,7 +420,7 @@
                                     </button>
                                 </beginningViews>
                                 <endViews>
-                                    <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BOs-92-Akx">
+                                    <scrollView autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BOs-92-Akx">
                                         <rect key="frame" x="0.0" y="0.0" width="1200" height="471"/>
                                         <clipView key="contentView" id="xlJ-TJ-nOE">
                                             <rect key="frame" x="1" y="0.0" width="1198" height="470"/>
@@ -431,6 +431,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    <tableViewGridLines key="gridStyleMask" vertical="YES" horizontal="YES"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
                                                         <tableColumn identifier="PeopleId" width="30" minWidth="30" maxWidth="30" id="j6J-dF-hvw">
@@ -439,7 +440,7 @@
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                             </tableHeaderCell>
-                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="Ucr-3V-YSz">
+                                                            <textFieldCell key="dataCell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" title="Text Cell" id="Ucr-3V-YSz">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -452,7 +453,7 @@
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                             </tableHeaderCell>
-                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="Pyo-Vg-U5F">
+                                                            <textFieldCell key="dataCell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" title="Text Cell" id="Pyo-Vg-U5F">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -465,7 +466,7 @@
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </tableHeaderCell>
-                                                            <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="left" inset="2" id="cC8-P3-fPc">
+                                                            <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="cC8-P3-fPc">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
@@ -477,7 +478,7 @@
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </tableHeaderCell>
-                                                            <segmentedCell key="dataCell" borderStyle="border" alignment="left" identifier="PeopleUnavableWeekDays" style="rounded" trackingMode="selectAny" id="osR-No-AEd">
+                                                            <segmentedCell key="dataCell" scrollable="YES" lineBreakMode="clipping" borderStyle="border" alignment="left" identifier="PeopleUnavableWeekDays" style="rounded" trackingMode="selectAny" id="osR-No-AEd">
                                                                 <font key="font" metaFont="system"/>
                                                                 <segments>
                                                                     <segment label="日" width="20"/>
@@ -500,7 +501,7 @@
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </tableHeaderCell>
-                                                            <segmentedCell key="dataCell" borderStyle="border" alignment="left" identifier="PeopleUnavableWeekDays" style="rounded" trackingMode="selectAny" id="GA5-dm-37J">
+                                                            <segmentedCell key="dataCell" scrollable="YES" lineBreakMode="clipping" borderStyle="border" alignment="left" identifier="PeopleUnavableWeekDays" style="rounded" trackingMode="selectAny" id="GA5-dm-37J">
                                                                 <font key="font" metaFont="system"/>
                                                                 <segments>
                                                                     <segment label="日" width="20"/>
@@ -523,7 +524,7 @@
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </tableHeaderCell>
-                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="0" placeholderString="数字のみ" id="YUu-hp-Aau">
+                                                            <textFieldCell key="dataCell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="left" title="0" placeholderString="数字のみ" id="YUu-hp-Aau">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -536,7 +537,7 @@
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </tableHeaderCell>
-                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="0" id="tWC-KF-mc4">
+                                                            <textFieldCell key="dataCell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="left" title="0" id="tWC-KF-mc4">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -549,7 +550,7 @@
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </tableHeaderCell>
-                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="0" id="I9q-cJ-no5">
+                                                            <textFieldCell key="dataCell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="left" title="0" id="I9q-cJ-no5">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -562,7 +563,7 @@
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                             </tableHeaderCell>
-                                                            <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="left" inset="2" id="9Gv-cR-UQj">
+                                                            <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="9Gv-cR-UQj">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
@@ -574,7 +575,7 @@
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </tableHeaderCell>
-                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" placeholderString="半角のカンマ区切りで数字を入力してください" id="OhX-Vv-kCp">
+                                                            <textFieldCell key="dataCell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="left" title="Text Cell" placeholderString="半角のカンマ区切りで数字を入力してください" id="OhX-Vv-kCp">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -607,11 +608,12 @@
                                 </endViews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="BOs-92-Akx" secondAttribute="bottom" id="OIE-SW-YRA"/>
+                                    <constraint firstItem="h40-EF-RiM" firstAttribute="top" secondItem="GuQ-kj-l0r" secondAttribute="top" id="QCn-dk-h8x"/>
                                     <constraint firstAttribute="trailing" secondItem="BOs-92-Akx" secondAttribute="trailing" id="Ws3-RO-hKk"/>
+                                    <constraint firstAttribute="trailing" secondItem="h40-EF-RiM" secondAttribute="trailing" id="eTC-HB-hrP"/>
+                                    <constraint firstItem="BOs-92-Akx" firstAttribute="top" secondItem="h40-EF-RiM" secondAttribute="bottom" id="nwG-tT-ZkW"/>
                                     <constraint firstItem="BOs-92-Akx" firstAttribute="leading" secondItem="GuQ-kj-l0r" secondAttribute="leading" id="sw9-th-rS2"/>
-                                    <constraint firstAttribute="trailing" secondItem="h40-EF-RiM" secondAttribute="trailing" id="vVT-9O-Ogj"/>
-                                    <constraint firstItem="h40-EF-RiM" firstAttribute="top" secondItem="GuQ-kj-l0r" secondAttribute="top" constant="10" id="z2H-Sq-X3U"/>
-                                    <constraint firstItem="h40-EF-RiM" firstAttribute="leading" secondItem="GuQ-kj-l0r" secondAttribute="leading" id="ziJ-23-6kC"/>
+                                    <constraint firstItem="h40-EF-RiM" firstAttribute="leading" secondItem="GuQ-kj-l0r" secondAttribute="leading" id="yhL-m9-Lrx"/>
                                 </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>

@@ -14,7 +14,7 @@ struct CRule{
     /// ルールの名前
     let name:String
     /// ルールを利用するかどうか
-    var valid:Bool
+    var active:Bool
     /// ルールを満たすならtrueを返す
     let satisfyRule:(objects:[Any]) throws->()
     
@@ -28,7 +28,7 @@ struct CRule{
     
     init(name:String, valid:Bool, satisfyRule:(objects:[Any]) throws ->() ){
         self.name = name
-        self.valid = valid
+        self.active = valid
         
         /// ルールが有効ではないのならば必ずsatisfyRuleはtrueを返す
         if valid{
@@ -41,7 +41,7 @@ struct CRule{
     }
     
     func view(){
-        print(" - \(name):\t \(valid)")
+        print(" - \(name):\t \(active)")
     }
 }
 

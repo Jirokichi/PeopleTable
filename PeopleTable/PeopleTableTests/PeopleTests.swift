@@ -11,7 +11,7 @@ import XCTest
 
 class PeopleTests: XCTestCase {
 
-    let coreData = CoreDataManagement.Singleton
+    let coreData = CoreDataManagement.Instance
     
     override func setUp() {
         super.setUp()
@@ -29,13 +29,29 @@ class PeopleTests: XCTestCase {
         
         
         let originalPeoples = [People(context: coreData.managedObjectContext), People(context: coreData.managedObjectContext)]
-        originalPeoples[0].createdDate = NSDate()
-        originalPeoples[0].name = "木田裕也"
-        originalPeoples[0].status = true
+        originalPeoples[0].updateParameters(
+            NSDate(),
+            name: "木田裕也",
+            status: true,
+            unavailableWeekDays: People.PTWeekDays(jsonDict: [WeekDay.Monday:true]),
+            requiredWeekDays: People.PTWeekDays(jsonDict: [WeekDay.Tuesday:true]),
+            limitOfRequiredWeekDays: 5,
+            isSuper: true,
+            maxWorkingCountInAMonth: 3,
+            minWorkingCountInAMonth: 5,
+            unavailableDays: "1")
         
-        originalPeoples[1].createdDate = NSDate()
-        originalPeoples[1].name = "木田じろきち"
-        originalPeoples[1].status = false
+        originalPeoples[1].updateParameters(
+            NSDate(),
+            name: "木田じろきち",
+            status: false,
+            unavailableWeekDays: People.PTWeekDays(jsonDict: [WeekDay.Monday:true]),
+            requiredWeekDays: People.PTWeekDays(jsonDict: [WeekDay.Tuesday:true]),
+            limitOfRequiredWeekDays: 5,
+            isSuper: true,
+            maxWorkingCountInAMonth: 3,
+            minWorkingCountInAMonth: 5,
+            unavailableDays: "1")
         
         Records.saveContext(coreData.managedObjectContext)
         

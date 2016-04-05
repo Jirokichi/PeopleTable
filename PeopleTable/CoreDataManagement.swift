@@ -13,7 +13,7 @@ import Cocoa
 /// /Users/yuya/Library/Application Support/jp.ky.PeopleTable
 /// rm CocoaAppCD.storedata 
 class CoreDataManagement{
-    static let Singleton = CoreDataManagement()
+    static let Instance = CoreDataManagement()
     private init(){}
     
     

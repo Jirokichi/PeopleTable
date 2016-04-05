@@ -15,27 +15,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="700"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="g5w-Zk-d0C">
-                                <rect key="frame" x="921" y="13" width="65" height="32"/>
-                                <buttonCell key="cell" type="push" title="開始" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vkg-fv-9Ci">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                    <connections>
-                                        <action selector="clickOnStartButton:" target="qOM-vq-PYc" id="uQ0-sO-g4c"/>
-                                    </connections>
-                                </buttonCell>
-                            </button>
-                            <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hxB-r0-gW2">
-                                <rect key="frame" x="0.0" y="-69" width="760" height="769"/>
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hxB-r0-gW2" userLabel="MonthTableSV">
+                                <rect key="frame" x="0.0" y="-61" width="700" height="761"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="ADC-Eo-duB" customClass="DayHeaderView" customModule="PeopleTable" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="708" width="760" height="61"/>
+                                        <rect key="frame" x="0.0" y="700" width="700" height="61"/>
                                         <subviews>
-                                            <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BQV-rO-qfa">
-                                                <rect key="frame" x="0.0" y="0.0" width="760" height="61"/>
+                                            <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BQV-rO-qfa" userLabel="HeaderSV">
+                                                <rect key="frame" x="0.0" y="0.0" width="700" height="61"/>
                                                 <subviews>
                                                     <datePicker verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h01-i6-l4q">
-                                                        <rect key="frame" x="343" y="38" width="77" height="27"/>
+                                                        <rect key="frame" x="313" y="38" width="77" height="27"/>
                                                         <datePickerCell key="cell" borderStyle="bezel" alignment="left" id="HzI-0B-fDt">
                                                             <font key="font" metaFont="system"/>
                                                             <date key="date" timeIntervalSinceReferenceDate="-627465600">
@@ -46,59 +36,62 @@
                                                             <datePickerElements key="datePickerElements" year="YES" month="YES"/>
                                                         </datePickerCell>
                                                     </datePicker>
-                                                    <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kuV-iz-hTD">
-                                                        <rect key="frame" x="0.0" y="0.0" width="760" height="30"/>
+                                                    <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kuV-iz-hTD">
+                                                        <rect key="frame" x="0.0" y="0.0" width="700" height="30"/>
                                                         <subviews>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XUU-kv-5Ql">
-                                                                <rect key="frame" x="-2" y="7" width="106" height="17"/>
+                                                                <rect key="frame" x="-2" y="7" width="104" height="17"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="100" id="gNR-D3-NDI"/>
+                                                                </constraints>
                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="日" id="BwO-dO-jgh">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
                                                             </textField>
-                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="llO-cM-Y3D">
-                                                                <rect key="frame" x="108" y="7" width="105" height="17"/>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="llO-cM-Y3D">
+                                                                <rect key="frame" x="98" y="7" width="104" height="17"/>
                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="月" id="xa6-sN-zN9">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
                                                             </textField>
-                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n1U-3Y-3j8">
-                                                                <rect key="frame" x="217" y="7" width="105" height="17"/>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="n1U-3Y-3j8">
+                                                                <rect key="frame" x="198" y="7" width="104" height="17"/>
                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="火" id="6zP-aP-MZ5">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
                                                             </textField>
-                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jqa-u9-7aM">
-                                                                <rect key="frame" x="326" y="7" width="107" height="17"/>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Jqa-u9-7aM">
+                                                                <rect key="frame" x="298" y="7" width="104" height="17"/>
                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="水" id="h0f-X2-rbg">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
                                                             </textField>
-                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1KM-1X-ixO">
-                                                                <rect key="frame" x="437" y="7" width="105" height="17"/>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1KM-1X-ixO">
+                                                                <rect key="frame" x="398" y="7" width="104" height="17"/>
                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="木" id="7im-GG-uWg">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
                                                             </textField>
-                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uug-CW-8To">
-                                                                <rect key="frame" x="546" y="7" width="107" height="17"/>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uug-CW-8To">
+                                                                <rect key="frame" x="498" y="7" width="104" height="17"/>
                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="金" id="d99-nq-pWO">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
                                                             </textField>
-                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uw6-um-cfW">
-                                                                <rect key="frame" x="657" y="7" width="105" height="17"/>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uw6-um-cfW">
+                                                                <rect key="frame" x="598" y="7" width="104" height="17"/>
                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="土" id="sP0-XI-Hof">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -168,16 +161,16 @@
                                         </connections>
                                     </customView>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EXp-Aa-8si">
-                                        <rect key="frame" x="0.0" y="0.0" width="760" height="700"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="700" height="700"/>
                                         <clipView key="contentView" id="ZO9-dl-7KR">
-                                            <rect key="frame" x="1" y="1" width="758" height="698"/>
+                                            <rect key="frame" x="1" y="1" width="698" height="698"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <collectionView id="C8a-No-wMN">
-                                                    <rect key="frame" x="0.0" y="0.0" width="758" height="698"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="698" height="698"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="5" minimumLineSpacing="5" id="hX6-ZJ-Q0a">
-                                                        <size key="itemSize" width="100" height="75"/>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" id="hX6-ZJ-Q0a">
+                                                        <size key="itemSize" width="99" height="75"/>
                                                     </collectionViewFlowLayout>
                                                     <color key="primaryBackgroundColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                 </collectionView>
@@ -198,7 +191,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="ADC-Eo-duB" secondAttribute="trailing" id="bhx-C7-rI5"/>
-                                    <constraint firstAttribute="width" constant="760" id="raG-Wv-V9h"/>
+                                    <constraint firstAttribute="width" constant="700" id="raG-Wv-V9h"/>
                                     <constraint firstItem="ADC-Eo-duB" firstAttribute="leading" secondItem="hxB-r0-gW2" secondAttribute="leading" id="tXi-9y-zda"/>
                                 </constraints>
                                 <visibilityPriorities>
@@ -210,8 +203,8 @@
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
-                            <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l4R-wD-Z6A">
-                                <rect key="frame" x="770" y="494" width="230" height="196"/>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l4R-wD-Z6A" userLabel="RulesSV">
+                                <rect key="frame" x="710" y="494" width="290" height="196"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="T0N-su-j1w">
                                         <rect key="frame" x="-2" y="179" width="113" height="17"/>
@@ -327,13 +320,23 @@
                                 </customSpacing>
                             </stackView>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="wun-UI-Jof">
-                                <rect key="frame" x="773" y="41" width="229" height="17"/>
+                                <rect key="frame" x="713" y="41" width="289" height="17"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="A - 月(5) 火(5) 水(5) 木(5) 土(5) 日(5)" id="qT2-4E-CyK">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="g5w-Zk-d0C">
+                                <rect key="frame" x="921" y="13" width="65" height="32"/>
+                                <buttonCell key="cell" type="push" title="開始" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vkg-fv-9Ci">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <connections>
+                                        <action selector="clickOnStartButton:" target="qOM-vq-PYc" id="uQ0-sO-g4c"/>
+                                    </connections>
+                                </buttonCell>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="g5w-Zk-d0C" secondAttribute="bottom" constant="20" id="7LB-pl-YSm"/>

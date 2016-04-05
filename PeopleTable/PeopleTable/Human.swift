@@ -89,7 +89,7 @@ class Human{
             
             
             if let rule = rules.individualRule[.RuleSuperUser]{
-                if rule.valid{
+                if rule.active{
                     if (human.isSuper != isSuper){
                         return false
                     }
@@ -97,7 +97,7 @@ class Human{
             }
             
             if let rule = rules.individualRule[.RuleUnavailableWeekDays]{
-                if rule.valid{
+                if rule.active{
                     if (human.unableWeekDays.contains(weekday)){
                         return false
                     }
@@ -105,7 +105,7 @@ class Human{
             }
             
             if let rule = rules.individualRule[.RuleInterval]{
-                if rule.valid{
+                if rule.active{
                     for day in previousDaysInfo{
                         for workedHuman in day.workingHuman{
                             if human.id == workedHuman.id{
@@ -117,7 +117,7 @@ class Human{
             }
             
             if let rule = rules.individualRule[.RuleUnavailableDays]{
-                if rule.valid{
+                if rule.active{
                     if (human.forbittenDays.contains(checkingDay)){
                         return false
                     }
@@ -125,7 +125,7 @@ class Human{
             }
             
             if let rule = rules.monthRule[.RuleCountsInMonth]{
-                if rule.valid{
+                if rule.active{
                     if (human.workingCountInAMonth == human.maxWorkingCountInAMonth){
                         return false
                     }
@@ -133,7 +133,7 @@ class Human{
             }
             
             if let rule = rules.monthRule[.RulePractice]{
-                if rule.valid{
+                if rule.active{
                     if human.practiceRule.max > 0{
                         if human.practiceRule.mustWeekDays.contains(weekday){
                             if human.practiceRule.max == (human.workingCountOnEachWeek[weekday] ?? 0){
@@ -145,7 +145,7 @@ class Human{
             }
             
             if let rule = rules.monthRule[.RuleWeekEnd]{
-                if rule.valid{
+                if rule.active{
                     if (weekday == WeekDay.Saturday || weekday == WeekDay.Sunday){
                         if (human.workingCountOnEachWeek[weekday] ?? 0) == 1{
                             return false

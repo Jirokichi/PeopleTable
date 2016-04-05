@@ -27,13 +27,13 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L1H-Gf-CeT">
-                    <rect key="frame" x="-3" y="2" width="77" height="26"/>
-                    <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="kvW-rZ-Bdz" id="C5e-oa-fWq">
+                    <rect key="frame" x="-3" y="2" width="76" height="26"/>
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="kvW-rZ-Bdz" id="C5e-oa-fWq">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" id="UO1-Sk-GxE">
                             <items>
-                                <menuItem title="Item 1" state="on" id="kvW-rZ-Bdz"/>
+                                <menuItem state="on" id="kvW-rZ-Bdz"/>
                                 <menuItem title="Item 2" id="Z6T-Nh-7M3"/>
                                 <menuItem title="Item 3" id="Na6-jJ-Rul"/>
                             </items>
