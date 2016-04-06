@@ -13,26 +13,24 @@ import Cocoa
 /// /Users/yuya/Library/Application Support/jp.ky.PeopleTable
 /// rm CocoaAppCD.storedata 
 class CoreDataManagement{
+    private static let XcdataModelName = "PeopleTable"
     static let Instance = CoreDataManagement()
     private init(){}
     
     
     
     lazy var applicationDocumentsDirectory: NSURL = {
-        // The directory the application uses to store the Core Data store file. This code uses a directory named "jp.ky.PeopleTable" in the user's Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.ApplicationSupportDirectory, inDomains: .UserDomainMask)
         let appSupportURL = urls[urls.count - 1]
         return appSupportURL.URLByAppendingPathComponent("jp.ky.PeopleTable")
     }()
     
     lazy var managedObjectModel: NSManagedObjectModel = {
-        // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("PeopleTable", withExtension: "momd")!
+        let modelURL = NSBundle.mainBundle().URLForResource(CoreDataManagement.XcdataModelName, withExtension: "momd")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
     }()
     
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
-        // The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it. (The directory for the store is created, if necessary.) This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         let fileManager = NSFileManager.defaultManager()
         var failError: NSError? = nil
         var shouldFail = false

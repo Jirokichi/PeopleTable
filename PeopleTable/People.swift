@@ -17,142 +17,6 @@ class People: Records {
         private static let AttributesDate = "createdDate"
     }
     
-    
-    /// unavailabeWeekDaysがJsonのためそれ用の処理を担当するstruct。
-    struct PTWeekDays{
-        private enum JsonKey:String{
-            case Sun = "Sun"
-            case Mon = "Mon"
-            case Tue = "Tue"
-            case Wed = "Wed"
-            case Thu = "Thu"
-            case Fri = "Fri"
-            case Sat = "Sat"
-            
-            
-            init(weekday:WeekDay){
-                switch weekday{
-                case .Sunday:
-                    self = .Sun
-                case .Monday:
-                    self = .Mon
-                case .Tuesday:
-                    self = .Tue
-                case .Wednesday:
-                    self = .Wed
-                case .Thursday:
-                    self = .Thu
-                case .Friday:
-                    self = .Fri
-                case .Saturday:
-                    self = .Sat
-                }
-            }
-            
-            func getWeekDay() -> WeekDay{
-                switch self{
-                case .Sun:
-                    return WeekDay.Sunday
-                case .Mon:
-                    return WeekDay.Monday
-                case .Tue:
-                    return WeekDay.Tuesday
-                case .Wed:
-                    return WeekDay.Wednesday
-                case .Thu:
-                    return WeekDay.Thursday
-                case .Fri:
-                    return WeekDay.Friday
-                case .Sat:
-                    return WeekDay.Saturday
-                }
-            }
-        }
-        
-        var jsonDict:[WeekDay:Bool]
-        
-        init(jsonDict:[WeekDay:Bool]){
-            self.jsonDict = jsonDict
-        }
-        
-        func getWeekDays() -> [WeekDay]{
-            var weekDays:[WeekDay] = []
-            
-            for (weekDay, status) in jsonDict{
-                if status{
-                    weekDays.append(weekDay)
-                }
-            }
-            return weekDays
-        }
-        
-        mutating func updateJsonDict(weekDay:WeekDay){
-            let alreadyMarked = self.jsonDict.contains({ (predicate:(weekDay:WeekDay, status:Bool)) -> Bool in
-                if predicate.weekDay == weekDay{
-                    return true
-                }else{
-                    return false
-                }
-            })
-            
-            if alreadyMarked{
-                // マークを消す
-                self.jsonDict[weekDay] = !self.jsonDict[weekDay]!
-                
-                
-            }else{
-                // マークをつける
-                self.jsonDict[weekDay] = true
-            }
-        }
-        
-        /// DictionaryからJsonを作成するメソッド
-        func getJsonFromDict() -> String{
-            
-            var jsonDict:[String:String] = [:]
-            for (weekDay, status) in self.jsonDict{
-                jsonDict[JsonKey(weekday: weekDay).rawValue] = "\(status)"
-            }
-            
-            // Dict -> JSON
-            do{
-                let jsonData = try NSJSONSerialization.dataWithJSONObject(jsonDict, options: [])
-                if let result = NSString(data: jsonData, encoding: NSUTF8StringEncoding){
-                    return result as String
-                }
-            }catch{
-                LogUtil.log("Error")
-            }
-            return ""
-        }
-        
-        /// DictionaryからJsonを作成する静的メソッド
-        static func getDicsFromJson(str:String?) -> PTWeekDays?{
-            if str == nil{
-                return nil
-            }
-            // JSON -> Dict
-            if let jsonData: NSData = (str! as NSString).dataUsingEncoding(NSUTF8StringEncoding){
-                
-                do{
-                    if let jsonString = try NSJSONSerialization.JSONObjectWithData(jsonData, options: []) as? [String : String]{
-                        
-                        var dict:[WeekDay:Bool] = [:]
-                        for (weekDay, status) in jsonString{
-                            if let jsonkey = JsonKey(rawValue: weekDay){
-                                dict[jsonkey.getWeekDay()] = ((status == "\(true)") ? true : false)
-                            }
-                        }
-                        return PTWeekDays(jsonDict: dict)
-                    }
-                }catch{
-                    
-                }
-            }
-            return nil
-        }
-    }
-    
     /// protected - テーブル名を返す
     override class func _getTableName() -> String{
         return Constant.TableName
@@ -330,5 +194,140 @@ class People: Records {
         return humans
     }
     
+    /// unavailabeWeekDaysがJsonのためそれ用の処理を担当するstruct。
+    struct PTWeekDays{
+        private enum JsonKey:String{
+            case Sun = "Sun"
+            case Mon = "Mon"
+            case Tue = "Tue"
+            case Wed = "Wed"
+            case Thu = "Thu"
+            case Fri = "Fri"
+            case Sat = "Sat"
+            
+            
+            init(weekday:WeekDay){
+                switch weekday{
+                case .Sunday:
+                    self = .Sun
+                case .Monday:
+                    self = .Mon
+                case .Tuesday:
+                    self = .Tue
+                case .Wednesday:
+                    self = .Wed
+                case .Thursday:
+                    self = .Thu
+                case .Friday:
+                    self = .Fri
+                case .Saturday:
+                    self = .Sat
+                }
+            }
+            
+            func getWeekDay() -> WeekDay{
+                switch self{
+                case .Sun:
+                    return WeekDay.Sunday
+                case .Mon:
+                    return WeekDay.Monday
+                case .Tue:
+                    return WeekDay.Tuesday
+                case .Wed:
+                    return WeekDay.Wednesday
+                case .Thu:
+                    return WeekDay.Thursday
+                case .Fri:
+                    return WeekDay.Friday
+                case .Sat:
+                    return WeekDay.Saturday
+                }
+            }
+        }
+        
+        var jsonDict:[WeekDay:Bool]
+        
+        init(jsonDict:[WeekDay:Bool]){
+            self.jsonDict = jsonDict
+        }
+        
+        func getWeekDays() -> [WeekDay]{
+            var weekDays:[WeekDay] = []
+            
+            for (weekDay, status) in jsonDict{
+                if status{
+                    weekDays.append(weekDay)
+                }
+            }
+            return weekDays
+        }
+        
+        mutating func updateJsonDict(weekDay:WeekDay){
+            let alreadyMarked = self.jsonDict.contains({ (predicate:(weekDay:WeekDay, status:Bool)) -> Bool in
+                if predicate.weekDay == weekDay{
+                    return true
+                }else{
+                    return false
+                }
+            })
+            
+            if alreadyMarked{
+                // マークを消す
+                self.jsonDict[weekDay] = !self.jsonDict[weekDay]!
+                
+                
+            }else{
+                // マークをつける
+                self.jsonDict[weekDay] = true
+            }
+        }
+        
+        /// DictionaryからJsonを作成するメソッド
+        func getJsonFromDict() -> String{
+            
+            var jsonDict:[String:String] = [:]
+            for (weekDay, status) in self.jsonDict{
+                jsonDict[JsonKey(weekday: weekDay).rawValue] = "\(status)"
+            }
+            
+            // Dict -> JSON
+            do{
+                let jsonData = try NSJSONSerialization.dataWithJSONObject(jsonDict, options: [])
+                if let result = NSString(data: jsonData, encoding: NSUTF8StringEncoding){
+                    return result as String
+                }
+            }catch{
+                LogUtil.log("Error")
+            }
+            return ""
+        }
+        
+        /// DictionaryからJsonを作成する静的メソッド
+        static func getDicsFromJson(str:String?) -> PTWeekDays?{
+            if str == nil{
+                return nil
+            }
+            // JSON -> Dict
+            if let jsonData: NSData = (str! as NSString).dataUsingEncoding(NSUTF8StringEncoding){
+                
+                do{
+                    if let jsonString = try NSJSONSerialization.JSONObjectWithData(jsonData, options: []) as? [String : String]{
+                        
+                        var dict:[WeekDay:Bool] = [:]
+                        for (weekDay, status) in jsonString{
+                            if let jsonkey = JsonKey(rawValue: weekDay){
+                                dict[jsonkey.getWeekDay()] = ((status == "\(true)") ? true : false)
+                            }
+                        }
+                        return PTWeekDays(jsonDict: dict)
+                    }
+                }catch{
+                    
+                }
+            }
+            return nil
+        }
+    }
+
     
 }
