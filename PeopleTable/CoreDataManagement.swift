@@ -14,6 +14,7 @@ import Cocoa
 /// rm CocoaAppCD.storedata 
 class CoreDataManagement{
     private static let XcdataModelName = "PeopleTable"
+    private static let PackageName = "jp.ky.PeopleTable"
     static let Instance = CoreDataManagement()
     private init(){}
     
@@ -22,7 +23,7 @@ class CoreDataManagement{
     lazy var applicationDocumentsDirectory: NSURL = {
         let urls = NSFileManager.defaultManager().URLsForDirectory(.ApplicationSupportDirectory, inDomains: .UserDomainMask)
         let appSupportURL = urls[urls.count - 1]
-        return appSupportURL.URLByAppendingPathComponent("jp.ky.PeopleTable")
+        return appSupportURL.URLByAppendingPathComponent(CoreDataManagement.PackageName)
     }()
     
     lazy var managedObjectModel: NSManagedObjectModel = {
