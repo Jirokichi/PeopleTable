@@ -60,6 +60,7 @@
 		FA4F8E211CA69EF3000E12E3 /* MonthTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthTable.swift; sourceTree = "<group>"; };
 		FA4F8E221CA69EF3000E12E3 /* CRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRule.swift; sourceTree = "<group>"; };
 		FA85527E1CAF52B600D58C7A /* MyWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWindowController.swift; sourceTree = "<group>"; };
+		FAA515761CE63BCE008BD102 /* PeopleTable V1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PeopleTable V1.1.xcdatamodel"; sourceTree = "<group>"; };
 		FAC1F0BB1C91A97500C8A92C /* PeopleTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeopleTable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC1F0BE1C91A97500C8A92C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAC1F0C01C91A97500C8A92C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = PeopleTable/HomeViewController.swift; sourceTree = "<group>"; };
@@ -74,7 +75,7 @@
 		FAC1F0DE1C91A97500C8A92C /* PeopleTableUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleTableUITests.swift; sourceTree = "<group>"; };
 		FAC1F0E01C91A97500C8A92C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAC1F0EC1C91B47A00C8A92C /* PeopleSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleSettingViewController.swift; sourceTree = "<group>"; };
-		FAC1F0EE1C91B4E000C8A92C /* LogUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogUtil.swift; sourceTree = "<group>"; };
+		FAC1F0EE1C91B4E000C8A92C /* LogUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LogUtil.swift; path = PeopleTable/LogUtil.swift; sourceTree = "<group>"; };
 		FAC1F0F11C93B87500C8A92C /* People.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = People.swift; sourceTree = "<group>"; };
 		FAC1F0F91C944B0E00C8A92C /* Records.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Records.swift; sourceTree = "<group>"; };
 		FAC1F0FB1C944F6000C8A92C /* PeopleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleTests.swift; sourceTree = "<group>"; };
@@ -161,7 +162,6 @@
 				FAC1F0C51C91A97500C8A92C /* Assets.xcassets */,
 				FAC1F0CA1C91A97500C8A92C /* Info.plist */,
 				FAC1F0C21C91A97500C8A92C /* PeopleTable.xcdatamodeld */,
-				FAC1F0EE1C91B4E000C8A92C /* LogUtil.swift */,
 			);
 			path = PeopleTable;
 			sourceTree = "<group>";
@@ -224,6 +224,7 @@
 		FAE388621CA2C48A00CC08D9 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				FAC1F0EE1C91B4E000C8A92C /* LogUtil.swift */,
 				FAE388631CA2C49A00CC08D9 /* DateUtil.swift */,
 				FAEA33591CAC2EB60078840B /* DialogUtil.swift */,
 			);
@@ -636,9 +637,10 @@
 		FAC1F0C21C91A97500C8A92C /* PeopleTable.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				FAA515761CE63BCE008BD102 /* PeopleTable V1.1.xcdatamodel */,
 				FAC1F0C31C91A97500C8A92C /* PeopleTable.xcdatamodel */,
 			);
-			currentVersion = FAC1F0C31C91A97500C8A92C /* PeopleTable.xcdatamodel */;
+			currentVersion = FAA515761CE63BCE008BD102 /* PeopleTable V1.1.xcdatamodel */;
 			path = PeopleTable.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

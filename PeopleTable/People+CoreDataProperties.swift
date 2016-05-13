@@ -25,5 +25,6 @@ extension People {
     @NSManaged var minWorkingCountInAMonth:NSNumber
     @NSManaged var status: Bool
     @NSManaged var isSuper: Bool
+    @NSManaged var requiredDays: String
 
 }

@@ -362,9 +362,20 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
                     }
                 }
                 
+                var requiredDays:[Int] = []
+                let str2 = people.requiredDays as NSString
+                for numStr in str2.componentsSeparatedByString(","){
+                    var lNumStr = numStr
+                    if lNumStr.containsString(" "){
+                        lNumStr = lNumStr.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+                    }
+                    if let num = Int(lNumStr) where num > 0 && num < 32{
+                        requiredDays.append(num)
+                    }
+                }
                 
                 
-                let human = Human(id: id, name: people.name, unableWeekDays: weekdaysInfo.getWeekDays(), isSuper: people.isSuper, practiceRule: (mustWeekDays: mustWeekDays.getWeekDays(), max: people.limitOfRequiredWeekDays as Int), maxWorkingCountInAMonth: people.maxWorkingCountInAMonth as Int, minWorkingCountInAMonth: people.minWorkingCountInAMonth as Int, forbittenDays: forbittenDays)
+                let human = Human(id: id, name: people.name, unableWeekDays: weekdaysInfo.getWeekDays(), isSuper: people.isSuper, practiceRule: (mustWeekDays: mustWeekDays.getWeekDays(), max: people.limitOfRequiredWeekDays as Int), maxWorkingCountInAMonth: people.maxWorkingCountInAMonth as Int, minWorkingCountInAMonth: people.minWorkingCountInAMonth as Int, forbittenDays: forbittenDays, requiredDays:requiredDays)
                 humans.append(human)
                 id = id + 1
             }
@@ -389,8 +400,20 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
             startButton.title = "実行中..."
             let grobalQueue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0)
             dispatch_async(grobalQueue, {
-                self.table = try? controller.startCreatingRandomTable(self.targetMonthInfo.targetMonth, rules:rules, running:&self.runningTable)
                 
+                var errorMessage:String? = nil
+                do{
+                    self.table = try controller.startCreatingRandomTable(self.targetMonthInfo.targetMonth, rules:rules, running:&self.runningTable)
+                }catch let error as CRule.RuleError{
+                    switch error{
+                    case .Stop(let msg):
+                        errorMessage = msg
+                    default:
+                        errorMessage = "予期せぬエラー:\(error)"
+                    }
+                }catch{
+                    errorMessage = "予期せぬエラー:\(error)"
+                }
                 dispatch_async(dispatch_get_main_queue(), {
                     self.runningTable = false
                     self.startButton.title = "開始"
@@ -399,6 +422,13 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
                     }catch{
                         LogUtil.log("Error")
                     }
+                    
+                    if let errorMessage = errorMessage{
+                        DialogUtil.startDialog(errorMessage, onClickOKButton: { () -> () in
+                            self.runningTable = false
+                        })
+                    }
+                    
                     self.collectionView.reloadData()
                 })
             })

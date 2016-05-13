@@ -63,7 +63,9 @@ class CoreDataManagement{
             coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
             let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("CocoaAppCD.storedata")
             do {
-                try coordinator!.addPersistentStoreWithType(NSXMLStoreType, configuration: nil, URL: url, options: nil)
+                // optionsを追加
+                let options = [NSMigratePersistentStoresAutomaticallyOption: true,NSInferMappingModelAutomaticallyOption: true]
+                try coordinator!.addPersistentStoreWithType(NSXMLStoreType, configuration: nil, URL: url, options: options)
             } catch {
                 failError = error as NSError
             }

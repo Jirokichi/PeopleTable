@@ -22,7 +22,7 @@ struct CRule{
     enum RuleError :ErrorType{
         case NotSatisfiedForIndividual
         case NotSarisfiedForMonthTable
-        case Stop
+        case Stop(msg:String)
     }
     
     

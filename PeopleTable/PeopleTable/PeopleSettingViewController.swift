@@ -25,6 +25,7 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
         case MaxWorkingCountInAMonth = "MaxWorkingCountInAMonth"
         case MinWorkingCountInAMonth = "MinWorkingCountInAMonth"
         case UnavailableDays = "UnavailableDays"
+        case RequiredDays = "RequiredDays"
         case Unknow
         
         init(tableId:String?){
@@ -102,7 +103,8 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
             isSuper: false,
             maxWorkingCountInAMonth: 6,
             minWorkingCountInAMonth: 4,
-            unavailableDays: ""))
+            unavailableDays: "",
+            requiredDays:""))
         Records.saveContext(coreDataManagement.managedObjectContext)
         
         tableView.reloadData()
@@ -184,6 +186,8 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
             return human.minWorkingCountInAMonth
         case .UnavailableDays:
             return human.unavailableDays
+        case .RequiredDays:
+            return human.requiredDays
         case .Unknow:
             return ""
         }
@@ -310,6 +314,23 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
                 
                 if self.checkUnavailableDaysFormat(unavailableDays) || unavailableDays == ""{
                     human.unavailableDays = unavailableDays
+                    Records.saveContext(coreDataManagement.managedObjectContext)
+                }else
+                {
+                    DialogUtil.startDialog("フォーマットエラー", message: "数字は1-31のみです。また、半角の「,」(カンマ)で区切る必要があります。手抜きましたすみません。", onClickOKButton: { () -> () in
+                        
+                    })
+                }
+                
+            }
+        case .RequiredDays:
+            
+            LogUtil.log("RequiredDays - row:\(row) - (\(object))")
+            
+            if let requiredDays = object as? String{
+                
+                if self.checkUnavailableDaysFormat(requiredDays) || requiredDays == ""{
+                    human.requiredDays = requiredDays
                     Records.saveContext(coreDataManagement.managedObjectContext)
                 }else
                 {

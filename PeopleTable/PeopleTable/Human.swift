@@ -20,6 +20,7 @@ class Human{
     let maxWorkingCountInAMonth:Int
     let minWorkingCountInAMonth:Int
     let forbittenDays:[Int]
+    let requiredDays:[Int]
     
     // 月の担当回数をメモする。最大を越えるとエラーを投げる。
     var workingCountInAMonth:Int
@@ -28,7 +29,7 @@ class Human{
     
     
     
-    init(id:Int, name:String, unableWeekDays:[WeekDay], isSuper:Bool, practiceRule:(mustWeekDays:[WeekDay], max:Int), maxWorkingCountInAMonth:Int, minWorkingCountInAMonth:Int, forbittenDays:[Int]){
+    init(id:Int, name:String, unableWeekDays:[WeekDay], isSuper:Bool, practiceRule:(mustWeekDays:[WeekDay], max:Int), maxWorkingCountInAMonth:Int, minWorkingCountInAMonth:Int, forbittenDays:[Int], requiredDays:[Int]){
         self.id = id
         self.name = name
         self.unableWeekDays = unableWeekDays
@@ -37,6 +38,7 @@ class Human{
         self.maxWorkingCountInAMonth = maxWorkingCountInAMonth
         self.minWorkingCountInAMonth = minWorkingCountInAMonth
         self.forbittenDays = forbittenDays
+        self.requiredDays = requiredDays
         
         self.workingCountInAMonth = 0
         
@@ -45,8 +47,42 @@ class Human{
     
     static func selectTwoHumansInADay(humans:[Human], rules:CRules, checkingDay:Int, weekday:WeekDay, previousDaysInfo:[DayInfo]) throws -> [Human]{
         
-        let superHumans = try Human.getSpecificHumans(humans, rules:rules, isSuper:true, checkingDay:checkingDay, weekday:weekday, previousDaysInfo:previousDaysInfo)
-        let lowHumans = try Human.getSpecificHumans(humans, rules:rules, isSuper:false, checkingDay:checkingDay, weekday:weekday, previousDaysInfo:previousDaysInfo)
+        
+        var requiredHumans:[Human] = []
+        for human in humans{
+            if human.requiredDays.contains(checkingDay){
+                requiredHumans.append(human)
+            }
+        }
+        
+        let superHumans:[Human]
+        let lowHumans:[Human]
+        
+        if requiredHumans.count <= 0{
+            superHumans = try Human.getSpecificHumans(humans, rules:rules, isSuper:true, checkingDay:checkingDay, weekday:weekday, previousDaysInfo:previousDaysInfo)
+            lowHumans = try Human.getSpecificHumans(humans, rules:rules, isSuper:false, checkingDay:checkingDay, weekday:weekday, previousDaysInfo:previousDaysInfo)
+        }else if requiredHumans.count == 2{
+            if requiredHumans[0].isSuper{
+                superHumans = [requiredHumans[0]]
+                lowHumans = [requiredHumans[1]]
+            }else{
+                superHumans = [requiredHumans[1]]
+                lowHumans = [requiredHumans[0]]
+            }
+        }else if requiredHumans.count == 1{
+            if requiredHumans[0].isSuper{
+                superHumans = [requiredHumans[0]]
+                lowHumans = try Human.getSpecificHumans(humans, rules:rules, isSuper:false, checkingDay:checkingDay, weekday:weekday, previousDaysInfo:previousDaysInfo)
+            }else{
+                lowHumans = [requiredHumans[0]]
+                superHumans = try Human.getSpecificHumans(humans, rules:rules, isSuper:true, checkingDay:checkingDay, weekday:weekday, previousDaysInfo:previousDaysInfo)
+            }
+        }else{
+            superHumans = []
+            lowHumans = []
+            LogUtil.log("fatalError")
+            throw CRule.RuleError.Stop(msg: "必須日(\(checkingDay)日)に矛盾")
+        }
         
         
         
@@ -75,7 +111,13 @@ class Human{
                     human = Human.getRandomValue(lowHumans)
                 }
                 toutyokus.append(human)
-            }catch let error as CRule.RuleError where error == CRule.RuleError.NotSatisfiedForIndividual{
+            }catch let error as CRule.RuleError{
+                switch error{
+                case .NotSatisfiedForIndividual:
+                    okWholeFlag = false
+                default:
+                    throw error
+                }
                 okWholeFlag = false
             }
             
@@ -86,6 +128,12 @@ class Human{
     
     private static func getSpecificHumans(humans:[Human], rules:CRules, isSuper:Bool, checkingDay:Int, weekday:WeekDay, previousDaysInfo:[DayInfo]) throws -> [Human]{
         let specificHumans = humans.filter({ (human) -> Bool in
+            
+            // @Todo: Fix
+            if human.requiredDays.contains(checkingDay){
+                
+            }
+            
             
             
             if let rule = rules.individualRule[.RuleSuperUser]{

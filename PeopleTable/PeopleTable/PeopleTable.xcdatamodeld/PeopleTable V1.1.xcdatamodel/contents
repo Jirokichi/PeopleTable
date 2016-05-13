@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Automatic">
+    <entity name="People" representedClassName=".People" parentEntity="Records" syncable="YES">
+        <attribute name="createdDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="forbittenDays" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isSuper" attributeType="Boolean" syncable="YES"/>
+        <attribute name="limitOfRequiredWeekDays" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES"/>
+        <attribute name="maxWorkingCountInAMonth" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="minWorkingCountInAMonth" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="requiredDays" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="requiredWeekDays" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="unavailableDays" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unavailableWeekDays" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Records" representedClassName=".Records" syncable="YES"/>
+    <entity name="Rules" representedClassName=".Rules" parentEntity="Records" syncable="YES">
+        <attribute name="countInMonth" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="interval" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="practice" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="superUser" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="unavailableDays" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="unavailableWeekDays" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="weekEnd" optional="YES" attributeType="Boolean" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="People" positionX="-63" positionY="-18" width="128" height="225"/>
+        <element name="Records" positionX="144" positionY="-126" width="128" height="45"/>
+        <element name="Rules" positionX="160" positionY="-6" width="128" height="148"/>
+    </elements>
+</model>

@@ -53,7 +53,7 @@ class HumanController{
             inValid = false
             do{
                 if !running{
-                    throw CRule.RuleError.Stop
+                    throw CRule.RuleError.Stop(msg: "キャンセルされました")
                 }
                 try table.createTable()
                 // 月テーブルの評価
@@ -62,8 +62,13 @@ class HumanController{
                 try rules.monthRule[.RuleCountsInMonth]?.satisfyRule(objects: [table.days, humans])
                 
                 
-            }catch let error as CRule.RuleError where error == CRule.RuleError.NotSarisfiedForMonthTable{
-                inValid = true
+            }catch let error as CRule.RuleError{
+                switch error{
+                case .NotSarisfiedForMonthTable:
+                    inValid = true
+                default:
+                    throw error
+                }
             }
         }while inValid
         
