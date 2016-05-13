@@ -39,7 +39,8 @@ class PeopleTests: XCTestCase {
             isSuper: true,
             maxWorkingCountInAMonth: 3,
             minWorkingCountInAMonth: 5,
-            unavailableDays: "1")
+            unavailableDays: "1",
+            requiredDays: "")
         
         originalPeoples[1].updateParameters(
             NSDate(),
@@ -51,7 +52,8 @@ class PeopleTests: XCTestCase {
             isSuper: true,
             maxWorkingCountInAMonth: 3,
             minWorkingCountInAMonth: 5,
-            unavailableDays: "1")
+            unavailableDays: "1",
+            requiredDays: "")
         
         Records.saveContext(coreData.managedObjectContext)
         
