@@ -129,12 +129,6 @@ class Human{
     private static func getSpecificHumans(humans:[Human], rules:CRules, isSuper:Bool, checkingDay:Int, weekday:WeekDay, previousDaysInfo:[DayInfo]) throws -> [Human]{
         let specificHumans = humans.filter({ (human) -> Bool in
             
-            // @Todo: Fix
-            if human.requiredDays.contains(checkingDay){
-                
-            }
-            
-            
             
             if let rule = rules.individualRule[.RuleSuperUser]{
                 if rule.active{
@@ -161,6 +155,18 @@ class Human{
                             }
                         }
                     }
+                    
+                    if  human.requiredDays.contains({(day:Int) -> Bool in
+                        if day == checkingDay + 1 ||  day == checkingDay + 2{
+                            return true
+                        }else{
+                            return false
+                        }}){
+                            
+                            return false
+                            
+                    }
+                    
                 }
             }
             
