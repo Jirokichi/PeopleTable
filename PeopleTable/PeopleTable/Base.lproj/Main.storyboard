@@ -418,8 +418,6 @@
                                             </connections>
                                         </buttonCell>
                                     </button>
-                                </beginningViews>
-                                <endViews>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BOs-92-Akx">
                                         <rect key="frame" x="0.0" y="0.0" width="1200" height="471"/>
                                         <clipView key="contentView" id="xlJ-TJ-nOE">
@@ -569,7 +567,7 @@
                                                             </buttonCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                         </tableColumn>
-                                                        <tableColumn identifier="UnavailableDays" width="150" minWidth="10" maxWidth="200" id="yvW-9g-fcK">
+                                                        <tableColumn identifier="UnavailableDays" width="150" minWidth="10" maxWidth="500" id="yvW-9g-fcK">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="禁止日">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -618,7 +616,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
-                                </endViews>
+                                </beginningViews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="BOs-92-Akx" secondAttribute="bottom" id="OIE-SW-YRA"/>
                                     <constraint firstItem="h40-EF-RiM" firstAttribute="top" secondItem="GuQ-kj-l0r" secondAttribute="top" id="QCn-dk-h8x"/>
