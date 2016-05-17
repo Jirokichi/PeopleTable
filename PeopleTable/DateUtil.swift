@@ -24,6 +24,7 @@ class DateUtil{
         
         return dayComponent
     }
+
     
     /// 引数の月の最終日のNSDateComponent(Year, Month, Day, Weekday)の取得
     static func getLastDay(date:NSDate) -> NSDateComponents{

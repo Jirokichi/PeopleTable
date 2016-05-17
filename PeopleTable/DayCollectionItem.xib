@@ -14,7 +14,7 @@
             <subviews>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bmF-SO-BDB">
                     <rect key="frame" x="-3" y="41" width="77" height="26"/>
-                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="lYG-gn-8vT">
+                    <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" arrowPosition="noArrow" selectedItem="28i-rA-kgn" id="lYG-gn-8vT">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" id="icq-mX-SFq">
@@ -25,10 +25,13 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
+                    <connections>
+                        <action selector="changedPopUpButtonA:" target="nr0-6B-1kN" id="dg0-79-rdy"/>
+                    </connections>
                 </popUpButton>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L1H-Gf-CeT">
                     <rect key="frame" x="-3" y="2" width="76" height="26"/>
-                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="kvW-rZ-Bdz" id="C5e-oa-fWq">
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" arrowPosition="noArrow" selectedItem="kvW-rZ-Bdz" id="C5e-oa-fWq">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" id="UO1-Sk-GxE">
@@ -39,7 +42,20 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
+                    <connections>
+                        <action selector="changePopUoButtonB:" target="nr0-6B-1kN" id="xaI-mZ-bVg"/>
+                    </connections>
                 </popUpButton>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="1kK-8Q-yGc">
+                    <rect key="frame" x="4" y="24" width="22" height="20"/>
+                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="yBS-Zw-zQ2">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="checkHumanA:" target="nr0-6B-1kN" id="vTQ-er-3O6"/>
+                    </connections>
+                </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kka-3a-AUu">
                     <rect key="frame" x="17" y="27" width="37" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="hsR-uX-cyP">
@@ -48,12 +64,28 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="txa-MM-6Ev">
+                    <rect key="frame" x="50" y="24" width="22" height="22"/>
+                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="iZh-ay-z7C">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="checkHumanB:" target="nr0-6B-1kN" id="31s-o5-Osg"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
+                <constraint firstItem="L1H-Gf-CeT" firstAttribute="top" secondItem="1kK-8Q-yGc" secondAttribute="bottom" id="CeT-TP-Ljf"/>
                 <constraint firstItem="bmF-SO-BDB" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="5" id="Lhn-Vc-bRe"/>
+                <constraint firstAttribute="trailing" secondItem="txa-MM-6Ev" secondAttribute="trailing" id="Mco-0b-7ug"/>
+                <constraint firstItem="1kK-8Q-yGc" firstAttribute="top" secondItem="bmF-SO-BDB" secondAttribute="bottom" constant="2" id="P1k-9k-kYt"/>
                 <constraint firstItem="kka-3a-AUu" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="Pjv-8a-85r"/>
                 <constraint firstItem="kka-3a-AUu" firstAttribute="centerX" secondItem="bmF-SO-BDB" secondAttribute="centerX" id="aql-dQ-9eg"/>
                 <constraint firstAttribute="bottom" secondItem="L1H-Gf-CeT" secondAttribute="bottom" constant="5" id="iuB-vl-RjA"/>
+                <constraint firstItem="L1H-Gf-CeT" firstAttribute="top" secondItem="txa-MM-6Ev" secondAttribute="bottom" id="qFq-Yd-ogr"/>
+                <constraint firstItem="1kK-8Q-yGc" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="6" id="sUq-rB-EfG"/>
+                <constraint firstItem="txa-MM-6Ev" firstAttribute="top" secondItem="bmF-SO-BDB" secondAttribute="bottom" id="tI4-Mg-YZ4"/>
                 <constraint firstItem="bmF-SO-BDB" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="zJT-Pr-AsD"/>
                 <constraint firstItem="L1H-Gf-CeT" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="zQh-cb-UVD"/>
             </constraints>
@@ -66,7 +98,9 @@
             <connections>
                 <outlet property="dayLabel" destination="kka-3a-AUu" id="a8h-kJ-6Ki"/>
                 <outlet property="humanAPopUpButton" destination="bmF-SO-BDB" id="TND-lV-61B"/>
-                <outlet property="humanBPopUpButton" destination="L1H-Gf-CeT" id="eJs-7R-TyP"/>
+                <outlet property="humanAPopUpCheckBox" destination="1kK-8Q-yGc" id="Wxz-sX-Gxr"/>
+                <outlet property="humanBPopUpButton" destination="L1H-Gf-CeT" id="F4M-Lj-pXI"/>
+                <outlet property="humanBPopUpCheckBox" destination="txa-MM-6Ev" id="Ocz-mN-Q8a"/>
                 <outlet property="view" destination="c22-O7-iKe" id="PyG-O8-oIr"/>
             </connections>
         </collectionViewItem>

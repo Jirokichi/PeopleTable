@@ -6,11 +6,11 @@
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <scenes>
-        <!--Home View Controller-->
+        <!--PeopleTable-->
         <scene sceneID="DSq-0m-0M1">
             <objects>
                 <customObject id="uvr-6c-X7k" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <viewController id="qOM-vq-PYc" customClass="HomeViewController" customModule="PeopleTable" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="PeopleTable" id="qOM-vq-PYc" customClass="HomeViewController" customModule="PeopleTable" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="xwZ-Cr-Qj7">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="700"/>
                         <autoresizingMask key="autoresizingMask"/>
