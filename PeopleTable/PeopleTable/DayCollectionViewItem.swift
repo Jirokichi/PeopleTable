@@ -42,7 +42,6 @@ class DayCollectionViewItem: NSCollectionViewItem {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        LogUtil.log("viewDidLoad - " + dayLabel.stringValue)
     }
     
     func setData(number:Int, workingPeople:[People], human:(A:String?, B:String?)? = nil, status:(A:Bool, B:Bool) = (false, false), dayDelegate:MyDayDelegate? = nil){

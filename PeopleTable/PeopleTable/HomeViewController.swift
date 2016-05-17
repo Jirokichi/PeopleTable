@@ -14,6 +14,9 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
         static let ID = "UpadeSettingInfo"
     }
     
+    struct UserDefaultKey{
+        static let Memo = "MEMO"
+    }
     
     static let BackGroundColor = NSColor.whiteColor().CGColor
  
@@ -21,6 +24,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
     @IBOutlet weak var headerView: DayHeaderView!
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var resultTextField: NSTextField!
+    @IBOutlet var memoTextView: NSTextView!
     
     //ルールのチェックボックス
     @IBOutlet weak var checkBoxForSuper: NSButton!
@@ -71,8 +75,10 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
     
     override func viewDidDisappear() {
         super.viewDidDisappear()
-        LogUtil.log()
-    }
+        LogUtil.log("memoTextView:\(memoTextView.string)")
+        // 「ud」というインスタンスをつくる。
+        let ud = NSUserDefaults.standardUserDefaults()
+        ud.setObject(memoTextView.string ?? "", forKey:UserDefaultKey.Memo)}
     
     override func viewWillAppear() {
         super.viewWillAppear()
@@ -85,6 +91,9 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
         collectionView.dataSource = self
         collectionView.delegate = self
         
+        let ud = NSUserDefaults.standardUserDefaults()
+        let memoText = ud.objectForKey(UserDefaultKey.Memo) as? String
+        self.memoTextView?.string = memoText ?? ""
         
         // 今月の最終日の取得
         self.updateMonthData(NSDate())
@@ -144,11 +153,15 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
             workingPeople = People.createDefaultPeoples(coreDataManagement)
         }
         
+        self.updateResultText()
+    }
+    
+    private func updateResultText(){
         var result:String = "----------------------------------"
         result = result + "\n" + "名前(合計): 月/火/水/木/金/土/日"
-        for people in workingPeople{
-            var peopleInfo = people.name
-            if let table = self.table{
+        if let table = self.table{
+            for people in workingPeople{
+                var peopleInfo = people.name
                 let weekDaysInfo:[WeekDay:Int] = table.numberOfSpecificWeekDayInAMonth(people.name)
                 
                 let mon = weekDaysInfo[WeekDay.Monday] ?? 0
@@ -161,12 +174,12 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
                 let sum = mon + tue + wed + thur + fri + sat + sun
                 peopleInfo = peopleInfo + "(\(sum)): \(mon)/\(tue)/\(wed)/\(thur)/\(fri)/\(sat)/\(sun)"
                 
+                
+                result = result + "\n" + peopleInfo
             }
+            result = result + "\n" + "----------------------------------"
             
-            result = result + "\n" + peopleInfo
         }
-        result = result + "\n" + "----------------------------------"
-        
         
         LogUtil.log(result + "\n")
         self.resultTextField?.stringValue = result
