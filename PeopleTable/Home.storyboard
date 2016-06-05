@@ -199,10 +199,10 @@
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <size key="minSize" width="698" height="185"/>
-                                                    <size key="maxSize" width="698" height="10000000"/>
+                                                    <size key="maxSize" width="700" height="10000000"/>
                                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <size key="minSize" width="698" height="185"/>
-                                                    <size key="maxSize" width="698" height="10000000"/>
+                                                    <size key="maxSize" width="700" height="10000000"/>
                                                 </textView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -237,19 +237,19 @@
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
-                            <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" misplaced="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l4R-wD-Z6A" userLabel="RulesSV">
-                                <rect key="frame" x="710" y="86" width="290" height="604"/>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l4R-wD-Z6A" userLabel="RulesSV">
+                                <rect key="frame" x="710" y="57" width="290" height="633"/>
                                 <subviews>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T0N-su-j1w">
-                                        <rect key="frame" x="-2" y="587" width="113" height="17"/>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="T0N-su-j1w">
+                                        <rect key="frame" x="-2" y="616" width="113" height="17"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="個人に対するルール" id="V9I-Hf-mTl">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oEv-4a-73J">
-                                        <rect key="frame" x="-2" y="563" width="187" height="18"/>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="oEv-4a-73J">
+                                        <rect key="frame" x="-2" y="592" width="187" height="18"/>
                                         <buttonCell key="cell" type="check" title="上位(Super)が一日に一人必要" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Ijl-Nd-KyC">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -258,8 +258,8 @@
                                             </connections>
                                         </buttonCell>
                                     </button>
-                                    <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n4r-jY-aGE">
-                                        <rect key="frame" x="-2" y="541" width="131" height="18"/>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="n4r-jY-aGE">
+                                        <rect key="frame" x="-2" y="570" width="131" height="18"/>
                                         <buttonCell key="cell" type="check" title="禁止曜日を反映する" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="gGB-xb-4uD">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -268,8 +268,8 @@
                                             <action selector="changeUnavailableWeekDays:" target="qOM-vq-PYc" id="hRa-Rb-W7r"/>
                                         </connections>
                                     </button>
-                                    <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iyN-Bx-Bca">
-                                        <rect key="frame" x="-2" y="519" width="114" height="18"/>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="iyN-Bx-Bca">
+                                        <rect key="frame" x="-2" y="548" width="114" height="18"/>
                                         <buttonCell key="cell" type="check" title="2日は間を空ける" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="SgU-1F-4XZ">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -278,8 +278,8 @@
                                             <action selector="checkInterval:" target="qOM-vq-PYc" id="X8G-Zd-ZPW"/>
                                         </connections>
                                     </button>
-                                    <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2JL-a0-wcp">
-                                        <rect key="frame" x="-2" y="497" width="119" height="18"/>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="2JL-a0-wcp">
+                                        <rect key="frame" x="-2" y="526" width="119" height="18"/>
                                         <buttonCell key="cell" type="check" title="禁止日を反映する" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="h52-LL-YW9">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -288,16 +288,16 @@
                                             <action selector="checkUnavailableDays:" target="qOM-vq-PYc" id="kzm-Nn-Eba"/>
                                         </connections>
                                     </button>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RSd-Di-Thd">
-                                        <rect key="frame" x="-2" y="474" width="65" height="17"/>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RSd-Di-Thd">
+                                        <rect key="frame" x="-2" y="503" width="65" height="17"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="全体ルール" id="2YN-WH-rqY">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hrb-K9-KK5">
-                                        <rect key="frame" x="-2" y="450" width="161" height="18"/>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="Hrb-K9-KK5">
+                                        <rect key="frame" x="-2" y="479" width="161" height="18"/>
                                         <buttonCell key="cell" type="check" title="土曜・日曜は1回ずつまで" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="83H-jS-Fdz">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -306,8 +306,8 @@
                                             <action selector="chageWeekEnd:" target="qOM-vq-PYc" id="NGh-we-50b"/>
                                         </connections>
                                     </button>
-                                    <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RsM-Tp-eg8">
-                                        <rect key="frame" x="-2" y="428" width="167" height="18"/>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="RsM-Tp-eg8">
+                                        <rect key="frame" x="-2" y="457" width="167" height="18"/>
                                         <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="36c-bm-s8n">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <string key="title" base64-UTF8="YES">
@@ -319,8 +319,8 @@
                                             <action selector="changePractice:" target="qOM-vq-PYc" id="nsa-Rr-Jrg"/>
                                         </connections>
                                     </button>
-                                    <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hmV-is-2XN">
-                                        <rect key="frame" x="-2" y="406" width="191" height="18"/>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="hmV-is-2XN">
+                                        <rect key="frame" x="-2" y="435" width="191" height="18"/>
                                         <buttonCell key="cell" type="check" title="月の最大と最低回数を反映する" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="agp-Bu-hwj">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -329,7 +329,42 @@
                                             <action selector="changeCountInMonth:" target="qOM-vq-PYc" id="N3G-zE-gKN"/>
                                         </connections>
                                     </button>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wun-UI-Jof">
+                                    <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q4C-j7-rUB">
+                                        <rect key="frame" x="0.0" y="408" width="104" height="21"/>
+                                        <subviews>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="V2M-HB-miW">
+                                                <rect key="frame" x="-2" y="4" width="29" height="17"/>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="注目" id="BDQ-JZ-jKP">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8qg-1v-jiY">
+                                                <rect key="frame" x="31" y="-3" width="76" height="26"/>
+                                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="lnk-XM-c2N" id="CZd-Dm-y13">
+                                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="menu"/>
+                                                    <menu key="menu" id="jwu-E4-A9h">
+                                                        <items>
+                                                            <menuItem title="Item 1" state="on" id="lnk-XM-c2N"/>
+                                                            <menuItem title="Item 2" id="RAa-Zm-hOh"/>
+                                                            <menuItem title="Item 3" id="CQW-Xc-NOW"/>
+                                                        </items>
+                                                    </menu>
+                                                </popUpButtonCell>
+                                            </popUpButton>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="wun-UI-Jof">
                                         <rect key="frame" x="-2" y="0.0" width="215" height="400"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="400" id="DZv-VT-Z9O"/>
@@ -352,8 +387,10 @@
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>

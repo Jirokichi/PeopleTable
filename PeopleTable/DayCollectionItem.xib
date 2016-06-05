@@ -14,12 +14,12 @@
             <subviews>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bmF-SO-BDB">
                     <rect key="frame" x="-3" y="41" width="77" height="26"/>
-                    <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" arrowPosition="noArrow" selectedItem="28i-rA-kgn" id="lYG-gn-8vT">
+                    <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" arrowPosition="noArrow" selectedItem="28i-rA-kgn" id="lYG-gn-8vT">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" id="icq-mX-SFq">
                             <items>
-                                <menuItem title="Item 1" id="28i-rA-kgn"/>
+                                <menuItem title="Item 1" state="on" id="28i-rA-kgn"/>
                                 <menuItem title="Item 2" id="04Y-6Q-x8B"/>
                                 <menuItem title="Item 3" id="6NG-DC-LqK"/>
                             </items>
