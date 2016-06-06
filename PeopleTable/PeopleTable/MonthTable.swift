@@ -14,61 +14,17 @@ class MonthTable{
     let dayOfLastDay:Int // 月の最終日
     let weekDayOfLastDate:WeekDay // 月の最終日の曜日
     let humans:[Human]
-    let rules:CRules
     
-    let contoller:HumanController
     
     /// 月の最終日の情報をもとに月の担当者を含めたカレンダーを作成する
     /// ここでは、最低条件のみ反映して担当者を決定する
-    init(dayOfLastDay:Int, weekDayOfLastDay:WeekDay, humans:[Human], rules:CRules, contoller:HumanController){
+    init(dayOfLastDay:Int, weekDayOfLastDay:WeekDay, humans:[Human]){
         self.days = []
         self.weekDayOfLastDate = weekDayOfLastDay
         self.dayOfLastDay = dayOfLastDay
-        self.humans = humans
-        self.rules = rules
-        self.contoller = contoller
-    }
+        self.humans = humans    }
     
-    private func createInitTable(){
-        for (var i = 0; i < dayOfLastDay; i++){
-            
-        }
-    }
     
-    ///　テーブルを作成する。個人ルールで作成できない場合は、CRuleのエラーが返ってくる。
-    func createTableAutomatically() throws{
-        days.removeAll()
-        for human in humans{
-            human.workingCountInAMonth = 0
-            human.workingCountOnEachWeek.removeAll()
-        }
-        
-        for (var i = 0; i < dayOfLastDay; i++){
-            let day = DayInfo(day: i+1, weekday: getWeekDay(i+1))
-            let toutyokus:[Human]
-            if i == 0{
-                toutyokus = try contoller.selectTwoHumansInADay(checking:(i+1, day.weekday), previousDaysInfo: [])
-            }else if i == 1{
-                toutyokus = try contoller.selectTwoHumansInADay(checking:(i+1, day.weekday), previousDaysInfo: [days[i-1]])
-            }else{
-                toutyokus = try contoller.selectTwoHumansInADay(checking:(i+1, day.weekday), previousDaysInfo: [days[i-1], days[i-2]])
-            }
-            day.setHumans(toutyokus)
-            days.append(day)
-            
-            
-            
-            
-            for toutyoku in toutyokus{
-                for human in humans{
-                    if human.id == toutyoku.id{
-                        human.workingCountInAMonth = human.workingCountInAMonth + 1
-                        human.workingCountOnEachWeek[day.weekday] = (human.workingCountOnEachWeek[day.weekday] ?? 0) + 1
-                    }
-                }
-            }
-        }
-    }
     
     func viewTable(){
         

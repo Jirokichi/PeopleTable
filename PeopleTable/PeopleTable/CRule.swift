@@ -47,17 +47,26 @@ struct CRule{
 
 struct CRules{
     
+    /// 個人のルール。なお、すでに日にちで担当者が決まっている場合はこれらのルールは無視される。
     enum Individual{
-        case Rule0
+        case RuleNotDuplication
+        /// superフラグのある担当者が少なくとも１日一人いるというルール
         case RuleSuperUser
+        /// 特定の曜日は働けないというルール
         case RuleUnavailableWeekDays
+        /// 一度働くと、指定した日数休まなければならないというルール
         case RuleInterval
+        /// 特定の日付は働けないというルール
         case RuleUnavailableDays
     }
     
+    // 月のルール
     enum Month{
+        // １ヶ月間で、週末に働ける回数が決まっているというルール
         case RuleWeekEnd
+        // 練習生は火曜日もしくは木曜日に必ず働く必要があるというルール
         case RulePractice
+        // １ヶ月間で、働ける上限と下限の回数が決まっているというルール
         case RuleCountsInMonth
     }
     
@@ -87,9 +96,9 @@ struct CRules{
         }
     }
     
-    mutating func createIndividualRule(rule0:Bool, RuleSuperUser:Bool, RuleUnavailableWeekDays:Bool, RuleInterval:Bool, RuleUnavailableDays:Bool){
+    mutating func createIndividualRule(ruleNotDuplication:Bool, RuleSuperUser:Bool, RuleUnavailableWeekDays:Bool, RuleInterval:Bool, RuleUnavailableDays:Bool){
         /// ルール0: 同一ユーザーは1日に選択できない
-        individualRule[.Rule0] = CRule(name: "Rule0", valid: rule0) { (objects:[Any]) throws -> () in
+        individualRule[.RuleNotDuplication] = CRule(name: "RuleNotDuplication", valid: ruleNotDuplication) { (objects:[Any]) throws -> () in
             
             if objects.count != 2{
                 fatalError()
