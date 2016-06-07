@@ -82,14 +82,10 @@ class HumanController{
         return table
     }
     
+    /// 前提条件のチェック
+    /// - throws : 条件を満たさない場合のエラ
     private func checkPrecondition(table:MonthTable) throws{
         
-        let isWeekEndRule:Bool
-        if let rule = self.cRules.monthRule[.RuleWeekEnd] where rule.active{
-            isWeekEndRule = true
-        }else{
-            isWeekEndRule = false
-        }
         
         for dayInfo in table.days{
             var requiredHumans:[Human] = []
@@ -112,16 +108,12 @@ class HumanController{
         }
         
         for human in self.workingHuman{
-            
-            
             if let rule = self.cRules.monthRule[.RuleCountsInMonth] where rule.active{
                 if (human.requiredDays.count > human.maxWorkingCountInAMonth){
                     let msg = "\(human.name)の１ヶ月の出勤日が上限の\(human.maxWorkingCountInAMonth)を超えています。"
                     throw CRule.RuleError.Stop(msg: msg)
                 }
             }
-            
-            
             if let rule = self.cRules.monthRule[.RuleWeekEnd] where rule.active{
                 var saturdayCount:Int = 0
                 var sundayCount:Int = 0
@@ -152,19 +144,13 @@ class HumanController{
                     let msg = "\(human.name)は土日どちらかで二回以上出勤しています。"
                     throw CRule.RuleError.Stop(msg: msg)
                 }
-                
             }
-            
         }
-        
-        
-        
     }
     
     ///　テーブルを作成する。個人ルールで作成できない場合は、CRuleのエラーが返ってくる。
     private func createTableOnce(inout table: MonthTable) throws{
         
-        table.finishFlag = false
         table.days.removeAll()
         for human in self.workingHuman{
             human.workingCountInAMonth = 0
@@ -196,7 +182,6 @@ class HumanController{
                 }
             }
         }
-        table.finishFlag = true
     }
     
     

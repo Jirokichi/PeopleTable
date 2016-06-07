@@ -15,7 +15,6 @@ class MonthTable{
     let weekDayOfLastDate:WeekDay // 月の最終日の曜日
     let humans:[Human]
     
-    var finishFlag = false
     
     /// 月の最終日の情報をもとに月の担当者を含めたカレンダーを作成する
     /// ここでは、最低条件のみ反映して担当者を決定する
@@ -27,6 +26,14 @@ class MonthTable{
     
         for (var i = 0; i < self.dayOfLastDay; i++){
             let dayInfo = DayInfo(day: i+1, weekday: self.getWeekDay(i+1))
+            
+            var toutyoku:[Human] = []
+            for human in self.humans{
+                if human.requiredDays.contains(dayInfo.day){
+                    toutyoku.append(human)
+                }
+            }
+            dayInfo.setHumans(toutyoku)
             self.days.append(dayInfo)
         }
     }
@@ -84,7 +91,13 @@ class DayInfo{
         self.workingHuman = []
     }
     
-    
+    func getHumanOfNoX(numX:Int) -> Human?{
+        if workingHuman.count > numX{
+            return workingHuman[numX]
+        }else{
+            return nil
+        }
+    }
     
     func setHumans(toutyokus:[Human]){
         self.workingHuman = toutyokus

@@ -112,6 +112,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
         
         table = self.createCurrentTableFromDB()
         
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: HomeViewController.UpdateSettingInfo, name: NotificationCenter.ID, object: nil)
     }
     
@@ -121,17 +122,17 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
     func updateSettingInfo(notification:NSNotification?){
         LogUtil.log()
         DialogUtil.startDialog("警告", message: "設定が変更されました。一度結果をリセットしてもよろしいでしょうか？") { () -> () in
-            self.updateTable(nil)
+            self.updateTable()
         }
     }
     
     // テーブルの更新
-    private func updateTable(table:MonthTable?){
+    private func updateTable(){
         // テーブルの更新と人設定
         LogUtil.log()
-        self.table = table
         do{
             try self.upatePeoples()
+            self.table = self.createCurrentTableFromDB()
             self.collectionView.reloadData()
         }catch{
             LogUtil.log("Error")
@@ -141,7 +142,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
     /// 日付情報の更新 - テーブルは初期化されます
     private func updateMonthData(day:NSDate){
         self.targetMonthInfo.update(day)
-        self.updateTable(nil)
+        self.updateTable()
     }
     
     /// CoreDataから人を取得（一人もいなければデフォルトを作成）してきて、現在の情報(各人の月の稼働日数や曜日ごとの稼働日数)を出力する
@@ -220,84 +221,60 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
         
         let collectionViewItem = self.collectionView.makeItemWithIdentifier(DayCollectionViewItem.XibName, forIndexPath: indexPath)
         
-        if let dayItem = collectionViewItem as? DayCollectionViewItem{
-            dayItem.view.wantsLayer = true // ビューの中のレイアーの設定をするためにはこのフラグを立てる必要がある（iOSでは不要）
-            dayItem.view.layer?.backgroundColor = HomeViewController.BackGroundColor
-            dayItem.view.layer?.borderWidth = 1
-            
-            
-            let weekDayOfADay = WeekDay(rawValue: self.targetMonthInfo.firstDayInAMonth.weekday-1)!
-            
-            
-            let day = indexPath.item - (weekDayOfADay.rawValue - 1)
-            if day > 0 && day <= self.targetMonthInfo.lastDayInAMonth.day{
-                
-                //強制参加の人を取得
-                let tmpHumans:[People] = self.getForcefullySelectedPeople(day, workingPeople: self.workingPeople)
-                
-            
-                if tmpHumans.count == 2{
-                    dayItem.setData(
-                        day,
-                        workingPeople:workingPeople,
-                        human:(tmpHumans[0].name, tmpHumans[1].name),
-                        status: (true, true),
-                        dayDelegate: self )
-                }else if tmpHumans.count == 1{
-                    if let table = table where table.finishFlag{
-                        
-                        let humanAName = table.days[day-1].workingHuman[0].name
-                        let humanBName = table.days[day-1].workingHuman[1].name
-                        
-                        let humanAStatus:Bool = (humanAName == tmpHumans[0].name)
-                        let humanBStatus:Bool = (humanBName == tmpHumans[0].name)
-                        
-                        dayItem.setData(
-                            day,
-                            workingPeople:workingPeople,
-                            human:(humanAName, humanBName),
-                            status: (humanAStatus, humanBStatus),
-                            dayDelegate: self )
-                        
-                        
-                    }else{
-                        dayItem.setData(
-                            day,
-                            workingPeople:workingPeople,
-                            human:(tmpHumans[0].name, nil),
-                            status: (true, false),
-                            dayDelegate: self )
-                    }
-                }else{
-                    if let table = table where table.finishFlag{
-                        let humanAName = table.days[day-1].workingHuman[0].name
-                        let humanBName = table.days[day-1].workingHuman[1].name
-                        dayItem.setData(
-                            day,
-                            workingPeople:workingPeople,
-                            human:(humanAName, humanBName),
-                            status: (false, false),
-                            dayDelegate: self )
-                    }else{
-                        dayItem.setData(
-                            day,
-                            workingPeople:workingPeople,
-                            status: (false, false),
-                            dayDelegate: self )
-                    }
-                }
-                
-                
-            }else{
-                dayItem.setData(-1, workingPeople: [])
-            }
-            
-            return dayItem
-        }else{
-            
+        guard let dayItem = collectionViewItem as? DayCollectionViewItem else{
             LogUtil.log("error is not retrieved - \(indexPath):\(collectionViewItem.representedObject)" )
             return collectionViewItem;
         }
+        
+        
+        dayItem.view.wantsLayer = true // ビューの中のレイアーの設定をするためにはこのフラグを立てる必要がある（iOSでは不要）
+        dayItem.view.layer?.backgroundColor = HomeViewController.BackGroundColor
+        dayItem.view.layer?.borderWidth = 1
+        
+        // 一日の曜日を取得
+        let weekDayOfFirstDay = WeekDay(rawValue: self.targetMonthInfo.firstDayInAMonth.weekday-1)!
+        
+        // 日付を取得
+        let day = indexPath.item - (weekDayOfFirstDay.rawValue - 1)
+        if day > 0 && day <= self.targetMonthInfo.lastDayInAMonth.day{
+            
+            
+            
+            
+            //強制参加の人を取得
+            let tmpHumans:[People] = self.getForcefullySelectedPeople(day, workingPeople: self.workingPeople)
+            
+            let A:(name:String?, required:Bool)
+            let B:(name:String?, required:Bool)
+            if let table = self.table where table.days[day-1].workingHuman.count > 0{
+                let humanA = table.days[day-1].getHumanOfNoX(0)
+                let humanB = table.days[day-1].getHumanOfNoX(1)
+                
+                
+                A = (name:humanA?.name, required:tmpHumans.contains({ (people:People) -> Bool in
+                    return people.name == humanA?.name
+                }))
+                B = (name:humanB?.name, required:tmpHumans.contains({ (people:People) -> Bool in
+                    return people.name == humanB?.name
+                }))
+            }else{
+                A = (name:nil, required:false)
+                B = (name:nil, required:false)
+            }
+            dayItem.setData(
+                day,
+                workingPeople:workingPeople,
+                human:(A.name, B.name),
+                status: (A.required, B.required),
+                dayDelegate: self )
+            
+            
+        }else{
+            dayItem.setData(-1, workingPeople: [])
+        }
+        
+        return dayItem
+        
     }
     
     // MARK: - NSDatePickerCellDelegate
@@ -424,7 +401,6 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
                 do{
                     self.table = try controller.startCreatingRandomTable(self.targetMonthInfo.targetMonth, running:&self.runningTable)
                 }catch let error as CRule.RuleError{
-                    self.table?.finishFlag = false
                     switch error{
                     case .Stop(let msg):
                         errorMessage = msg
@@ -432,7 +408,6 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
                         errorMessage = "予期せぬエラー:\(error)"
                     }
                 }catch{
-                    self.table?.finishFlag = false
                     errorMessage = "予期せぬエラー:\(error)"
                 }
                 dispatch_async(dispatch_get_main_queue(), {
@@ -462,17 +437,17 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
     }
 
     
+    /// DBのデータから当番表を作成する
     private func createCurrentTableFromDB() -> MonthTable?{
         
         guard let rule = rule else {return nil}
         
-        var table:MonthTable
         let humans:[Human] = HomeViewController.convertPeopleToHuman(self.workingPeople)
         LogUtil.log(humans)
         let cRules = HomeViewController.convertRuleToCRule(rule)
         
         let controller = HumanController(workingHuman: humans, cRules: cRules)
-        table = controller.createInitializedMonthTable(self.targetMonthInfo.targetMonth)
+        let table = controller.createInitializedMonthTable(self.targetMonthInfo.targetMonth)
         
         return table
     }
@@ -491,22 +466,21 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
             return
         }
         
+        // DBのrequireDaysの更新
         let requireDays = people[0].requiredDays
         var requireDaysInt = HomeViewController.getDaysIntFromString(requireDays)
         if status{
-            
             requireDaysInt.append(day)
             requireDaysInt = requireDaysInt.sort()
-            
         }else{
-            if let num = requireDaysInt.indexOf(day){
-                requireDaysInt.removeAtIndex(num)
-            }else{
+            
+            guard let num = requireDaysInt.indexOf(day) else{
                 DialogUtil.startDialog("予期せぬエラー", onClickOKButton: { () -> () in })
                 return
             }
+            requireDaysInt.removeAtIndex(num)
+            
         }
-        
         people[0].requiredDays = self.getDaysStringFromInt(requireDaysInt)
         Records.saveContext(coreDataManagement.managedObjectContext)
         
