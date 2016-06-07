@@ -56,4 +56,24 @@ enum WeekDay:Int{
     case Thursday = 4
     case Friday = 5
     case Saturday = 6
+    
+    
+    func string() -> String{
+        switch self{
+        case .Sunday:
+            return "日"
+        case .Monday:
+            return "月"
+        case Tuesday:
+            return "火"
+        case Wednesday:
+            return "水"
+        case Thursday:
+            return "木"
+        case Friday:
+            return "金"
+        case Saturday:
+            return "土"
+        }
+    }
 }

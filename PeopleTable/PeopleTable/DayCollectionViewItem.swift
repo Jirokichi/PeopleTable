@@ -63,7 +63,6 @@ class DayCollectionViewItem: NSCollectionViewItem {
             self.humanBPopUpButton.addItemWithTitle(item)
         }
         
-        self.humanAPopUpButton.
         if let humanAName = human?.A{
             self.humanAPopUpButton.selectItemWithTitle(humanAName)
             selectedHumanA = humanAName

@@ -47,6 +47,9 @@ class HumanController{
         
         var inValid:Bool
         var table:MonthTable = self.createInitializedMonthTable(calendar)
+        
+        try self.checkPrecondition(table)
+        
         repeat{
             inValid = false
             do{
@@ -79,10 +82,89 @@ class HumanController{
         return table
     }
     
+    private func checkPrecondition(table:MonthTable) throws{
+        
+        let isWeekEndRule:Bool
+        if let rule = self.cRules.monthRule[.RuleWeekEnd] where rule.active{
+            isWeekEndRule = true
+        }else{
+            isWeekEndRule = false
+        }
+        
+        for dayInfo in table.days{
+            var requiredHumans:[Human] = []
+            for human in self.workingHuman{
+                if human.requiredDays.contains(dayInfo.day){
+                    requiredHumans.append(human)
+                }
+            }
+            
+            // 必須日の前条件チェック
+            if requiredHumans.count > 2{
+                var msg = ""
+                msg += "\(dayInfo)日に二人以上が必須になっています("
+                for human in requiredHumans{
+                    msg = msg + human.name + ", "
+                }
+                msg = msg + ")"
+                throw CRule.RuleError.Stop(msg: msg)
+            }
+        }
+        
+        for human in self.workingHuman{
+            
+            
+            if let rule = self.cRules.monthRule[.RuleCountsInMonth] where rule.active{
+                if (human.requiredDays.count > human.maxWorkingCountInAMonth){
+                    let msg = "\(human.name)の１ヶ月の出勤日が上限の\(human.maxWorkingCountInAMonth)を超えています。"
+                    throw CRule.RuleError.Stop(msg: msg)
+                }
+            }
+            
+            
+            if let rule = self.cRules.monthRule[.RuleWeekEnd] where rule.active{
+                var saturdayCount:Int = 0
+                var sundayCount:Int = 0
+                
+                for day in human.requiredDays{
+                    if table.days.contains({ (dayInfo) -> Bool in
+                        if dayInfo.day == day && dayInfo.weekday == .Saturday{
+                            return true
+                        }else{
+                            return false
+                        }
+                    }){
+                        saturdayCount = saturdayCount + 1
+                    }
+                    
+                    if table.days.contains({ (dayInfo) -> Bool in
+                        if dayInfo.day == day && dayInfo.weekday == .Sunday{
+                            return true
+                        }else{
+                            return false
+                        }
+                    }){
+                        sundayCount = sundayCount + 1
+                    }
+                }
+                
+                if sundayCount > 1 || saturdayCount > 1{
+                    let msg = "\(human.name)は土日どちらかで二回以上出勤しています。"
+                    throw CRule.RuleError.Stop(msg: msg)
+                }
+                
+            }
+            
+        }
+        
+        
+        
+    }
+    
     ///　テーブルを作成する。個人ルールで作成できない場合は、CRuleのエラーが返ってくる。
     private func createTableOnce(inout table: MonthTable) throws{
         
-        
+        table.finishFlag = false
         table.days.removeAll()
         for human in self.workingHuman{
             human.workingCountInAMonth = 0
@@ -114,6 +196,7 @@ class HumanController{
                 }
             }
         }
+        table.finishFlag = true
     }
     
     
@@ -245,80 +328,63 @@ class HumanController{
         let specificHumans = workingHuman.filter({ (human) -> Bool in
             
             
-            if let rule = self.cRules.individualRule[.RuleSuperUser]{
-                if rule.active{
-                    if (human.isSuper != isSuper){
-                        return false
-                    }
+            if let rule = self.cRules.individualRule[.RuleSuperUser] where rule.active{
+                if (human.isSuper != isSuper){
+                    return false
                 }
             }
             
-            if let rule = self.cRules.individualRule[.RuleUnavailableWeekDays]{
-                if rule.active{
-                    if (human.unableWeekDays.contains(checkingDayInfo.weekday)){
-                        return false
-                    }
+            if let rule = self.cRules.individualRule[.RuleUnavailableWeekDays] where rule.active{
+                if (human.unableWeekDays.contains(checkingDayInfo.weekday)){
+                    return false
                 }
             }
             
-            if let rule = self.cRules.individualRule[.RuleInterval]{
-                if rule.active{
-                    for day in previousDaysInfo{
-                        for workedHuman in day.workingHuman{
-                            if human.id == workedHuman.id{
-                                return false
-                            }
-                        }
-                    }
-                    
-                    if  human.requiredDays.contains({(day:Int) -> Bool in
-                        if day == checkingDayInfo.day + 1 ||  day == checkingDayInfo.day + 2{
-                            return true
-                        }else{
-                            return false
-                        }}){
-                            
-                            return false
-                            
-                    }
-                    
-                }
-            }
-            
-            if let rule = self.cRules.individualRule[.RuleUnavailableDays]{
-                if rule.active{
-                    if (human.forbittenDays.contains(checkingDayInfo.day)){
-                        return false
-                    }
-                }
-            }
-            
-            if let rule = self.cRules.monthRule[.RuleCountsInMonth]{
-                if rule.active{
-                    if (human.workingCountInAMonth == human.maxWorkingCountInAMonth){
-                        return false
-                    }
-                }
-            }
-            
-            if let rule = self.cRules.monthRule[.RulePractice]{
-                if rule.active{
-                    if human.practiceRule.max > 0{
-                        if human.practiceRule.mustWeekDays.contains(checkingDayInfo.weekday){
-                            if human.practiceRule.max == (human.workingCountOnEachWeek[checkingDayInfo.weekday] ?? 0){
-                                return false
-                            }
-                        }
-                    }
-                }
-            }
-            
-            if let rule = self.cRules.monthRule[.RuleWeekEnd]{
-                if rule.active{
-                    if (checkingDayInfo.weekday == WeekDay.Saturday || checkingDayInfo.weekday == WeekDay.Sunday){
-                        if (human.workingCountOnEachWeek[checkingDayInfo.weekday] ?? 0) == 1{
+            if let rule = self.cRules.individualRule[.RuleInterval] where rule.active{
+                for day in previousDaysInfo{
+                    for workedHuman in day.workingHuman{
+                        if human.id == workedHuman.id{
                             return false
                         }
+                    }
+                }
+                
+                if  human.requiredDays.contains({(day:Int) -> Bool in
+                    if day == checkingDayInfo.day + 1 ||  day == checkingDayInfo.day + 2{
+                        return true
+                    }else{
+                        return false
+                    }}){
+                        
+                        return false
+                        
+                }
+            }
+            
+            if let rule = self.cRules.individualRule[.RuleUnavailableDays] where rule.active{
+                if (human.forbittenDays.contains(checkingDayInfo.day)){
+                    return false
+                }
+            }
+            
+            if let rule = self.cRules.monthRule[.RuleCountsInMonth] where rule.active{
+                if (human.workingCountInAMonth == human.maxWorkingCountInAMonth){
+                    return false
+                }
+            }
+            
+            if let rule = self.cRules.monthRule[.RulePractice] where rule.active && human.practiceRule.max > 0{
+                if human.practiceRule.mustWeekDays.contains(checkingDayInfo.weekday){
+                    if human.practiceRule.max == (human.workingCountOnEachWeek[checkingDayInfo.weekday] ?? 0){
+                        return false
+                    }
+                }
+            }
+            
+            if let rule = self.cRules.monthRule[.RuleWeekEnd] where rule.active{
+                if (checkingDayInfo.weekday == WeekDay.Saturday || checkingDayInfo.weekday == WeekDay.Sunday){
+                    if (human.workingCountOnEachWeek[checkingDayInfo.weekday] ?? 0) == 1{
+                        return false
                     }
                 }
             }

@@ -244,7 +244,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
                         status: (true, true),
                         dayDelegate: self )
                 }else if tmpHumans.count == 1{
-                    if let table = table where table.days.count != 0{
+                    if let table = table where table.finishFlag{
                         
                         let humanAName = table.days[day-1].workingHuman[0].name
                         let humanBName = table.days[day-1].workingHuman[1].name
@@ -269,7 +269,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
                             dayDelegate: self )
                     }
                 }else{
-                    if let table = table where table.days.count != 0{
+                    if let table = table where table.finishFlag{
                         let humanAName = table.days[day-1].workingHuman[0].name
                         let humanBName = table.days[day-1].workingHuman[1].name
                         dayItem.setData(
@@ -424,6 +424,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
                 do{
                     self.table = try controller.startCreatingRandomTable(self.targetMonthInfo.targetMonth, running:&self.runningTable)
                 }catch let error as CRule.RuleError{
+                    self.table?.finishFlag = false
                     switch error{
                     case .Stop(let msg):
                         errorMessage = msg
@@ -431,6 +432,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
                         errorMessage = "予期せぬエラー:\(error)"
                     }
                 }catch{
+                    self.table?.finishFlag = false
                     errorMessage = "予期せぬエラー:\(error)"
                 }
                 dispatch_async(dispatch_get_main_queue(), {
