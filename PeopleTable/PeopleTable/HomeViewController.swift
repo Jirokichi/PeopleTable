@@ -365,6 +365,11 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
         }
     }
     
+    // MARK: 結果テキスト更新ボタン押下時の処理
+    @IBAction func updateResultText(sender: NSButtonCell) {
+        LogUtil.log("")
+        self.updateResultText()
+    }
     
     // MARK: 開始ボタンの押下時の処理
     @IBAction func clickOnStartButton(sender: AnyObject) {
@@ -436,7 +441,68 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
         }
     }
 
+    // - MARK:  - MyDayDelegate
+    /// 各日付のチェックボックス押下時
+    func checkButton(day:Int, name:String, status:Bool, needSave:Bool){
+        LogUtil.log("\(day): \(name) -> \(status)")
+        guard case let multiPeople = workingPeople.filter({ (tmp:People) -> Bool in
+            if tmp.name == name{
+                return true
+            }else{
+                return false
+            }
+        }) where multiPeople.count == 1 else{
+            return
+        }
+        
+        let people = multiPeople[0]
+        
+        // Tableの更新
+        guard case let humans = HomeViewController.convertPeopleToHuman([people]) where humans.count == 1 else{
+            DialogUtil.startDialog("予期せぬエラー", onClickOKButton: { () -> () in })
+            return
+        }
+        if status{
+            // 追加
+            self.table?.days[day-1].workingHuman.append(humans[0])
+        }else{
+            // 削除
+            if let index = self.table?.days[day-1].workingHuman.indexOf({ (tmpHuman) -> Bool in
+                if humans[0].name == tmpHuman.name{
+                    return true
+                }else{
+                return false
+                }
+            }){
+                 self.table?.days[day-1].workingHuman.removeAtIndex(index)
+            }
+        }
+        
+        
+        
+        guard needSave == true else{return}
+        
+        // DBのrequireDaysの更新
+        let requireDays = people.requiredDays
+        var requireDaysInt = HomeViewController.getDaysIntFromString(requireDays)
+        if status{
+            requireDaysInt.append(day)
+            requireDaysInt = requireDaysInt.sort()
+        }else{
+            
+            guard let num = requireDaysInt.indexOf(day) else{
+                DialogUtil.startDialog("予期せぬエラー", onClickOKButton: { () -> () in })
+                return
+            }
+            requireDaysInt.removeAtIndex(num)
+            
+        }
+        people.requiredDays = self.getDaysStringFromInt(requireDaysInt)
+        Records.saveContext(coreDataManagement.managedObjectContext)
+        
+    }
     
+    // - MARK: 
     /// DBのデータから当番表を作成する
     private func createCurrentTableFromDB() -> MonthTable?{
         
@@ -451,40 +517,9 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
         
         return table
     }
-    /// チェックボックス押下時
-    func checkButton(day:Int, name:String, status:Bool){
-        LogUtil.log("\(day): \(name) -> \(status)")
-        let people = workingPeople.filter({ (tmp:People) -> Bool in
-            if tmp.name == name{
-                return true
-            }else{
-                return false
-            }
-        })
-        if people.count != 1{
-            DialogUtil.startDialog("予期せぬエラー", onClickOKButton: { () -> () in })
-            return
-        }
-        
-        // DBのrequireDaysの更新
-        let requireDays = people[0].requiredDays
-        var requireDaysInt = HomeViewController.getDaysIntFromString(requireDays)
-        if status{
-            requireDaysInt.append(day)
-            requireDaysInt = requireDaysInt.sort()
-        }else{
-            
-            guard let num = requireDaysInt.indexOf(day) else{
-                DialogUtil.startDialog("予期せぬエラー", onClickOKButton: { () -> () in })
-                return
-            }
-            requireDaysInt.removeAtIndex(num)
-            
-        }
-        people[0].requiredDays = self.getDaysStringFromInt(requireDaysInt)
-        Records.saveContext(coreDataManagement.managedObjectContext)
-        
-    }
+    
+    
+    
 
     
     /// 文字列で複数の日付を表現している（カンマ区切り）ものから、Int配列を取得する

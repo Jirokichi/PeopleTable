@@ -10,7 +10,7 @@ import Cocoa
 
 
 protocol MyDayDelegate : NSObjectProtocol{
-    func checkButton(day:Int, name:String, status:Bool)
+    func checkButton(day:Int, name:String, status:Bool, needSave:Bool)
 }
 
 class DayCollectionViewItem: NSCollectionViewItem {
@@ -92,6 +92,7 @@ class DayCollectionViewItem: NSCollectionViewItem {
         }
         
         
+        humanAPopUpButton.selectedItem?.view?.layer?.backgroundColor = NSColor.yellowColor().CGColor
     }
     
     func popupSelected(item:NSMenuItem) {
@@ -130,17 +131,12 @@ class DayCollectionViewItem: NSCollectionViewItem {
     
     private func handlePopUpButtonProcess(previousName:String, currentName:String, requiredStatus:Bool) -> Bool{
         
+        // 削除
+        self.dayDelegate?.checkButton(self.day, name: previousName, status: false, needSave: requiredStatus)
         
+        // 追加
+        self.dayDelegate?.checkButton(self.day, name: currentName, status: true, needSave: requiredStatus)
         
-        if requiredStatus{
-            // 固定日のため、DBを更新する必要がある
-            
-            // 削除
-            self.dayDelegate?.checkButton(self.day, name: previousName, status: false)
-            
-            // 追加
-            self.dayDelegate?.checkButton(self.day, name: currentName, status: true)
-        }
         
         // ポップアップボタンの変更
         return true
@@ -166,7 +162,7 @@ class DayCollectionViewItem: NSCollectionViewItem {
     private func handleCheckBoxProcess(checkedPopUpButton:NSPopUpButton, button:NSButton){
         if let name = checkedPopUpButton.selectedItem?.title where name != DayCollectionViewItem.NotSelectedStatus{
             let status = button.state == 1 ? true : false
-            self.dayDelegate?.checkButton(self.day, name: name, status: status)
+            self.dayDelegate?.checkButton(self.day, name: name, status: status, needSave: true)
         }else{
             button.state = 0
         }

@@ -330,7 +330,7 @@
                                         </connections>
                                     </button>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q4C-j7-rUB">
-                                        <rect key="frame" x="0.0" y="408" width="104" height="21"/>
+                                        <rect key="frame" x="0.0" y="408" width="201" height="21"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="V2M-HB-miW">
                                                 <rect key="frame" x="-2" y="4" width="29" height="17"/>
@@ -354,12 +354,24 @@
                                                     </menu>
                                                 </popUpButtonCell>
                                             </popUpButton>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rVg-t3-jyg">
+                                                <rect key="frame" x="106" y="-7" width="101" height="32"/>
+                                                <buttonCell key="cell" type="push" title="結果の更新" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="W7O-GQ-Ngu">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                    <connections>
+                                                        <action selector="updateResultText:" target="qOM-vq-PYc" id="tL4-Ar-EUJ"/>
+                                                    </connections>
+                                                </buttonCell>
+                                            </button>
                                         </subviews>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
+                                            <integer value="1000"/>
                                         </visibilityPriorities>
                                         <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                         </customSpacing>
