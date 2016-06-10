@@ -26,6 +26,8 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
     @IBOutlet weak var resultTextField: NSTextField!
     @IBOutlet var memoTextView: NSTextView!
     
+    @IBOutlet weak var markedPeoplePopUpButton: NSPopUpButton!
+    
     //ルールのチェックボックス
     @IBOutlet weak var checkBoxForSuper: NSButton!
     @IBOutlet weak var checkBoxForUnavailableWeekDays: NSButton!
@@ -154,6 +156,13 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
             workingPeople = People.createDefaultPeoples(coreDataManagement)
         }
         
+        self.markedPeoplePopUpButton?.removeAllItems()
+        for people in workingPeople where people.status == true{
+            self.markedPeoplePopUpButton?.addItemWithTitle(people.name)
+        }
+        
+        
+        
         self.updateResultText()
     }
     
@@ -179,6 +188,26 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
                 result = result + "\n" + peopleInfo
             }
             result = result + "\n" + "----------------------------------"
+            // 注目当番の人と同じ日に働いている人のデータ
+            if let humanName = self.markedPeoplePopUpButton?.selectedItem?.title{
+                
+                result = result + "\n" + "注目当番の人と同じ日に働いている人のリスト"
+                var list:[String] = []
+                for dayInfo in table.days{
+                    if dayInfo.workingHuman.count == 2 && dayInfo.workingHuman.contains({ (h) -> Bool in
+                        return humanName == h.name
+                    }){
+                        let name = (dayInfo.workingHuman[0].name == humanName) ? dayInfo.workingHuman[1].name : dayInfo.workingHuman[0].name
+                        list.append(name)
+                    }
+                }
+                
+                for name in list{
+                    result = result + "\n" + name
+                }
+                
+                result = result + "\n" + "----------------------------------"
+            }
             
         }
         
@@ -425,9 +454,15 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
                     }
                     
                     if let errorMessage = errorMessage{
-                        DialogUtil.startDialog(errorMessage, onClickOKButton: { () -> () in
+                        
+                        if errorMessage != "キャンセルされました"{
+                        
+                            DialogUtil.startDialog(errorMessage, onClickOKButton: { () -> () in
+                                self.runningTable = false
+                            })
+                        }else{
                             self.runningTable = false
-                        })
+                        }
                     }
                     
                     self.collectionView.reloadData()

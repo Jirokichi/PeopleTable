@@ -447,6 +447,7 @@
                         <outlet property="checkBoxForWeekEnd" destination="Hrb-K9-KK5" id="rYb-Xf-91l"/>
                         <outlet property="collectionView" destination="C8a-No-wMN" id="TQi-1L-9bF"/>
                         <outlet property="headerView" destination="ADC-Eo-duB" id="lwh-08-QQG"/>
+                        <outlet property="markedPeoplePopUpButton" destination="8qg-1v-jiY" id="WEn-Gu-0vZ"/>
                         <outlet property="memoTextView" destination="NMP-UO-np3" id="wAu-sU-Eff"/>
                         <outlet property="resultTextField" destination="wun-UI-Jof" id="Opv-em-gcX"/>
                         <outlet property="startButton" destination="g5w-Zk-d0C" id="2cm-d6-gxt"/>
