@@ -11,15 +11,15 @@ import Cocoa
 
 class DialogUtil{
  
-    static func startDialog(title:String, message:String? = nil, onClickOKButton:()->()){
+    static func startDialog(_ title:String, message:String? = nil, onClickOKButton:()->()){
         // Swiftの場合
         let alert = NSAlert()
         alert.messageText = title
         if let message = message{
            alert.informativeText = message
         }
-        alert.addButtonWithTitle("OK")
-        alert.addButtonWithTitle("キャンセル")
+        alert.addButton(withTitle: "OK")
+        alert.addButton(withTitle: "キャンセル")
         let result = alert.runModal()
         if (result == NSAlertFirstButtonReturn) {
             LogUtil.log("OK")

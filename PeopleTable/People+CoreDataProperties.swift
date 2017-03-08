@@ -14,7 +14,7 @@ import CoreData
 
 extension People {
 
-    @NSManaged var createdDate: NSDate
+    @NSManaged var createdDate: Date
     @NSManaged var name: String
     @NSManaged var unavailableWeekDays: String
     @NSManaged var requiredWeekDays: String

@@ -30,7 +30,7 @@ class PeopleTests: XCTestCase {
         
         let originalPeoples = [People(context: coreData.managedObjectContext), People(context: coreData.managedObjectContext)]
         originalPeoples[0].updateParameters(
-            NSDate(),
+            Date(),
             name: "木田裕也",
             status: true,
             unavailableWeekDays: People.PTWeekDays(jsonDict: [WeekDay.Monday:true]),
@@ -43,7 +43,7 @@ class PeopleTests: XCTestCase {
             requiredDays: "")
         
         originalPeoples[1].updateParameters(
-            NSDate(),
+            Date(),
             name: "木田じろきち",
             status: false,
             unavailableWeekDays: People.PTWeekDays(jsonDict: [WeekDay.Monday:true]),

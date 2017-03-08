@@ -27,6 +27,7 @@
 		FAC1F0FC1C944F6000C8A92C /* PeopleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0FB1C944F6000C8A92C /* PeopleTests.swift */; };
 		FAC1F0FE1C94513B00C8A92C /* CoreDataManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F0FD1C94513B00C8A92C /* CoreDataManagement.swift */; };
 		FAC1F1021C9599A800C8A92C /* People+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1F1011C9599A800C8A92C /* People+CoreDataProperties.swift */; };
+		FAD24F8C1E66FAE30093BA41 /* PeopleUnavableWeekDaysTableColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD24F8B1E66FAE30093BA41 /* PeopleUnavableWeekDaysTableColumn.swift */; };
 		FAE388551C9CD51400CC08D9 /* DayCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE388541C9CD51400CC08D9 /* DayCollectionViewItem.swift */; };
 		FAE388591C9CD58100CC08D9 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAE388581C9CD58100CC08D9 /* Home.storyboard */; };
 		FAE3885D1C9EDECE00CC08D9 /* DayCollectionItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE3885C1C9EDECE00CC08D9 /* DayCollectionItem.xib */; };
@@ -83,6 +84,7 @@
 		FAC1F0FB1C944F6000C8A92C /* PeopleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleTests.swift; sourceTree = "<group>"; };
 		FAC1F0FD1C94513B00C8A92C /* CoreDataManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManagement.swift; sourceTree = "<group>"; };
 		FAC1F1011C9599A800C8A92C /* People+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "People+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		FAD24F8B1E66FAE30093BA41 /* PeopleUnavableWeekDaysTableColumn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleUnavableWeekDaysTableColumn.swift; sourceTree = "<group>"; };
 		FAE388541C9CD51400CC08D9 /* DayCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DayCollectionViewItem.swift; path = PeopleTable/DayCollectionViewItem.swift; sourceTree = "<group>"; };
 		FAE388581C9CD58100CC08D9 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		FAE3885C1C9EDECE00CC08D9 /* DayCollectionItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayCollectionItem.xib; sourceTree = "<group>"; };
@@ -201,6 +203,14 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		FAD24F8A1E66FA980093BA41 /* Column */ = {
+			isa = PBXGroup;
+			children = (
+				FAD24F8B1E66FAE30093BA41 /* PeopleUnavableWeekDaysTableColumn.swift */,
+			);
+			name = Column;
+			sourceTree = "<group>";
+		};
 		FAE388561C9CD51A00CC08D9 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,6 +227,7 @@
 		FAE388571C9CD54D00CC08D9 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				FAD24F8A1E66FA980093BA41 /* Column */,
 				FAC1F0EC1C91B47A00C8A92C /* PeopleSettingViewController.swift */,
 				FAEA334C1CA6DEC70078840B /* PeopleTableView.swift */,
 			);
@@ -298,18 +309,21 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = yuya;
 				TargetAttributes = {
 					FAC1F0BA1C91A97500C8A92C = {
 						CreatedOnToolsVersion = 7.2.1;
+						LastSwiftMigration = 0820;
 					};
 					FAC1F0CE1C91A97500C8A92C = {
 						CreatedOnToolsVersion = 7.2.1;
+						LastSwiftMigration = 0820;
 						TestTargetID = FAC1F0BA1C91A97500C8A92C;
 					};
 					FAC1F0D91C91A97500C8A92C = {
 						CreatedOnToolsVersion = 7.2.1;
+						LastSwiftMigration = 0820;
 						TestTargetID = FAC1F0BA1C91A97500C8A92C;
 					};
 				};
@@ -377,6 +391,7 @@
 				FAC1F0C41C91A97500C8A92C /* PeopleTable.xcdatamodeld in Sources */,
 				FA4F8E241CA69EF3000E12E3 /* Human.swift in Sources */,
 				FAE388551C9CD51400CC08D9 /* DayCollectionViewItem.swift in Sources */,
+				FAD24F8C1E66FAE30093BA41 /* PeopleUnavableWeekDaysTableColumn.swift in Sources */,
 				FAEA33691CAD4D890078840B /* Rules+CoreDataProperties.swift in Sources */,
 				FA4F8E251CA69EF3000E12E3 /* MonthTable.swift in Sources */,
 				FAE388611CA19D0A00CC08D9 /* DayHeaderView.swift in Sources */,
@@ -449,8 +464,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -493,8 +510,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -513,6 +532,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
@@ -527,6 +547,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jp.ky.PeopleTable;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -541,6 +562,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jp.ky.PeopleTable;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -553,6 +575,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.ky.PeopleTableTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PeopleTable.app/Contents/MacOS/PeopleTable";
 			};
 			name = Debug;
@@ -566,6 +589,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.ky.PeopleTableTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PeopleTable.app/Contents/MacOS/PeopleTable";
 			};
 			name = Release;
@@ -578,6 +602,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.ky.PeopleTableUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = PeopleTable;
 				USES_XCTRUNNER = YES;
 			};
@@ -591,6 +616,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.ky.PeopleTableUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = PeopleTable;
 				USES_XCTRUNNER = YES;
 			};

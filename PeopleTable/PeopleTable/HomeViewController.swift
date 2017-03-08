@@ -18,7 +18,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
         static let Memo = "MEMO"
     }
     
-    static let BackGroundColor = NSColor.whiteColor().CGColor
+    static let BackGroundColor = NSColor.white.cgColor
  
     // MARK: - 変数 >> ストーリーボードと関連付けらている
     @IBOutlet weak var headerView: DayHeaderView!
@@ -43,11 +43,11 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
     
     // MARK: - 変数 >> 対象の月情報
     private struct TargetMonthInfo{
-        var targetMonth:NSDate = NSDate()
-        var firstDayInAMonth:NSDateComponents = NSDateComponents()
-        var lastDayInAMonth:NSDateComponents = NSDateComponents()
+        var targetMonth:Date = Date()
+        var firstDayInAMonth:DateComponents = DateComponents()
+        var lastDayInAMonth:DateComponents = DateComponents()
         
-        mutating func update(newTargetMonth:NSDate){
+        mutating func update(_ newTargetMonth:Date){
             self.targetMonth = newTargetMonth
             self.firstDayInAMonth = DateUtil.getFirstDay(self.targetMonth)
             self.lastDayInAMonth = DateUtil.getLastDay(self.targetMonth)
@@ -70,7 +70,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
     // MARK: - ライフサイクルの処理
     deinit{
         LogUtil.log("finish")
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        Foundation.NotificationCenter.default.removeObserver(self)
         collectionView.dataSource = nil
         collectionView.delegate = nil
     }
@@ -79,8 +79,8 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
         super.viewDidDisappear()
         LogUtil.log("memoTextView:\(memoTextView.string)")
         // 「ud」というインスタンスをつくる。
-        let ud = NSUserDefaults.standardUserDefaults()
-        ud.setObject(memoTextView.string ?? "", forKey:UserDefaultKey.Memo)}
+        let ud = UserDefaults.standard
+        ud.set(memoTextView.string ?? "", forKey:UserDefaultKey.Memo)}
     
     override func viewWillAppear() {
         super.viewWillAppear()
@@ -93,19 +93,19 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
         collectionView.dataSource = self
         collectionView.delegate = self
         
-        let ud = NSUserDefaults.standardUserDefaults()
-        let memoText = ud.objectForKey(UserDefaultKey.Memo) as? String
+        let ud = UserDefaults.standard
+        let memoText = ud.object(forKey: UserDefaultKey.Memo) as? String
         self.memoTextView?.string = memoText ?? ""
         
         // 今月の最終日の取得
-        self.updateMonthData(NSDate())
+        self.updateMonthData(Date())
         
         do{
             try self.updateRules()
         }catch{
             LogUtil.log("担当者情報のフェッチに失敗しました。チェックボックスの更新も失敗しています。アプリ開発者に問い合わせてください。")
         }
-        headerView.setData(self.targetMonthInfo.targetMonth, delegate: self)
+        headerView.setComponent(date: self.targetMonthInfo.targetMonth, delegate: self)
         headerView.wantsLayer = true
         headerView.layer?.backgroundColor = HomeViewController.BackGroundColor
         headerView.layer?.borderWidth = 1
@@ -115,13 +115,13 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
         table = self.createCurrentTableFromDB()
         
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: HomeViewController.UpdateSettingInfo, name: NotificationCenter.ID, object: nil)
+        Foundation.NotificationCenter.default.addObserver(self, selector: HomeViewController.UpdateSettingInfo, name: NSNotification.Name(rawValue: NotificationCenter.ID), object: nil)
     }
     
     // MARK: - 更新処理
     /// テーブルの初期化(NotificationCenterで呼び出される)
-    private static let UpdateSettingInfo:Selector = "updateSettingInfo:"
-    func updateSettingInfo(notification:NSNotification?){
+    private static let UpdateSettingInfo:Selector = #selector(HomeViewController.updateSettingInfo(_:))
+    func updateSettingInfo(_ notification:Notification?){
         LogUtil.log()
         DialogUtil.startDialog("警告", message: "設定が変更されました。一度結果をリセットしてもよろしいでしょうか？") { () -> () in
             self.updateTable()
@@ -142,7 +142,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
     }
     
     /// 日付情報の更新 - テーブルは初期化されます
-    private func updateMonthData(day:NSDate){
+    private func updateMonthData(_ day:Date){
         self.targetMonthInfo.update(day)
         self.updateTable()
     }
@@ -158,7 +158,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
         
         self.markedPeoplePopUpButton?.removeAllItems()
         for people in workingPeople where people.status == true{
-            self.markedPeoplePopUpButton?.addItemWithTitle(people.name)
+            self.markedPeoplePopUpButton?.addItem(withTitle: people.name)
         }
         
         
@@ -174,13 +174,13 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
                 var peopleInfo = people.name
                 let weekDaysInfo:[WeekDay:Int] = table.numberOfSpecificWeekDayInAMonth(people.name)
                 
-                let mon = weekDaysInfo[WeekDay.Monday] ?? 0
-                let tue = weekDaysInfo[WeekDay.Tuesday] ?? 0
-                let wed = weekDaysInfo[WeekDay.Wednesday] ?? 0
-                let thur = weekDaysInfo[WeekDay.Thursday] ?? 0
-                let fri = weekDaysInfo[WeekDay.Friday] ?? 0
-                let sat = weekDaysInfo[WeekDay.Saturday] ?? 0
-                let sun = weekDaysInfo[WeekDay.Sunday] ?? 0
+                let mon = weekDaysInfo[WeekDay.monday] ?? 0
+                let tue = weekDaysInfo[WeekDay.tuesday] ?? 0
+                let wed = weekDaysInfo[WeekDay.wednesday] ?? 0
+                let thur = weekDaysInfo[WeekDay.thursday] ?? 0
+                let fri = weekDaysInfo[WeekDay.friday] ?? 0
+                let sat = weekDaysInfo[WeekDay.saturday] ?? 0
+                let sun = weekDaysInfo[WeekDay.sunday] ?? 0
                 let sum = mon + tue + wed + thur + fri + sat + sun
                 peopleInfo = peopleInfo + "(\(sum)): \(mon)/\(tue)/\(wed)/\(thur)/\(fri)/\(sat)/\(sun)"
                 
@@ -194,7 +194,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
                 result = result + "\n" + "注目当番の人と同じ日に働いている人のリスト"
                 var list:[String] = []
                 for dayInfo in table.days{
-                    if dayInfo.workingHuman.count == 2 && dayInfo.workingHuman.contains({ (h) -> Bool in
+                    if dayInfo.workingHuman.count == 2 && dayInfo.workingHuman.contains(where: { (h) -> Bool in
                         return humanName == h.name
                     }){
                         let name = (dayInfo.workingHuman[0].name == humanName) ? dayInfo.workingHuman[1].name : dayInfo.workingHuman[0].name
@@ -241,14 +241,14 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
     }
     
     // MARK: - NSCollectionViewDataSource
-    func collectionView(collectionView: NSCollectionView,
+    func collectionView(_ collectionView: NSCollectionView,
         numberOfItemsInSection section: Int) -> Int{
             return 42
     }
     
-    func collectionView(collectionView: NSCollectionView, itemForRepresentedObjectAtIndexPath indexPath: NSIndexPath) -> NSCollectionViewItem {
+    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         
-        let collectionViewItem = self.collectionView.makeItemWithIdentifier(DayCollectionViewItem.XibName, forIndexPath: indexPath)
+        let collectionViewItem = self.collectionView.makeItem(withIdentifier: DayCollectionViewItem.XibName, for: indexPath)
         
         guard let dayItem = collectionViewItem as? DayCollectionViewItem else{
             LogUtil.log("error is not retrieved - \(indexPath):\(collectionViewItem.representedObject)" )
@@ -261,11 +261,11 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
         dayItem.view.layer?.borderWidth = 1
         
         // 一日の曜日を取得
-        let weekDayOfFirstDay = WeekDay(rawValue: self.targetMonthInfo.firstDayInAMonth.weekday-1)!
+        let weekDayOfFirstDay = WeekDay(rawValue: self.targetMonthInfo.firstDayInAMonth.weekday!-1)!
         
         // 日付を取得
         let day = indexPath.item - (weekDayOfFirstDay.rawValue - 1)
-        if day > 0 && day <= self.targetMonthInfo.lastDayInAMonth.day{
+        if day > 0 && day <= self.targetMonthInfo.lastDayInAMonth.day!{
             
             
             
@@ -275,15 +275,15 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
             
             let A:(name:String?, required:Bool)
             let B:(name:String?, required:Bool)
-            if let table = self.table where table.days[day-1].workingHuman.count > 0{
+            if let table = self.table, table.days[day-1].workingHuman.count > 0{
                 let humanA = table.days[day-1].getHumanOfNoX(0)
                 let humanB = table.days[day-1].getHumanOfNoX(1)
                 
                 
-                A = (name:humanA?.name, required:tmpHumans.contains({ (people:People) -> Bool in
+                A = (name:humanA?.name, required:tmpHumans.contains(where: { (people:People) -> Bool in
                     return people.name == humanA?.name
                 }))
-                B = (name:humanB?.name, required:tmpHumans.contains({ (people:People) -> Bool in
+                B = (name:humanB?.name, required:tmpHumans.contains(where: { (people:People) -> Bool in
                     return people.name == humanB?.name
                 }))
             }else{
@@ -307,13 +307,13 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
     }
     
     // MARK: - NSDatePickerCellDelegate
-    func datePickerCell(aDatePickerCell: NSDatePickerCell,
-        validateProposedDateValue proposedDateValue: AutoreleasingUnsafeMutablePointer<NSDate?>,
-        timeInterval proposedTimeInterval: UnsafeMutablePointer<NSTimeInterval>){
-            if let date = proposedDateValue.memory{
-                self.updateMonthData(date)
-                collectionView.reloadData()
-            }
+    private func datePickerCell(_ aDatePickerCell: NSDatePickerCell,
+        validateProposedDateValue proposedDateValue: AutoreleasingUnsafeMutablePointer<Date>,
+        timeInterval proposedTimeInterval: UnsafeMutablePointer<TimeInterval>?){
+            let date = proposedDateValue.pointee
+            self.updateMonthData(date)
+            collectionView.reloadData()
+        
     }
     
     
@@ -322,7 +322,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
     // MARK: - ボタン押下時の処理
     // MARK: 各チェックボックス変更時の処理
     // ルールのチェックボックス押下時のアクション
-    @IBAction func changeSuper(sender: NSButtonCell) {
+    @IBAction func changeSuper(_ sender: NSButtonCell) {
         if runningTable{
             sender.state = (sender.state == NSOnState ? NSOffState : NSOnState)
             return
@@ -333,7 +333,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
             Records.saveContext(coreDataManagement.managedObjectContext)
         }
     }
-    @IBAction func changeUnavailableWeekDays(sender: NSButton) {
+    @IBAction func changeUnavailableWeekDays(_ sender: NSButton) {
         if runningTable{
             sender.state = (sender.state == NSOnState ? NSOffState : NSOnState)
             return
@@ -343,7 +343,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
             Records.saveContext(coreDataManagement.managedObjectContext)
         }
     }
-    @IBAction func checkInterval(sender: NSButton) {
+    @IBAction func checkInterval(_ sender: NSButton) {
         if runningTable{
             sender.state = (sender.state == NSOnState ? NSOffState : NSOnState)
             return
@@ -353,7 +353,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
             Records.saveContext(coreDataManagement.managedObjectContext)
         }
     }
-    @IBAction func checkUnavailableDays(sender: NSButton) {
+    @IBAction func checkUnavailableDays(_ sender: NSButton) {
         if runningTable{
             sender.state = (sender.state == NSOnState ? NSOffState : NSOnState)
             return
@@ -363,7 +363,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
             Records.saveContext(coreDataManagement.managedObjectContext)
         }
     }
-    @IBAction func chageWeekEnd(sender: NSButton) {
+    @IBAction func chageWeekEnd(_ sender: NSButton) {
         if runningTable{
             sender.state = (sender.state == NSOnState ? NSOffState : NSOnState)
             return
@@ -373,7 +373,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
             Records.saveContext(coreDataManagement.managedObjectContext)
         }
     }
-    @IBAction func changePractice(sender: NSButton) {
+    @IBAction func changePractice(_ sender: NSButton) {
         if runningTable{
             sender.state = (sender.state == NSOnState ? NSOffState : NSOnState)
             return
@@ -383,7 +383,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
             Records.saveContext(coreDataManagement.managedObjectContext)
         }
     }
-    @IBAction func changeCountInMonth(sender: NSButton) {
+    @IBAction func changeCountInMonth(_ sender: NSButton) {
         if runningTable{
             sender.state = (sender.state == NSOnState ? NSOffState : NSOnState)
             return
@@ -395,13 +395,13 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
     }
     
     // MARK: 結果テキスト更新ボタン押下時の処理
-    @IBAction func updateResultText(sender: NSButtonCell) {
+    @IBAction func updateResultText(_ sender: NSButtonCell) {
         LogUtil.log("")
         self.updateResultText()
     }
     
     // MARK: 開始ボタンの押下時の処理
-    @IBAction func clickOnStartButton(sender: AnyObject) {
+    @IBAction func clickOnStartButton(_ sender: AnyObject) {
         LogUtil.log()
         
         
@@ -428,15 +428,15 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
             
             self.runningTable = true
             startButton.title = "実行中..."
-            let grobalQueue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0)
-            dispatch_async(grobalQueue, {
+            let grobalQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive)
+            grobalQueue.async(execute: {
                 
                 var errorMessage:String? = nil
                 do{
                     self.table = try controller.startCreatingRandomTable(self.targetMonthInfo.targetMonth, running:&self.runningTable)
                 }catch let error as CRule.RuleError{
                     switch error{
-                    case .Stop(let msg):
+                    case .stop(let msg):
                         errorMessage = msg
                     default:
                         errorMessage = "予期せぬエラー:\(error)"
@@ -444,7 +444,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
                 }catch{
                     errorMessage = "予期せぬエラー:\(error)"
                 }
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     self.runningTable = false
                     self.startButton.title = "開始"
                     do{
@@ -478,7 +478,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
 
     // - MARK:  - MyDayDelegate
     /// 各日付のチェックボックス押下時
-    func checkButton(day:Int, name:String, status:Bool, needSave:Bool){
+    func checkButton(_ day:Int, name:String, status:Bool, needSave:Bool){
         LogUtil.log("\(day): \(name) -> \(status)")
         guard case let multiPeople = workingPeople.filter({ (tmp:People) -> Bool in
             if tmp.name == name{
@@ -486,14 +486,14 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
             }else{
                 return false
             }
-        }) where multiPeople.count == 1 else{
+        }), multiPeople.count == 1 else{
             return
         }
         
         let people = multiPeople[0]
         
         // Tableの更新
-        guard case let humans = HomeViewController.convertPeopleToHuman([people]) where humans.count == 1 else{
+        guard case let humans = HomeViewController.convertPeopleToHuman([people]), humans.count == 1 else{
             DialogUtil.startDialog("予期せぬエラー", onClickOKButton: { () -> () in })
             return
         }
@@ -502,14 +502,14 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
             self.table?.days[day-1].workingHuman.append(humans[0])
         }else{
             // 削除
-            if let index = self.table?.days[day-1].workingHuman.indexOf({ (tmpHuman) -> Bool in
+            if let index = self.table?.days[day-1].workingHuman.index(where: { (tmpHuman) -> Bool in
                 if humans[0].name == tmpHuman.name{
                     return true
                 }else{
                 return false
                 }
             }){
-                 self.table?.days[day-1].workingHuman.removeAtIndex(index)
+                 self.table?.days[day-1].workingHuman.remove(at: index)
             }
         }
         
@@ -522,14 +522,14 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
         var requireDaysInt = HomeViewController.getDaysIntFromString(requireDays)
         if status{
             requireDaysInt.append(day)
-            requireDaysInt = requireDaysInt.sort()
+            requireDaysInt = requireDaysInt.sorted()
         }else{
             
-            guard let num = requireDaysInt.indexOf(day) else{
+            guard let num = requireDaysInt.index(of: day) else{
                 DialogUtil.startDialog("予期せぬエラー", onClickOKButton: { () -> () in })
                 return
             }
-            requireDaysInt.removeAtIndex(num)
+            requireDaysInt.remove(at: num)
             
         }
         people.requiredDays = self.getDaysStringFromInt(requireDaysInt)
@@ -558,22 +558,22 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
 
     
     /// 文字列で複数の日付を表現している（カンマ区切り）ものから、Int配列を取得する
-    static private func getDaysIntFromString(days:String) -> [Int]{
+    static private func getDaysIntFromString(_ days:String) -> [Int]{
         var daysInt:[Int] = []
         let str1 = days as NSString
-        for numStr in str1.componentsSeparatedByString(","){
+        for numStr in str1.components(separatedBy: ","){
             var lNumStr = numStr
-            if lNumStr.containsString(" "){
-                lNumStr = lNumStr.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+            if lNumStr.contains(" "){
+                lNumStr = lNumStr.trimmingCharacters(in: CharacterSet.whitespaces)
             }
-            if let num = Int(lNumStr) where num > 0 && num < 32{
+            if let num = Int(lNumStr), num > 0 && num < 32{
                 daysInt.append(num)
             }
         }
         return daysInt
     }
     
-    private func getDaysStringFromInt(days:[Int]) -> String{
+    private func getDaysStringFromInt(_ days:[Int]) -> String{
         
         if days.count < 1{
             return ""
@@ -588,7 +588,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
     }
     
     /// dayに必ず参加する人を抽出
-    private func getForcefullySelectedPeople(day:Int, workingPeople:[People]) -> [People]{
+    private func getForcefullySelectedPeople(_ day:Int, workingPeople:[People]) -> [People]{
         var tmpHumans:[People] = []
         for people in workingPeople{
             let requiredDays:[Int] = HomeViewController.getDaysIntFromString(people.requiredDays)
@@ -600,7 +600,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
     }
     
     
-    private static func convertPeopleToHuman(workingPeople:[People]) -> [Human]{
+    private static func convertPeopleToHuman(_ workingPeople:[People]) -> [Human]{
         var humans:[Human] = []
         var id = 0
         for people:People in workingPeople{
@@ -624,7 +624,7 @@ class HomeViewController: NSViewController, NSCollectionViewDataSource, NSCollec
         return humans
     }
     
-    private static func convertRuleToCRule(rules:Rules) -> CRules{
+    private static func convertRuleToCRule(_ rules:Rules) -> CRules{
         var cRules = CRules(percentage: 0.75)
         cRules.createIndividualRule(true,
             RuleSuperUser: rules.superUser,

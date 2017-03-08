@@ -40,9 +40,9 @@ class HumanController{
     /// - parameter inout running : 実行中かどうかを管理するためのフラグ。参照変数。
     /// - throws : 現在の条件で作成できない場合、CRule.RuleError.NotSarisfiedForMonthTableのエラーが投げられる
     /// - returns : 作成された当番表。
-    func startCreatingRandomTable(calendar:NSDate, inout running:Bool) throws -> MonthTable{
+    func startCreatingRandomTable(_ calendar:Date, running:inout Bool) throws -> MonthTable{
         
-        print("Start: \(NSDate())")
+        print("Start: \(Date())")
         self.cRules.view()
         
         var inValid:Bool
@@ -54,19 +54,19 @@ class HumanController{
             inValid = false
             do{
                 if !running{
-                    throw CRule.RuleError.Stop(msg: "キャンセルされました")
+                    throw CRule.RuleError.stop(msg: "キャンセルされました")
                 }
                 try self.createTableOnce(&table)
                 
                 // 月テーブルの評価
-                try self.cRules.monthRule[.RuleWeekEnd]?.satisfyRule(objects: [table, workingHuman])
-                try self.cRules.monthRule[.RulePractice]?.satisfyRule(objects: [table, workingHuman])
-                try self.cRules.monthRule[.RuleCountsInMonth]?.satisfyRule(objects: [table.days, workingHuman])
+                try self.cRules.monthRule[.ruleWeekEnd]?.satisfyRule([table, workingHuman])
+                try self.cRules.monthRule[.rulePractice]?.satisfyRule([table, workingHuman])
+                try self.cRules.monthRule[.ruleCountsInMonth]?.satisfyRule([table.days, workingHuman])
                 
                 
             }catch let error as CRule.RuleError{
                 switch error{
-                case .NotSarisfiedForMonthTable:
+                case .notSarisfiedForMonthTable:
                     inValid = true
                 default:
                     throw error
@@ -77,14 +77,14 @@ class HumanController{
         // 結果の確認
         table.viewTable()
         
-        print("Finish: \(NSDate())")
+        print("Finish: \(Date())")
         
         return table
     }
     
     /// 前提条件のチェック
     /// - throws : 条件を満たさない場合のエラ
-    private func checkPrecondition(table:MonthTable) throws{
+    private func checkPrecondition(_ table:MonthTable) throws{
         
         
         for dayInfo in table.days{
@@ -103,24 +103,24 @@ class HumanController{
                     msg = msg + human.name + ", "
                 }
                 msg = msg + ")"
-                throw CRule.RuleError.Stop(msg: msg)
+                throw CRule.RuleError.stop(msg: msg)
             }
         }
         
         for human in self.workingHuman{
-            if let rule = self.cRules.monthRule[.RuleCountsInMonth] where rule.active{
+            if let rule = self.cRules.monthRule[.ruleCountsInMonth], rule.active{
                 if (human.requiredDays.count > human.maxWorkingCountInAMonth){
                     let msg = "\(human.name)の１ヶ月の出勤日が上限の\(human.maxWorkingCountInAMonth)を超えています。"
-                    throw CRule.RuleError.Stop(msg: msg)
+                    throw CRule.RuleError.stop(msg: msg)
                 }
             }
-            if let rule = self.cRules.monthRule[.RuleWeekEnd] where rule.active{
+            if let rule = self.cRules.monthRule[.ruleWeekEnd], rule.active{
                 var saturdayCount:Int = 0
                 var sundayCount:Int = 0
                 
                 for day in human.requiredDays{
-                    if table.days.contains({ (dayInfo) -> Bool in
-                        if dayInfo.day == day && dayInfo.weekday == .Saturday{
+                    if table.days.contains(where: { (dayInfo) -> Bool in
+                        if dayInfo.day == day && dayInfo.weekday == .saturday{
                             return true
                         }else{
                             return false
@@ -129,8 +129,8 @@ class HumanController{
                         saturdayCount = saturdayCount + 1
                     }
                     
-                    if table.days.contains({ (dayInfo) -> Bool in
-                        if dayInfo.day == day && dayInfo.weekday == .Sunday{
+                    if table.days.contains(where: { (dayInfo) -> Bool in
+                        if dayInfo.day == day && dayInfo.weekday == .sunday{
                             return true
                         }else{
                             return false
@@ -142,14 +142,14 @@ class HumanController{
                 
                 if sundayCount > 1 || saturdayCount > 1{
                     let msg = "\(human.name)は土日どちらかで二回以上出勤しています。"
-                    throw CRule.RuleError.Stop(msg: msg)
+                    throw CRule.RuleError.stop(msg: msg)
                 }
             }
         }
     }
     
     ///　テーブルを作成する。個人ルールで作成できない場合は、CRuleのエラーが返ってくる。
-    private func createTableOnce(inout table: MonthTable) throws{
+    private func createTableOnce(_ table: inout MonthTable) throws{
         
         table.days.removeAll()
         for human in self.workingHuman{
@@ -157,7 +157,7 @@ class HumanController{
             human.workingCountOnEachWeek.removeAll()
         }
         
-        for (var i = 0; i < table.dayOfLastDay; i++){
+        for i in 0 ..< table.dayOfLastDay{
             let day = DayInfo(day: i+1, weekday: table.getWeekDay(i+1))
             let toutyokus:[Human]
             if i == 0{
@@ -189,7 +189,7 @@ class HumanController{
     /// - parameter checking(Int, WeekDay)  : 作成する日の情報
     /// - parameter previousDaysInfo        : 反映する過去の情報
     /// - throws : 現在の条件で作成できない場合、CRule.RuleError.NotSarisfiedForMonthTableのエラーが投げられる
-    func selectTwoHumansInADay(checking checking:(day:Int, weekday:WeekDay), previousDaysInfo:[DayInfo]) throws -> [Human]{
+    func selectTwoHumansInADay(checking:(day:Int, weekday:WeekDay), previousDaysInfo:[DayInfo]) throws -> [Human]{
         
         /// この日に決まっている担当者を取得
         var requiredHumans:[Human] = []
@@ -207,7 +207,7 @@ class HumanController{
             }
             
             msg = msg + ")"
-            throw CRule.RuleError.Stop(msg: msg)
+            throw CRule.RuleError.stop(msg: msg)
         }
         
         let superHumans:[Human]
@@ -243,7 +243,7 @@ class HumanController{
             superHumans = []
             lowHumans = []
             LogUtil.log("fatalError")
-            throw CRule.RuleError.Stop(msg: "必須日(\(checking.day)日)に矛盾")
+            throw CRule.RuleError.stop(msg: "必須日(\(checking.day)日)に矛盾")
         }
         
         
@@ -270,7 +270,7 @@ class HumanController{
                     }
                     if willSelectSuper{
                         human = FormulaUtil.getRandomValue(superHumans)
-                        try self.cRules.individualRule[.RuleNotDuplication]?.satisfyRule(objects: [human, toutyokus])
+                        try self.cRules.individualRule[.ruleNotDuplication]?.satisfyRule([human, toutyokus])
                     }else{
                         human = FormulaUtil.getRandomValue(lowHumans)
                     }
@@ -280,7 +280,7 @@ class HumanController{
                 toutyokus.append(human)
             }catch let error as CRule.RuleError{
                 switch error{
-                case .NotSatisfiedForIndividual:
+                case .notSatisfiedForIndividual:
                     okWholeFlag = false
                 default:
                     throw error
@@ -292,7 +292,7 @@ class HumanController{
         
         
         /// IDが若い者が上になるように強制的にしている
-        toutyokus = toutyokus.sort({ (A, B) -> Bool in
+        toutyokus = toutyokus.sorted(by: { (A, B) -> Bool in
             if A.id < B.id{
                 return true
             }else{
@@ -309,23 +309,23 @@ class HumanController{
     /// - parameter checkingDayInfo(Int, WeekDay)   : 作成する日の情報
     /// - parameter previousDaysInfo                : 反映する過去の情報
     /// - throws : 現在の条件で作成できない場合、CRule.RuleError.NotSarisfiedForMonthTableのエラーが投げられる
-    private func getSpecificHumans(isSuper isSuper:Bool, checkingDayInfo:(day:Int, weekday:WeekDay), previousDaysInfo:[DayInfo]) throws -> [Human]{
+    private func getSpecificHumans(isSuper:Bool, checkingDayInfo:(day:Int, weekday:WeekDay), previousDaysInfo:[DayInfo]) throws -> [Human]{
         let specificHumans = workingHuman.filter({ (human) -> Bool in
             
             
-            if let rule = self.cRules.individualRule[.RuleSuperUser] where rule.active{
+            if let rule = self.cRules.individualRule[.ruleSuperUser], rule.active{
                 if (human.isSuper != isSuper){
                     return false
                 }
             }
             
-            if let rule = self.cRules.individualRule[.RuleUnavailableWeekDays] where rule.active{
+            if let rule = self.cRules.individualRule[.ruleUnavailableWeekDays], rule.active{
                 if (human.unableWeekDays.contains(checkingDayInfo.weekday)){
                     return false
                 }
             }
             
-            if let rule = self.cRules.individualRule[.RuleInterval] where rule.active{
+            if let rule = self.cRules.individualRule[.ruleInterval], rule.active{
                 for day in previousDaysInfo{
                     for workedHuman in day.workingHuman{
                         if human.id == workedHuman.id{
@@ -334,7 +334,7 @@ class HumanController{
                     }
                 }
                 
-                if  human.requiredDays.contains({(day:Int) -> Bool in
+                if  human.requiredDays.contains(where: {(day:Int) -> Bool in
                     if day == checkingDayInfo.day + 1 ||  day == checkingDayInfo.day + 2{
                         return true
                     }else{
@@ -346,19 +346,19 @@ class HumanController{
                 }
             }
             
-            if let rule = self.cRules.individualRule[.RuleUnavailableDays] where rule.active{
+            if let rule = self.cRules.individualRule[.ruleUnavailableDays], rule.active{
                 if (human.forbittenDays.contains(checkingDayInfo.day)){
                     return false
                 }
             }
             
-            if let rule = self.cRules.monthRule[.RuleCountsInMonth] where rule.active{
+            if let rule = self.cRules.monthRule[.ruleCountsInMonth], rule.active{
                 if (human.workingCountInAMonth == human.maxWorkingCountInAMonth){
                     return false
                 }
             }
             
-            if let rule = self.cRules.monthRule[.RulePractice] where rule.active && human.practiceRule.max > 0{
+            if let rule = self.cRules.monthRule[.rulePractice], rule.active && human.practiceRule.max > 0{
                 if human.practiceRule.mustWeekDays.contains(checkingDayInfo.weekday){
                     if human.practiceRule.max == (human.workingCountOnEachWeek[checkingDayInfo.weekday] ?? 0){
                         return false
@@ -366,8 +366,8 @@ class HumanController{
                 }
             }
             
-            if let rule = self.cRules.monthRule[.RuleWeekEnd] where rule.active{
-                if (checkingDayInfo.weekday == WeekDay.Saturday || checkingDayInfo.weekday == WeekDay.Sunday){
+            if let rule = self.cRules.monthRule[.ruleWeekEnd], rule.active{
+                if (checkingDayInfo.weekday == WeekDay.saturday || checkingDayInfo.weekday == WeekDay.sunday){
                     if (human.workingCountOnEachWeek[checkingDayInfo.weekday] ?? 0) == 1{
                         return false
                     }
@@ -377,7 +377,7 @@ class HumanController{
             return true
         })
         if specificHumans.count < 1{
-            throw CRule.RuleError.NotSarisfiedForMonthTable
+            throw CRule.RuleError.notSarisfiedForMonthTable
         }
         return specificHumans
     }
@@ -385,14 +385,14 @@ class HumanController{
     /// 空の当番表を作成する
     /// parameter calendar: 対象の年月を指定するためのもの
     /// returns : 空の当番表
-    func createInitializedMonthTable(calendar:NSDate) -> MonthTable{
+    func createInitializedMonthTable(_ calendar:Date) -> MonthTable{
         // 最終日付の取得
-        let lastDayInThisMonth:NSDateComponents = DateUtil.getLastDay(calendar)
+        let lastDayInThisMonth:DateComponents = DateUtil.getLastDay(calendar)
         
         // 最終日の取得
-        let theNumberOfADay:Int = lastDayInThisMonth.day
+        let theNumberOfADay:Int = lastDayInThisMonth.day!
         // 最終日の曜日
-        let weekDayOfADay = WeekDay(rawValue: lastDayInThisMonth.weekday-1)!
+        let weekDayOfADay = WeekDay(rawValue: lastDayInThisMonth.weekday!-1)!
         
         let table:MonthTable = MonthTable(dayOfLastDay: theNumberOfADay, weekDayOfLastDay:weekDayOfADay, humans:self.workingHuman)
 

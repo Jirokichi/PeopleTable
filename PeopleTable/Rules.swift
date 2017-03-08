@@ -11,9 +11,8 @@ import CoreData
 
 
 class Rules: Records {
-    struct Constant{
-        private static let TableName = "Rules"
-        
+    private struct Constant{
+        static let TableName = "Rules"
     }
     
     /// protected - テーブル名を返す
@@ -26,12 +25,12 @@ class Rules: Records {
     }
     
     /// これを実装しておかないとエラーがおきる
-    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
-        super.init(entity: entity, insertIntoManagedObjectContext: context)
+    override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertInto: context)
     }
     
 
-    func updateParameters(superUser:Bool, unavailableWeekDays:Bool, interval:Bool, unavailableDays:Bool, weekEnd:Bool, practice:Bool, countInMonth:Bool) -> Rules{
+    func updateParameters(_ superUser:Bool, unavailableWeekDays:Bool, interval:Bool, unavailableDays:Bool, weekEnd:Bool, practice:Bool, countInMonth:Bool) -> Rules{
         self.superUser = superUser
         self.unavailableWeekDays = unavailableWeekDays
         self.interval = interval

@@ -10,7 +10,7 @@ import Cocoa
 
 
 protocol MyDayDelegate : NSObjectProtocol{
-    func checkButton(day:Int, name:String, status:Bool, needSave:Bool)
+    func checkButton(_ day:Int, name:String, status:Bool, needSave:Bool)
 }
 
 class DayCollectionViewItem: NSCollectionViewItem {
@@ -44,7 +44,7 @@ class DayCollectionViewItem: NSCollectionViewItem {
         super.viewDidLoad()
     }
     
-    func setData(number:Int, workingPeople:[People], human:(A:String?, B:String?)? = nil, status:(A:Bool, B:Bool) = (false, false), dayDelegate:MyDayDelegate? = nil){
+    func setData(_ number:Int, workingPeople:[People], human:(A:String?, B:String?)? = nil, status:(A:Bool, B:Bool) = (false, false), dayDelegate:MyDayDelegate? = nil){
         
         self.dayDelegate = dayDelegate
         
@@ -56,46 +56,46 @@ class DayCollectionViewItem: NSCollectionViewItem {
             displayedValuesForPopUpButton.append("\(people.name)")
         }
         
-        self.humanAPopUpButton.addItemWithTitle(DayCollectionViewItem.NotSelectedStatus)
-        self.humanBPopUpButton.addItemWithTitle(DayCollectionViewItem.NotSelectedStatus)
+        self.humanAPopUpButton.addItem(withTitle: DayCollectionViewItem.NotSelectedStatus)
+        self.humanBPopUpButton.addItem(withTitle: DayCollectionViewItem.NotSelectedStatus)
         displayedValuesForPopUpButton.forEach { (item) -> () in
-            self.humanAPopUpButton.addItemWithTitle(item)
-            self.humanBPopUpButton.addItemWithTitle(item)
+            self.humanAPopUpButton.addItem(withTitle: item)
+            self.humanBPopUpButton.addItem(withTitle: item)
         }
         
         if let humanAName = human?.A{
-            self.humanAPopUpButton.selectItemWithTitle(humanAName)
+            self.humanAPopUpButton.selectItem(withTitle: humanAName)
             selectedHumanA = humanAName
         }
         if let humanBName = human?.B{
-            self.humanBPopUpButton.selectItemWithTitle(humanBName)
+            self.humanBPopUpButton.selectItem(withTitle: humanBName)
             selectedHumanB = humanBName
         }
         
         if number == -1{
-            humanAPopUpButton.hidden = true
-            humanBPopUpButton.hidden = true
-            dayLabel.hidden = true
-            humanAPopUpCheckBox.hidden = true
-            humanBPopUpCheckBox.hidden = true
+            humanAPopUpButton.isHidden = true
+            humanBPopUpButton.isHidden = true
+            dayLabel.isHidden = true
+            humanAPopUpCheckBox.isHidden = true
+            humanBPopUpCheckBox.isHidden = true
         }else{
             day = number
             dayLabel.stringValue = String(number)
-            humanAPopUpButton.hidden = false
-            humanBPopUpButton.hidden = false
-            dayLabel.hidden = false
-            humanAPopUpCheckBox.hidden = false
-            humanBPopUpCheckBox.hidden = false
+            humanAPopUpButton.isHidden = false
+            humanBPopUpButton.isHidden = false
+            dayLabel.isHidden = false
+            humanAPopUpCheckBox.isHidden = false
+            humanBPopUpCheckBox.isHidden = false
             
             humanAPopUpCheckBox.state = status.A ? 1 : 0
             humanBPopUpCheckBox.state = status.B ? 1 : 0
         }
         
         
-        humanAPopUpButton.selectedItem?.view?.layer?.backgroundColor = NSColor.yellowColor().CGColor
+        humanAPopUpButton.selectedItem?.view?.layer?.backgroundColor = NSColor.yellow.cgColor
     }
     
-    func popupSelected(item:NSMenuItem) {
+    func popupSelected(_ item:NSMenuItem) {
         LogUtil.log()
         self.humanAPopUpButton.title = item.title
     }
@@ -103,7 +103,7 @@ class DayCollectionViewItem: NSCollectionViewItem {
     // *****************************************
     // MARK: - ポップアップメニューのアクション
     // *****************************************
-    @IBAction func changedPopUpButtonA(sender: NSPopUpButton) {
+    @IBAction func changedPopUpButtonA(_ sender: NSPopUpButton) {
         
         LogUtil.log("\(selectedHumanA) -> (\(sender.selectedItem?.title))")
         
@@ -116,7 +116,7 @@ class DayCollectionViewItem: NSCollectionViewItem {
         }
     }
     
-    @IBAction func changePopUoButtonB(sender: NSPopUpButton) {
+    @IBAction func changePopUoButtonB(_ sender: NSPopUpButton) {
         LogUtil.log("\(selectedHumanB) -> (\(sender.selectedItem?.title))")
         
         if let name = sender.selectedItem?.title{
@@ -129,7 +129,7 @@ class DayCollectionViewItem: NSCollectionViewItem {
         
     }
     
-    private func handlePopUpButtonProcess(previousName:String, currentName:String, requiredStatus:Bool) -> Bool{
+    private func handlePopUpButtonProcess(_ previousName:String, currentName:String, requiredStatus:Bool) -> Bool{
         
         // 削除
         self.dayDelegate?.checkButton(self.day, name: previousName, status: false, needSave: requiredStatus)
@@ -147,20 +147,20 @@ class DayCollectionViewItem: NSCollectionViewItem {
     // *****************************************
     
     /// Aのためのチェックボックスのアクション
-    @IBAction func checkHumanA(sender: NSButton) {
+    @IBAction func checkHumanA(_ sender: NSButton) {
         self.handleCheckBoxProcess(humanAPopUpButton, button: sender)
     }
     
     
     /// Bのためのチェックボックスのアクション
-    @IBAction func checkHumanB(sender: NSButton) {
+    @IBAction func checkHumanB(_ sender: NSButton) {
         
         self.handleCheckBoxProcess(humanBPopUpButton, button: sender)
         
     }
     
-    private func handleCheckBoxProcess(checkedPopUpButton:NSPopUpButton, button:NSButton){
-        if let name = checkedPopUpButton.selectedItem?.title where name != DayCollectionViewItem.NotSelectedStatus{
+    private func handleCheckBoxProcess(_ checkedPopUpButton:NSPopUpButton, button:NSButton){
+        if let name = checkedPopUpButton.selectedItem?.title, name != DayCollectionViewItem.NotSelectedStatus{
             let status = button.state == 1 ? true : false
             self.dayDelegate?.checkButton(self.day, name: name, status: status, needSave: true)
         }else{

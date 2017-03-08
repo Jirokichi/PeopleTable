@@ -11,13 +11,13 @@ import Cocoa
 class DayHeaderView: NSView{
 
     @IBOutlet weak var datePicker: NSDatePicker!
-    override func drawRect(dirtyRect: NSRect) {
-        super.drawRect(dirtyRect)
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
         LogUtil.log()
         // Drawing code here.
     }
     
-    func setData(date:NSDate, delegate:NSDatePickerCellDelegate){
+    func setComponent(date:Date, delegate:NSDatePickerCellDelegate){
         datePicker.dateValue = date
         datePicker.delegate = delegate
     }

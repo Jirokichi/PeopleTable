@@ -11,10 +11,10 @@ import CoreData
 
 
 class People: Records {
-    struct Constant{
-        private static let TableName = "People"
+    private struct Constant{
+        static let TableName = "People"
         
-        private static let AttributesDate = "createdDate"
+        static let AttributesDate = "createdDate"
     }
     
     /// protected - テーブル名を返す
@@ -27,21 +27,21 @@ class People: Records {
     }
     
     /// これを実装しておかないとエラーがおきる
-    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
-        super.init(entity: entity, insertIntoManagedObjectContext: context)
+    override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertInto: context)
     }
     
     
-    func updateParameters(createdDate:NSDate, name:String, status:Bool, unavailableWeekDays:PTWeekDays, requiredWeekDays:PTWeekDays, limitOfRequiredWeekDays:Int, isSuper:Bool, maxWorkingCountInAMonth:Int, minWorkingCountInAMonth:Int, unavailableDays:String, requiredDays:String) -> People{
+    func updateParameters(_ createdDate:Date, name:String, status:Bool, unavailableWeekDays:PTWeekDays, requiredWeekDays:PTWeekDays, limitOfRequiredWeekDays:Int, isSuper:Bool, maxWorkingCountInAMonth:Int, minWorkingCountInAMonth:Int, unavailableDays:String, requiredDays:String) -> People{
         self.createdDate = createdDate
         self.name = name
         self.status = status
         self.unavailableWeekDays = unavailableWeekDays.getJsonFromDict()
         self.requiredWeekDays = requiredWeekDays.getJsonFromDict()
-        self.limitOfRequiredWeekDays = limitOfRequiredWeekDays
+        self.limitOfRequiredWeekDays = NSNumber(value: limitOfRequiredWeekDays)
         self.isSuper = isSuper
-        self.maxWorkingCountInAMonth = maxWorkingCountInAMonth
-        self.minWorkingCountInAMonth = minWorkingCountInAMonth
+        self.maxWorkingCountInAMonth = NSNumber(value: maxWorkingCountInAMonth)
+        self.minWorkingCountInAMonth = NSNumber(value: minWorkingCountInAMonth)
         self.unavailableDays = unavailableDays
         self.requiredDays = requiredDays
         
@@ -53,13 +53,13 @@ class People: Records {
         return sortDescriptor
     }
     
-    static func createDefaultPeoples(coreDataManagement:CoreDataManagement) -> [People]{
+    static func createDefaultPeoples(_ coreDataManagement:CoreDataManagement) -> [People]{
         var humans:[People] = []
         humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(
-            NSDate(),
+            Date(),
             name: "A",
             status: true,
-            unavailableWeekDays: People.PTWeekDays(jsonDict: [WeekDay.Sunday:true, WeekDay.Monday:true]),
+            unavailableWeekDays: People.PTWeekDays(jsonDict: [WeekDay.sunday:true, WeekDay.monday:true]),
             requiredWeekDays: People.PTWeekDays(jsonDict: [:]),
             limitOfRequiredWeekDays: 0,
             isSuper: true,
@@ -70,10 +70,10 @@ class People: Records {
         )
         
         humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(
-            NSDate(),
+            Date(),
             name: "B",
             status: true,
-            unavailableWeekDays: People.PTWeekDays(jsonDict: [WeekDay.Tuesday:true, WeekDay.Wednesday:true]),
+            unavailableWeekDays: People.PTWeekDays(jsonDict: [WeekDay.tuesday:true, WeekDay.wednesday:true]),
             requiredWeekDays: People.PTWeekDays(jsonDict: [:]),
             limitOfRequiredWeekDays: 0,
             isSuper: true,
@@ -85,10 +85,10 @@ class People: Records {
         
         
         humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(
-            NSDate(),
+            Date(),
             name: "C",
             status: true,
-            unavailableWeekDays: People.PTWeekDays(jsonDict: [WeekDay.Tuesday:true , WeekDay.Wednesday:true]),
+            unavailableWeekDays: People.PTWeekDays(jsonDict: [WeekDay.tuesday:true , WeekDay.wednesday:true]),
             requiredWeekDays: People.PTWeekDays(jsonDict: [:]),
             limitOfRequiredWeekDays: 0,
             isSuper: true,
@@ -98,7 +98,7 @@ class People: Records {
             requiredDays:""))
         
         humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(
-            NSDate(),
+            Date(),
             name: "D",
             status: true,
             unavailableWeekDays: People.PTWeekDays(jsonDict: [:]),
@@ -113,7 +113,7 @@ class People: Records {
         
         
         humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(
-            NSDate(),
+            Date(),
             name: "E",
             status: true,
             unavailableWeekDays: People.PTWeekDays(jsonDict: [:]),
@@ -126,7 +126,7 @@ class People: Records {
             requiredDays:""))
         
         humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(
-            NSDate(),
+            Date(),
             name: "F",
             status: true,
             unavailableWeekDays: People.PTWeekDays(jsonDict: [:]),
@@ -139,11 +139,11 @@ class People: Records {
             requiredDays:""))
         
         humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(
-            NSDate(),
+            Date(),
             name: "G",
             status: true,
             unavailableWeekDays: People.PTWeekDays(jsonDict: [:]),
-            requiredWeekDays: People.PTWeekDays(jsonDict: [WeekDay.Tuesday:true, WeekDay.Thursday:true]),
+            requiredWeekDays: People.PTWeekDays(jsonDict: [WeekDay.tuesday:true, WeekDay.thursday:true]),
             limitOfRequiredWeekDays: 2,
             isSuper: false,
             maxWorkingCountInAMonth: 6,
@@ -152,11 +152,11 @@ class People: Records {
             requiredDays:""))
         
         humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(
-            NSDate(),
+            Date(),
             name: "H",
             status: true,
             unavailableWeekDays: People.PTWeekDays(jsonDict: [:]),
-            requiredWeekDays: People.PTWeekDays(jsonDict: [WeekDay.Tuesday:true, WeekDay.Thursday:true]),
+            requiredWeekDays: People.PTWeekDays(jsonDict: [WeekDay.tuesday:true, WeekDay.thursday:true]),
             limitOfRequiredWeekDays: 2,
             isSuper: false,
             maxWorkingCountInAMonth: 6,
@@ -164,11 +164,11 @@ class People: Records {
             unavailableDays: "",
             requiredDays:""))
         humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(
-            NSDate(),
+            Date(),
             name: "I",
             status: true,
             unavailableWeekDays: People.PTWeekDays(jsonDict: [:]),
-            requiredWeekDays: People.PTWeekDays(jsonDict: [WeekDay.Tuesday:true, WeekDay.Thursday:true]),
+            requiredWeekDays: People.PTWeekDays(jsonDict: [WeekDay.tuesday:true, WeekDay.thursday:true]),
             limitOfRequiredWeekDays: 2,
             isSuper: false,
             maxWorkingCountInAMonth: 6,
@@ -177,7 +177,7 @@ class People: Records {
             requiredDays:""))
         
         humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(
-            NSDate(),
+            Date(),
             name: "J",
             status: true,
             unavailableWeekDays: People.PTWeekDays(jsonDict: [:]),
@@ -190,7 +190,7 @@ class People: Records {
             requiredDays:""))
         
         humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(
-            NSDate(),
+            Date(),
             name: "K",
             status: true,
             unavailableWeekDays: People.PTWeekDays(jsonDict: [:]),
@@ -220,19 +220,19 @@ class People: Records {
             
             init(weekday:WeekDay){
                 switch weekday{
-                case .Sunday:
+                case .sunday:
                     self = .Sun
-                case .Monday:
+                case .monday:
                     self = .Mon
-                case .Tuesday:
+                case .tuesday:
                     self = .Tue
-                case .Wednesday:
+                case .wednesday:
                     self = .Wed
-                case .Thursday:
+                case .thursday:
                     self = .Thu
-                case .Friday:
+                case .friday:
                     self = .Fri
-                case .Saturday:
+                case .saturday:
                     self = .Sat
                 }
             }
@@ -240,19 +240,19 @@ class People: Records {
             func getWeekDay() -> WeekDay{
                 switch self{
                 case .Sun:
-                    return WeekDay.Sunday
+                    return WeekDay.sunday
                 case .Mon:
-                    return WeekDay.Monday
+                    return WeekDay.monday
                 case .Tue:
-                    return WeekDay.Tuesday
+                    return WeekDay.tuesday
                 case .Wed:
-                    return WeekDay.Wednesday
+                    return WeekDay.wednesday
                 case .Thu:
-                    return WeekDay.Thursday
+                    return WeekDay.thursday
                 case .Fri:
-                    return WeekDay.Friday
+                    return WeekDay.friday
                 case .Sat:
-                    return WeekDay.Saturday
+                    return WeekDay.saturday
                 }
             }
         }
@@ -274,8 +274,8 @@ class People: Records {
             return weekDays
         }
         
-        mutating func updateJsonDict(weekDay:WeekDay){
-            let alreadyMarked = self.jsonDict.contains({ (predicate:(weekDay:WeekDay, status:Bool)) -> Bool in
+        mutating func updateJsonDict(_ weekDay:WeekDay){
+            let alreadyMarked = self.jsonDict.contains(where: { (predicate:(weekDay:WeekDay, status:Bool)) -> Bool in
                 if predicate.weekDay == weekDay{
                     return true
                 }else{
@@ -304,8 +304,8 @@ class People: Records {
             
             // Dict -> JSON
             do{
-                let jsonData = try NSJSONSerialization.dataWithJSONObject(jsonDict, options: [])
-                if let result = NSString(data: jsonData, encoding: NSUTF8StringEncoding){
+                let jsonData = try JSONSerialization.data(withJSONObject: jsonDict, options: [])
+                if let result = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue){
                     return result as String
                 }
             }catch{
@@ -315,15 +315,15 @@ class People: Records {
         }
         
         /// DictionaryからJsonを作成する静的メソッド
-        static func getDicsFromJson(str:String?) -> PTWeekDays?{
+        static func getDicsFromJson(_ str:String?) -> PTWeekDays?{
             if str == nil{
                 return nil
             }
             // JSON -> Dict
-            if let jsonData: NSData = (str! as NSString).dataUsingEncoding(NSUTF8StringEncoding){
+            if let jsonData: Data = (str! as NSString).data(using: String.Encoding.utf8.rawValue){
                 
                 do{
-                    if let jsonString = try NSJSONSerialization.JSONObjectWithData(jsonData, options: []) as? [String : String]{
+                    if let jsonString = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String : String]{
                         
                         var dict:[WeekDay:Bool] = [:]
                         for (weekDay, status) in jsonString{

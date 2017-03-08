@@ -13,29 +13,29 @@ class Records: NSManagedObject{
     
     init(tableName:String, context:NSManagedObjectContext){
         
-        if let entity = NSEntityDescription.entityForName(tableName, inManagedObjectContext: context){
-            super.init(entity: entity, insertIntoManagedObjectContext: context)
+        if let entity = NSEntityDescription.entity(forEntityName: tableName, in: context){
+            super.init(entity: entity, insertInto: context)
         }else{
             fatalError("entity is Nothing for \(tableName) and context")
         }
     }
     
-    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
-        super.init(entity: entity, insertIntoManagedObjectContext: context)
+    override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertInto: context)
     }
     
-    static func fetchAllRecords<T: NSManagedObject>(context:NSManagedObjectContext, sortDescriptor:NSSortDescriptor? = nil) throws -> [T]{
+    static func fetchAllRecords<T: NSManagedObject>(_ context:NSManagedObjectContext, sortDescriptor:NSSortDescriptor? = nil) throws -> [T]{
         var records:[T] = []
         
-        let entityDiscription = NSEntityDescription.entityForName(self._getTableName(), inManagedObjectContext: context)
-        let fetchRequest = NSFetchRequest()
+        let entityDiscription = NSEntityDescription.entity(forEntityName: self._getTableName(), in: context)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
         fetchRequest.entity = entityDiscription
         
         if let sortDescriptor = sortDescriptor{
             fetchRequest.sortDescriptors = [sortDescriptor]
         }
         
-        if let results = try context.executeFetchRequest(fetchRequest) as? [T] {
+        if let results = try context.fetch(fetchRequest) as? [T] {
             records = results
         }
         
@@ -43,21 +43,21 @@ class Records: NSManagedObject{
     }
     
     /// すべてのレコードを削除する
-    static func deleteAllRecords(context:NSManagedObjectContext) throws{
-        let entityDiscription = NSEntityDescription.entityForName(_getTableName(), inManagedObjectContext: context)
-        let fetchRequest = NSFetchRequest()
+    static func deleteAllRecords(_ context:NSManagedObjectContext) throws{
+        let entityDiscription = NSEntityDescription.entity(forEntityName: _getTableName(), in: context)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
         fetchRequest.entity = entityDiscription
-        if let results = try context.executeFetchRequest(fetchRequest) as? [Records] {
+        if let results = try context.fetch(fetchRequest) as? [Records] {
             for result in results{
-                context.deleteObject(result)
+                context.delete(result)
             }
             Records.saveContext(context)
         }
     }
     
     // 削除
-    func delete(context:NSManagedObjectContext){
-        context.deleteObject(self)
+    func delete(_ context:NSManagedObjectContext){
+        context.delete(self)
         Records.saveContext(context)
     }
     
@@ -70,7 +70,7 @@ class Records: NSManagedObject{
     
     
     // コンテキストの変更点を保存するための関数
-    static func saveContext (context:NSManagedObjectContext) {
+    static func saveContext (_ context:NSManagedObjectContext) {
         if context.hasChanges {
             do {
                 try context.save()

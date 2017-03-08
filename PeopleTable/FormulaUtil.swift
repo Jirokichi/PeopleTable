@@ -9,7 +9,7 @@
 import Foundation
 
 struct FormulaUtil{
-    static func getRandomValue<T>(array:[T]) -> T{
+    static func getRandomValue<T>(_ array:[T]) -> T{
         return array[Int(arc4random_uniform(UInt32(array.count)))]
     }
 }

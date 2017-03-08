@@ -26,16 +26,16 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
         case MinWorkingCountInAMonth = "MinWorkingCountInAMonth"
         case UnavailableDays = "UnavailableDays"
         case RequiredDays = "RequiredDays"
-        case Unknow
+        case Unknow = "Unknown"
         
         init(tableId:String?){
-            self = TableId(rawValue: (tableId ?? "")) ?? Unknow
+            self = TableId(rawValue: (tableId ?? "")) ?? .Unknow
         }
     }
     
     deinit{
         LogUtil.log("設定終了")
-        NSNotificationCenter.defaultCenter().postNotificationName(HomeViewController.NotificationCenter.ID, object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: HomeViewController.NotificationCenter.ID), object: nil)
     }
     
     
@@ -68,7 +68,7 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
         }
     }
     
-    @IBAction func deletePeople(sender: AnyObject) {
+    @IBAction func deletePeople(_ sender: AnyObject) {
         let index = self.tableView.clickedRow
         let selectedPeople:People
         if index < self.humans.count && index > 0{
@@ -80,8 +80,8 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
         let alert = NSAlert()
         alert.messageText = "削除してもよろしいですか？"
         alert.informativeText = "名前を入力してください"
-        alert.addButtonWithTitle("OK")
-        alert.addButtonWithTitle("キャンセル")
+        alert.addButton(withTitle: "OK")
+        alert.addButton(withTitle: "キャンセル")
         let result = alert.runModal()
         if (result == NSAlertFirstButtonReturn) {
             selectedPeople.delete(CoreDataManagement.Instance.managedObjectContext)
@@ -90,11 +90,11 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
         
     }
     
-    @IBAction func addNewPeople(sender: AnyObject) {
+    @IBAction func addNewPeople(_ sender: AnyObject) {
         
         LogUtil.log("addNewPeople")
         humans.append(People(context: coreDataManagement.managedObjectContext).updateParameters(
-            NSDate(),
+            Date(),
             name: "New",
             status: false,
             unavailableWeekDays: People.PTWeekDays(jsonDict: [:]),
@@ -111,15 +111,15 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
     }
     
     
-    func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+    func numberOfRows(in tableView: NSTableView) -> Int {
         LogUtil.log("\(humans.count)")
         return humans.count
     }
     
 
     // セルに値をセットする際に呼び出される
-    func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
-        
+    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
+
         let human = humans[row]
         switch TableId(tableId: tableColumn?.identifier){
         case .PeopleId:
@@ -133,7 +133,8 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
         case .PeopleUnavableWeekDays:
             
             if let json = People.PTWeekDays.getDicsFromJson(human.unavailableWeekDays)?.jsonDict{
-                if let cell = tableColumn?.dataCell as? NSSegmentedCell{
+                
+                if let cell = tableColumn?.dataCell(forRow: row) as? NSSegmentedCell{
                     
                     // Reset
                     for i in 0...(cell.segmentCount-2){
@@ -145,7 +146,7 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
                     for (weekDay, status) in json{
                         if status{
                             cell.setSelected(status, forSegment: weekDay.rawValue)
-                            num++
+                            num += 1
                         }
                     }
                     
@@ -157,7 +158,7 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
         case .RequiredWeekDays:
             
             if let json = People.PTWeekDays.getDicsFromJson(human.requiredWeekDays)?.jsonDict{
-                if let cell = tableColumn?.dataCell as? NSSegmentedCell{
+                if let cell = tableColumn?.dataCell(forRow: row) as? NSSegmentedCell{
                     
                     // Reset
                     for i in 0...(cell.segmentCount-2){
@@ -169,7 +170,7 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
                     for (weekDay, status) in json{
                         if status{
                             cell.setSelected(status, forSegment: weekDay.rawValue)
-                            num++
+                            num += 1
                         }
                     }
                     
@@ -195,7 +196,7 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
     }
     
     // セルの状態が変化したときに呼び出される
-    func tableView(tableView: NSTableView, setObjectValue object: AnyObject?, forTableColumn tableColumn: NSTableColumn?, row: Int){
+    func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int){
         
         let human = humans[row]
         switch TableId(tableId: tableColumn?.identifier){
@@ -277,8 +278,8 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
             LogUtil.log("LimitOfRequiredWeekDays - row:\(row) - (\(object))")
             
             if let object = object as? String{
-                if let limit = Int(object) where limit >= 0{
-                    human.limitOfRequiredWeekDays = limit
+                if let limit = Int(object), limit >= 0{
+                    human.limitOfRequiredWeekDays = NSNumber(value: limit)
                     Records.saveContext(coreDataManagement.managedObjectContext)
                 }
             }
@@ -288,8 +289,8 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
             LogUtil.log("MaxWorkingCountInAMonth - row:\(row) - (\(object))")
             
             if let object = object as? String{
-                if let limit = Int(object) where limit > 0{
-                    human.maxWorkingCountInAMonth = limit
+                if let limit = Int(object), limit > 0{
+                    human.maxWorkingCountInAMonth = NSNumber(value: limit)
                     Records.saveContext(coreDataManagement.managedObjectContext)
                 }
             }
@@ -299,8 +300,8 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
             LogUtil.log("MinWorkingCountInAMonth - row:\(row) - (\(object))")
             
             if let object = object as? String{
-                if let limit = Int(object) where limit >= 0{
-                    human.minWorkingCountInAMonth = limit
+                if let limit = Int(object), limit >= 0{
+                    human.minWorkingCountInAMonth = NSNumber(value: limit)
                     Records.saveContext(coreDataManagement.managedObjectContext)
                 }
             }
@@ -346,16 +347,16 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
         }
     }
     
-    func checkUnavailableDaysFormat(unavailableDays:String) -> Bool{
+    func checkUnavailableDaysFormat(_ unavailableDays:String) -> Bool{
         var result = true
         let str = unavailableDays as NSString
         var nums:[Int] = []
-        for numStr in str.componentsSeparatedByString(","){
+        for numStr in str.components(separatedBy: ","){
             var lNumStr = numStr
-            if lNumStr.containsString(" "){
-                lNumStr = lNumStr.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+            if lNumStr.contains(" "){
+                lNumStr = lNumStr.trimmingCharacters(in: CharacterSet.whitespaces)
             }
-            if let num = Int(lNumStr) where num > 0 && num < 32{
+            if let num = Int(lNumStr), num > 0 && num < 32{
                 nums.append(num)
             }else{
                 result = false
@@ -368,12 +369,12 @@ class PeopleSettingViewController: NSViewController, NSTableViewDelegate, NSTabl
 //    func tableView(tableView: NSTableView, rowActionsForRow row: Int, edge: NSTableRowActionEdge) -> [NSTableViewRowAction]{
 //        
 //    }
-    func tableView(tableView: NSTableView, shouldSelectRow row: Int) -> Bool{
+    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool{
         LogUtil.log()
         return true
     }
     
-    func tableViewSelectionDidChange(notification: NSNotification) {
+    func tableViewSelectionDidChange(_ notification: Notification) {
         LogUtil.log("セル選択時に呼ばれるメソッド-使わない予定")
         
     }

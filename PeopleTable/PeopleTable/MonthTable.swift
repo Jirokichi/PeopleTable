@@ -24,7 +24,8 @@ class MonthTable{
         self.dayOfLastDay = dayOfLastDay
         self.humans = humans
     
-        for (var i = 0; i < self.dayOfLastDay; i++){
+        for i in 0 ..< self.dayOfLastDay
+        {
             let dayInfo = DayInfo(day: i+1, weekday: self.getWeekDay(i+1))
             
             var toutyoku:[Human] = []
@@ -49,8 +50,8 @@ class MonthTable{
         
         for day in days{
             day.viewDay()
-            counts[day.workingHuman[0].id]!++
-            counts[day.workingHuman[1].id]!++
+            counts[day.workingHuman[0].id]! += 1
+            counts[day.workingHuman[1].id]! += 1
         }
         
         for human in humans{
@@ -61,16 +62,16 @@ class MonthTable{
     }
     
     // 最終日の日付と曜日をもとにday日の曜日を算出するメソッド
-    func getWeekDay(day:Int) -> WeekDay{
+    func getWeekDay(_ day:Int) -> WeekDay{
         return WeekDay(rawValue: (7+weekDayOfLastDate.rawValue - (dayOfLastDay - day)%7)%7)!
     }
     
     /// 一ヶ月の曜日ごとのhumanの回数
-    func numberOfSpecificWeekDayInAMonth(humanName:String) -> [WeekDay:Int]{
+    func numberOfSpecificWeekDayInAMonth(_ humanName:String) -> [WeekDay:Int]{
         var result:[WeekDay:Int] = [:]
         
         for day in self.days{
-            if day.workingHuman.contains({ (h) -> Bool in
+            if day.workingHuman.contains(where: { (h) -> Bool in
                 return humanName == h.name
             }){
                 result[day.weekday] = (result[day.weekday] ?? 0) + 1
@@ -91,7 +92,7 @@ class DayInfo{
         self.workingHuman = []
     }
     
-    func getHumanOfNoX(numX:Int) -> Human?{
+    func getHumanOfNoX(_ numX:Int) -> Human?{
         if workingHuman.count > numX{
             return workingHuman[numX]
         }else{
@@ -99,7 +100,7 @@ class DayInfo{
         }
     }
     
-    func setHumans(toutyokus:[Human]){
+    func setHumans(_ toutyokus:[Human]){
         self.workingHuman = toutyokus
     }
     

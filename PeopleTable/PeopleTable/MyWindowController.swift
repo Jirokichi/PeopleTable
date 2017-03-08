@@ -16,7 +16,7 @@ class MyWindowController: NSWindowController {
         // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     }
 
-    @IBAction func finish(sender:AnyObject){
+    @IBAction func finish(_ sender:AnyObject){
         LogUtil.log()
     }
 }
